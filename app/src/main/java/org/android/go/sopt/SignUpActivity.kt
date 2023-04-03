@@ -65,14 +65,14 @@ class SignUpActivity : AppCompatActivity() {
                     Snackbar.LENGTH_SHORT
                 ).show()
 
-                val intent = Intent(this, LoginActivity::class.java)
-
-                intent.putExtra("id", binding.etSignUpId.toString())
-                intent.putExtra("pw", binding.etSignUpPw.toString())
-                intent.putExtra("name", binding.etSignUpName.toString())
-                intent.putExtra("specialty", binding.etSignUpSpecialty.toString())
-
-                startActivity(intent)
+                val intent = Intent(this, LoginActivity::class.java).apply {
+                    putExtra("id", binding.etSignUpId.text.toString())
+                    putExtra("pw", binding.etSignUpPw.text.toString())
+                    putExtra("name", binding.etSignUpName.text.toString())
+                    putExtra("specialty", binding.etSignUpSpecialty.text.toString())
+                }
+                setResult(RESULT_OK, intent)
+                finish()
             }
         }
     }
