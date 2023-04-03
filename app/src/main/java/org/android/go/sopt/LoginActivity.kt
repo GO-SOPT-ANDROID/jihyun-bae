@@ -42,6 +42,12 @@ class LoginActivity : AppCompatActivity() {
 
             if (id == savedId && pw == savedPw) {
                 Toast.makeText(this, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
+
+                val intent = Intent(this, SelfIntroductionActivity::class.java).apply {
+                    putExtra("name", savedName)
+                    putExtra("specialty", savedSpecialty)
+                }
+                startActivity(intent)
             }
         }
     }
