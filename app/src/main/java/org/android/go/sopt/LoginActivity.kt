@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
 import org.android.go.sopt.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
@@ -28,6 +29,12 @@ class LoginActivity : AppCompatActivity() {
                 savedPw = result.data?.getStringExtra("pw").toString()
                 savedName = result.data?.getStringExtra("name").toString()
                 savedSpecialty = result.data?.getStringExtra("specialty").toString()
+
+                Snackbar.make(
+                    binding.root,
+                    "회원가입이 완료되었습니다.",
+                    Snackbar.LENGTH_SHORT
+                ).show()
             }
         }
 

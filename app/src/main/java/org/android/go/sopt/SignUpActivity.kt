@@ -59,12 +59,6 @@ class SignUpActivity : AppCompatActivity() {
 
         binding.btnSignUpComplete.setOnClickListener {
             if (idEnabled == true && pwEnabled == true) {
-                Snackbar.make(
-                    binding.root,
-                    "회원가입이 완료되었습니다.",
-                    Snackbar.LENGTH_SHORT
-                ).show()
-
                 val intent = Intent(this, LoginActivity::class.java).apply {
                     putExtra("id", binding.etSignUpId.text.toString())
                     putExtra("pw", binding.etSignUpPw.text.toString())
