@@ -17,6 +17,12 @@ class SignUpActivity : AppCompatActivity() {
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        checkId()
+        checkPw()
+        clickSignUp()
+    }
+
+    private fun checkId() {
         binding.etSignUpId.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
@@ -36,7 +42,9 @@ class SignUpActivity : AppCompatActivity() {
                 }
             }
         })
+    }
 
+    private fun checkPw() {
         binding.etSignUpPw.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
@@ -56,7 +64,9 @@ class SignUpActivity : AppCompatActivity() {
                 }
             }
         })
+    }
 
+    private fun clickSignUp() {
         binding.btnSignUpComplete.setOnClickListener {
             if (idEnabled == true && pwEnabled == true) {
                 val intent = Intent(this, LoginActivity::class.java).apply {

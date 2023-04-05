@@ -13,6 +13,10 @@ class SelfIntroductionActivity : AppCompatActivity() {
         binding = ActivitySelfIntroductionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setSelfIntroduction()
+    }
+
+    private fun setSelfIntroduction() {
         if (intent.hasExtra("name")) {
             name = intent.getStringExtra("name").toString()
         }

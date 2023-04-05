@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
@@ -15,13 +16,20 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var savedPw: String
     private lateinit var savedName: String
     private lateinit var savedSpecialty: String
+    private lateinit var startForResult: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val startForResult = registerForActivityResult(
+        setActivityResult()
+        clickSignUp()
+        clickLogin()
+    }
+
+    private fun setActivityResult() {
+        startForResult = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result: ActivityResult ->
             if (result.resultCode == RESULT_OK) {
@@ -37,12 +45,16 @@ class LoginActivity : AppCompatActivity() {
                 ).show()
             }
         }
+    }
 
+    private fun clickSignUp() {
         binding.btnLoginSignUp.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             startForResult.launch(intent)
         }
+    }
 
+    private fun clickLogin() {
         binding.btnLoginLogin.setOnClickListener {
             val id = binding.etLoginId.text.toString()
             val pw = binding.etLoginPw.text.toString()
