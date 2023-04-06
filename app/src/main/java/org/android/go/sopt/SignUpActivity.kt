@@ -85,6 +85,12 @@ class SignUpActivity : AppCompatActivity() {
                 }
                 setResult(RESULT_OK, intent)
                 finish()
+            } else {
+                Snackbar.make(
+                    binding.root,
+                    "6 ~ 10글자 이내의 ID와 8 ~ 12글자 이내의 PW를 입력해야 합니다.",
+                    Snackbar.LENGTH_SHORT
+                ).show()
             }
         }
     }

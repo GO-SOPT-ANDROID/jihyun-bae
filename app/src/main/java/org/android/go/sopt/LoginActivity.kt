@@ -70,7 +70,7 @@ class LoginActivity : AppCompatActivity() {
             val id = binding.etLoginId.text.toString()
             val pw = binding.etLoginPw.text.toString()
 
-            if (id == savedId && pw == savedPw) {
+            if (::savedId.isInitialized && ::savedPw.isInitialized && id == savedId && pw == savedPw) {
                 Toast.makeText(this, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
 
                 saveAutoLoginInfo()
@@ -81,6 +81,8 @@ class LoginActivity : AppCompatActivity() {
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 }
                 startActivity(intent)
+            } else {
+                Toast.makeText(this, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
             }
         }
     }
