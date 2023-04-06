@@ -78,6 +78,7 @@ class LoginActivity : AppCompatActivity() {
                 val intent = Intent(this, SelfIntroductionActivity::class.java).apply {
                     putExtra("name", savedName)
                     putExtra("specialty", savedSpecialty)
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 }
                 startActivity(intent)
             }
@@ -112,10 +113,10 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, SelfIntroductionActivity::class.java).apply {
                 putExtra("name", autoLoginName)
                 putExtra("specialty", autoLoginSpecialty)
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             }
             startActivity(intent)
             Toast.makeText(this, "자동 로그인되었습니다.", Toast.LENGTH_SHORT).show()
-            finish()
         }
     }
 }
