@@ -1,9 +1,12 @@
 package org.android.go.sopt
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import org.android.go.sopt.databinding.ActivitySignUpBinding
@@ -20,6 +23,11 @@ class SignUpActivity : AppCompatActivity() {
         checkId()
         checkPw()
         clickSignUp()
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        hideKeyboard(ev)
+        return super.dispatchTouchEvent(ev)
     }
 
     private fun checkId() {
@@ -79,5 +87,11 @@ class SignUpActivity : AppCompatActivity() {
                 finish()
             }
         }
+    }
+
+    private fun hideKeyboard(ev: MotionEvent?) {
+        val imm: InputMethodManager =
+            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
     }
 }

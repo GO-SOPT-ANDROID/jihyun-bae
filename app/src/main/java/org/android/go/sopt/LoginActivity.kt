@@ -1,7 +1,10 @@
 package org.android.go.sopt
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
@@ -26,6 +29,11 @@ class LoginActivity : AppCompatActivity() {
         setActivityResult()
         clickSignUp()
         clickLogin()
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        hideKeyboard(ev)
+        return super.dispatchTouchEvent(ev)
     }
 
     private fun setActivityResult() {
@@ -69,5 +77,11 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
+    }
+
+    private fun hideKeyboard(ev: MotionEvent?) {
+        val imm: InputMethodManager =
+            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
     }
 }
