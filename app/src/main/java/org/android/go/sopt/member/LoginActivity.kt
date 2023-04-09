@@ -1,4 +1,4 @@
-package org.android.go.sopt
+package org.android.go.sopt.member
 
 import android.app.Activity
 import android.content.Intent
@@ -9,6 +9,8 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import org.android.go.sopt.R
+import org.android.go.sopt.SelfIntroductionActivity
 import org.android.go.sopt.databinding.ActivityLoginBinding
 import org.android.go.sopt.util.extension.hideKeyboard
 import org.android.go.sopt.util.extension.showSnackBar

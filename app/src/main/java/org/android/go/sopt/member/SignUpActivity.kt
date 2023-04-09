@@ -1,4 +1,4 @@
-package org.android.go.sopt
+package org.android.go.sopt.member
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.MotionEvent
 import androidx.appcompat.app.AppCompatActivity
+import org.android.go.sopt.R
 import org.android.go.sopt.databinding.ActivitySignUpBinding
 import org.android.go.sopt.util.extension.hideKeyboard
 import org.android.go.sopt.util.extension.showSnackBar

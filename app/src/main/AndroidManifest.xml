@@ -15,11 +15,11 @@
             android:name=".SelfIntroductionActivity"
             android:exported="false" />
         <activity
-            android:name=".SignUpActivity"
+            android:name=".member.SignUpActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".member.LoginActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
