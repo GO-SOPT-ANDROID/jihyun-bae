@@ -51,7 +51,7 @@ class LoginActivity : AppCompatActivity() {
 
                 Snackbar.make(
                     binding.root,
-                    "회원가입이 완료되었습니다.",
+                    getString(R.string.sign_up_completed),
                     Snackbar.LENGTH_SHORT
                 ).show()
             }
@@ -71,7 +71,7 @@ class LoginActivity : AppCompatActivity() {
             val pw = binding.etLoginPw.text.toString()
 
             if (::savedId.isInitialized && ::savedPw.isInitialized && id == savedId && pw == savedPw) {
-                Toast.makeText(this, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.login_success), Toast.LENGTH_SHORT).show()
 
                 saveAutoLoginInfo()
 
@@ -82,7 +82,7 @@ class LoginActivity : AppCompatActivity() {
                 }
                 startActivity(intent)
             } else {
-                Toast.makeText(this, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.login_fail), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -118,7 +118,7 @@ class LoginActivity : AppCompatActivity() {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             }
             startActivity(intent)
-            Toast.makeText(this, "자동 로그인되었습니다.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.auto_login_success), Toast.LENGTH_SHORT).show()
         }
     }
 }

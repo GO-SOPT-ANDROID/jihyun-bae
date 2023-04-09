@@ -88,7 +88,7 @@ class SignUpActivity : AppCompatActivity() {
             } else {
                 Snackbar.make(
                     binding.root,
-                    "6 ~ 10글자 이내의 ID와 8 ~ 12글자 이내의 PW를 입력해야 합니다.",
+                    getString(R.string.sign_up_fail),
                     Snackbar.LENGTH_SHORT
                 ).show()
             }
