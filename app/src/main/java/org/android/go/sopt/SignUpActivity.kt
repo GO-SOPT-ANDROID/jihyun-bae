@@ -1,15 +1,14 @@
 package org.android.go.sopt
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.MotionEvent
-import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.snackbar.Snackbar
 import org.android.go.sopt.databinding.ActivitySignUpBinding
+import org.android.go.sopt.util.extension.hideKeyboard
+import org.android.go.sopt.util.extension.showSnackBar
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
@@ -86,19 +85,8 @@ class SignUpActivity : AppCompatActivity() {
                 setResult(RESULT_OK, intent)
                 finish()
             } else {
-                Snackbar.make(
-                    binding.root,
-                    getString(R.string.sign_up_fail),
-                    Snackbar.LENGTH_SHORT
-                ).show()
+                binding.root.showSnackBar(getString(R.string.sign_up_fail))
             }
         }
-    }
-
-    private fun hideKeyboard(ev: MotionEvent?) {
-        val imm: InputMethodManager =
-            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
-        currentFocus?.clearFocus()
     }
 }

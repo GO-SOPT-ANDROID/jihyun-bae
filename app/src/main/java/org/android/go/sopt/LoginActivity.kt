@@ -1,19 +1,18 @@
 package org.android.go.sopt
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.MotionEvent
-import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.snackbar.Snackbar
 import org.android.go.sopt.databinding.ActivityLoginBinding
+import org.android.go.sopt.util.extension.hideKeyboard
+import org.android.go.sopt.util.extension.showSnackBar
+import org.android.go.sopt.util.extension.showToast
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -49,11 +48,7 @@ class LoginActivity : AppCompatActivity() {
                 savedName = result.data?.getStringExtra("name").toString()
                 savedSpecialty = result.data?.getStringExtra("specialty").toString()
 
-                Snackbar.make(
-                    binding.root,
-                    getString(R.string.sign_up_completed),
-                    Snackbar.LENGTH_SHORT
-                ).show()
+                binding.root.showSnackBar(getString(R.string.sign_up_completed))
             }
         }
     }
@@ -71,7 +66,7 @@ class LoginActivity : AppCompatActivity() {
             val pw = binding.etLoginPw.text.toString()
 
             if (::savedId.isInitialized && ::savedPw.isInitialized && id == savedId && pw == savedPw) {
-                Toast.makeText(this, getString(R.string.login_success), Toast.LENGTH_SHORT).show()
+                showToast(getString(R.string.login_success))
 
                 saveAutoLoginInfo()
 
@@ -82,16 +77,9 @@ class LoginActivity : AppCompatActivity() {
                 }
                 startActivity(intent)
             } else {
-                Toast.makeText(this, getString(R.string.login_fail), Toast.LENGTH_SHORT).show()
+                showToast(getString(R.string.login_fail))
             }
         }
-    }
-
-    private fun hideKeyboard(ev: MotionEvent?) {
-        val imm: InputMethodManager =
-            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
-        currentFocus?.clearFocus()
     }
 
     private fun saveAutoLoginInfo() {
@@ -118,7 +106,7 @@ class LoginActivity : AppCompatActivity() {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             }
             startActivity(intent)
-            Toast.makeText(this, getString(R.string.auto_login_success), Toast.LENGTH_SHORT).show()
+            showToast(getString(R.string.auto_login_success))
         }
     }
 }
