@@ -14,14 +14,17 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setFragmentContainerView()
+        clickNav()
+    }
+
+    private fun setFragmentContainerView() {
         val currentFragment = supportFragmentManager.findFragmentById(R.id.fcv_home_main)
         if (currentFragment == null) {
             supportFragmentManager.beginTransaction()
                 .add(R.id.fcv_home_main, HomeFragment())
                 .commit()
         }
-
-        clickNav()
     }
 
     private fun clickNav() {
