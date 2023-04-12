@@ -9,7 +9,7 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import org.android.go.sopt.MainActivity
+import org.android.go.sopt.home.HomeActivity
 import org.android.go.sopt.R
 import org.android.go.sopt.databinding.ActivityLoginBinding
 import org.android.go.sopt.util.extension.hideKeyboard
@@ -72,7 +72,7 @@ class LoginActivity : AppCompatActivity() {
 
                 saveAutoLoginInfo()
 
-                val intent = Intent(this, MainActivity::class.java).apply {
+                val intent = Intent(this, HomeActivity::class.java).apply {
                     putExtra("name", savedName)
                     putExtra("specialty", savedSpecialty)
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -102,7 +102,7 @@ class LoginActivity : AppCompatActivity() {
         val autoLoginSpecialty = autoLoginInfo.getString("specialty", "").toString()
 
         if (autoLoginId != "" && autoLoginPw != "") {
-            val intent = Intent(this, MainActivity::class.java).apply {
+            val intent = Intent(this, HomeActivity::class.java).apply {
                 putExtra("name", autoLoginName)
                 putExtra("specialty", autoLoginSpecialty)
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
