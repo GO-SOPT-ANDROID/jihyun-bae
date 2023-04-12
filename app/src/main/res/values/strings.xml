@@ -17,4 +17,7 @@
     <string name="login_fail">로그인에 실패하였습니다.</string>
     <string name="auto_login_success">자동 로그인되었습니다.</string>
     <string name="sign_up_fail">6 ~ 10글자 이내의 ID와 8 ~ 12글자 이내의 PW를 입력해야 합니다.</string>
+    <string name="menu_main_home">홈</string>
+    <string name="menu_main_search">검색</string>
+    <string name="menu_main_gallery">갤러리</string>
 </resources>

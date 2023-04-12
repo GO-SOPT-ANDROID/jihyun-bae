@@ -7,12 +7,21 @@
     tools:context=".home.HomeActivity">
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fcv_main"
+        android:id="@+id/fcv_home_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bnv_home_main"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/menu_main" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
