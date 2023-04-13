@@ -5,6 +5,10 @@ import org.android.go.sopt.R
 import org.android.go.sopt.home.data.Repo
 
 class HomeViewModel : ViewModel() {
+    val mockTitleList = listOf<String>(
+        "Repositories"
+    )
+
     val mockRepoList = listOf<Repo>(
         Repo(
             image = R.drawable.github,

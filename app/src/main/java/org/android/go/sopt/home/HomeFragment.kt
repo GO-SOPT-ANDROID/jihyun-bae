@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.ConcatAdapter
 import org.android.go.sopt.databinding.FragmentHomeBinding
 import org.android.go.sopt.home.adapter.RepoAdapter
+import org.android.go.sopt.home.adapter.TitleAdapter
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
@@ -26,9 +28,14 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = RepoAdapter(requireContext())
-        adapter.setRepoList(viewModel.mockRepoList)
-        binding.rvHomeRepos.adapter = adapter
+
+        val titleAdapter = TitleAdapter(requireContext())
+        val repoAdapter = RepoAdapter(requireContext())
+        titleAdapter.setTitleList(viewModel.mockTitleList)
+        repoAdapter.setRepoList(viewModel.mockRepoList)
+
+        val concatAdapter = ConcatAdapter(titleAdapter, repoAdapter)
+        binding.rvHomeRepos.adapter = concatAdapter
     }
 
     override fun onDestroyView() {
