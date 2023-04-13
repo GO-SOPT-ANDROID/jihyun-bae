@@ -14,17 +14,8 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setFragmentContainerView()
+        changeFragment(HomeFragment())
         clickNav()
-    }
-
-    private fun setFragmentContainerView() {
-        val currentFragment = supportFragmentManager.findFragmentById(R.id.fcv_home_main)
-        if (currentFragment == null) {
-            supportFragmentManager.beginTransaction()
-                .add(R.id.fcv_home_main, HomeFragment())
-                .commit()
-        }
     }
 
     private fun clickNav() {
@@ -33,19 +24,16 @@ class HomeActivity : AppCompatActivity() {
                 when (item.itemId) {
                     R.id.menu_home -> {
                         HomeFragment()
-                        return@setOnItemSelectedListener true
                     }
                     R.id.menu_search -> {
                         SearchFragment()
-                        return@setOnItemSelectedListener true
                     }
                     else -> {
                         GalleryFragment()
-                        return@setOnItemSelectedListener true
                     }
                 }
             )
-            false
+            true
         }
     }
 
