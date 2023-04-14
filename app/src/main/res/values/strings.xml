@@ -20,4 +20,6 @@
     <string name="menu_main_home">홈</string>
     <string name="menu_main_search">검색</string>
     <string name="menu_main_gallery">갤러리</string>
+    <string name="selected_menu">selected_menu</string>
+    <string name="unselected_menu">unselected_menu</string>
 </resources>
