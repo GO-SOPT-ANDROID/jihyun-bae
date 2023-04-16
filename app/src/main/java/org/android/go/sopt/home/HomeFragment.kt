@@ -31,7 +31,7 @@ class HomeFragment : Fragment() {
 
         val titleAdapter = TitleAdapter(requireContext())
         val repoAdapter = RepoAdapter(requireContext())
-        titleAdapter.setTitleList(viewModel.mockTitleList)
+        titleAdapter.submitList(viewModel.mockTitleList)
         repoAdapter.submitList(viewModel.mockRepoList)
 
         val concatAdapter = ConcatAdapter(titleAdapter, repoAdapter)

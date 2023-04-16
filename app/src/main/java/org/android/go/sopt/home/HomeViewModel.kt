@@ -3,10 +3,13 @@ package org.android.go.sopt.home
 import androidx.lifecycle.ViewModel
 import org.android.go.sopt.R
 import org.android.go.sopt.home.data.Repo
+import org.android.go.sopt.home.data.Title
 
 class HomeViewModel : ViewModel() {
-    val mockTitleList = listOf<String>(
-        "Repositories"
+    val mockTitleList = listOf<Title>(
+        Title(
+            "Repositories"
+        )
     )
 
     val mockRepoList = listOf<Repo>(

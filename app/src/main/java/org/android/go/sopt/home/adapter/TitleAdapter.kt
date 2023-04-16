@@ -3,18 +3,20 @@ package org.android.go.sopt.home.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import org.android.go.sopt.databinding.ItemTitleBinding
+import org.android.go.sopt.home.data.Title
 
-class TitleAdapter(context: Context) : RecyclerView.Adapter<TitleAdapter.TitleViewHolder>() {
+class TitleAdapter(context: Context) : ListAdapter<Title, TitleAdapter.TitleViewHolder>(diffUtil) {
     private val inflater by lazy { LayoutInflater.from(context) }
-    private var titleList: List<String> = emptyList()
 
     class TitleViewHolder(
         private val binding: ItemTitleBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun onBind(data: String) {
-            binding.tvItemTitle.text = data
+        fun onBind(data: Title) {
+            binding.tvItemTitle.text = data.title
         }
     }
 
@@ -24,13 +26,19 @@ class TitleAdapter(context: Context) : RecyclerView.Adapter<TitleAdapter.TitleVi
     }
 
     override fun onBindViewHolder(holder: TitleViewHolder, position: Int) {
-        holder.onBind(titleList[position])
+        holder.onBind(currentList[position])
     }
 
-    override fun getItemCount(): Int = titleList.size
+    companion object {
+        val diffUtil = object : DiffUtil.ItemCallback<Title>() {
+            override fun areItemsTheSame(oldItem: Title, newItem: Title): Boolean {
+                return oldItem.title == newItem.title
+            }
 
-    fun setTitleList(titleList: List<String>) {
-        this.titleList = titleList.toList()
-        notifyDataSetChanged()
+            override fun areContentsTheSame(oldItem: Title, newItem: Title): Boolean {
+                return oldItem == newItem
+            }
+
+        }
     }
 }
