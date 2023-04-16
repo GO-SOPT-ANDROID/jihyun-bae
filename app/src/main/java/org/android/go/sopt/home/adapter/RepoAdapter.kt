@@ -3,13 +3,14 @@ package org.android.go.sopt.home.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import org.android.go.sopt.databinding.ItemGithubRepoBinding
 import org.android.go.sopt.home.data.Repo
 
-class RepoAdapter(context: Context) : RecyclerView.Adapter<RepoAdapter.RepoViewHolder>() {
+class RepoAdapter(context: Context) : ListAdapter<Repo, RepoAdapter.RepoViewHolder>(diffUtil) {
     private val inflater by lazy { LayoutInflater.from(context) }
-    private var repoList: List<Repo> = emptyList()
 
     class RepoViewHolder(
         private val binding: ItemGithubRepoBinding
@@ -27,13 +28,19 @@ class RepoAdapter(context: Context) : RecyclerView.Adapter<RepoAdapter.RepoViewH
     }
 
     override fun onBindViewHolder(holder: RepoAdapter.RepoViewHolder, position: Int) {
-        holder.onBind(repoList[position])
+        holder.onBind(currentList[position])
     }
 
-    override fun getItemCount(): Int = repoList.size
+    companion object {
+        val diffUtil = object : DiffUtil.ItemCallback<Repo>() {
+            override fun areItemsTheSame(oldItem: Repo, newItem: Repo): Boolean {
+                return oldItem.name == newItem.name
+            }
 
-    fun setRepoList(repoList: List<Repo>) {
-        this.repoList = repoList.toList()
-        notifyDataSetChanged()
+            override fun areContentsTheSame(oldItem: Repo, newItem: Repo): Boolean {
+                return oldItem == newItem
+            }
+
+        }
     }
 }

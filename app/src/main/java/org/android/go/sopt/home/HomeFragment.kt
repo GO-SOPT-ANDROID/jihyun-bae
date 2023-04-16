@@ -32,7 +32,7 @@ class HomeFragment : Fragment() {
         val titleAdapter = TitleAdapter(requireContext())
         val repoAdapter = RepoAdapter(requireContext())
         titleAdapter.setTitleList(viewModel.mockTitleList)
-        repoAdapter.setRepoList(viewModel.mockRepoList)
+        repoAdapter.submitList(viewModel.mockRepoList)
 
         val concatAdapter = ConcatAdapter(titleAdapter, repoAdapter)
         binding.rvHomeRepos.adapter = concatAdapter
