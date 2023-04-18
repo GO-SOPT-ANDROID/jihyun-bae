@@ -4,6 +4,7 @@ import androidx.annotation.DrawableRes
 
 data class Repo(
     @DrawableRes val image: Int,
+    val id: Int,
     val name: String,
     val author: String
 )
