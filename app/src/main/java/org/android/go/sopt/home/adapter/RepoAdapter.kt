@@ -3,7 +3,6 @@ package org.android.go.sopt.home.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.MotionEvent
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.selection.ItemDetailsLookup
 import androidx.recyclerview.selection.ItemKeyProvider
@@ -25,15 +24,11 @@ class RepoAdapter(context: Context) : ListAdapter<Repo, RepoAdapter.RepoViewHold
     class RepoViewHolder(
         private val binding: ItemGithubRepoBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun onBind(data: Repo, selectionTracker: SelectionTracker<Long>) = with(itemView) {
+        fun onBind(data: Repo, isActivated: Boolean = false) {
             binding.ivItemGithubRepoImg.setImageDrawable(binding.root.context.getDrawable(data.image))
             binding.tvItemGithubRepoName.text = data.name
             binding.tvItemGithubRepoAuthor.text = data.author
-            bindSelectedState(this, selectionTracker.isSelected(data.id.toLong()))
-        }
-
-        private fun bindSelectedState(view: View, selected: Boolean) {
-            view.isActivated = selected
+            itemView.isActivated = isActivated
         }
 
         fun getItemDetails(): ItemDetailsLookup.ItemDetails<Long> =
@@ -44,10 +39,10 @@ class RepoAdapter(context: Context) : ListAdapter<Repo, RepoAdapter.RepoViewHold
             }
     }
 
-    class SelectionDetailLookUp(private val recyclerView: RecyclerView) :
+    class RepoDetailLookUp(private val recyclerView: RecyclerView) :
         ItemDetailsLookup<Long>() {
-        override fun getItemDetails(e: MotionEvent): ItemDetails<Long>? {
-            val view = recyclerView.findChildViewUnder(e.x, e.y)
+        override fun getItemDetails(event: MotionEvent): ItemDetails<Long>? {
+            val view = recyclerView.findChildViewUnder(event.x, event.y)
             if (view != null) {
                 return (recyclerView.getChildViewHolder(view) as RepoViewHolder)
                     .getItemDetails()
@@ -62,7 +57,6 @@ class RepoAdapter(context: Context) : ListAdapter<Repo, RepoAdapter.RepoViewHold
         override fun getKey(position: Int): Long = adapter.currentList[position].id.toLong()
         override fun getPosition(key: Long): Int =
             adapter.currentList.indexOfFirst { it.id.toLong() == key }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoViewHolder {
@@ -71,7 +65,9 @@ class RepoAdapter(context: Context) : ListAdapter<Repo, RepoAdapter.RepoViewHold
     }
 
     override fun onBindViewHolder(holder: RepoViewHolder, position: Int) {
-        holder.onBind(currentList[position], selectionTracker)
+        selectionTracker?.let {
+            holder.onBind(currentList[position], it.isSelected(position.toLong()))
+        }
     }
 
     override fun getItemId(position: Int): Long = position.toLong()

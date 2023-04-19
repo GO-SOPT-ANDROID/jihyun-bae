@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
-import androidx.recyclerview.selection.StableIdKeyProvider
 import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.ConcatAdapter
 import org.android.go.sopt.databinding.FragmentHomeBinding
@@ -44,7 +43,7 @@ class HomeFragment : Fragment() {
         binding.rvHomeRepos.adapter = concatAdapter
 
         setUpSelectionTracker()
-        setSelectionTracker(selectionTracker, repoAdapter, savedInstanceState)
+        repoAdapter.selectionTracker = selectionTracker
     }
 
     override fun onDestroyView() {
@@ -52,40 +51,17 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        if(::selectionTracker.isInitialized) {
-            selectionTracker.onSaveInstanceState(outState)
-        }
-    }
-
     private fun setUpSelectionTracker() {
-        selectionTracker = binding.rvHomeRepos.let {recyclerView ->
+        selectionTracker = binding.rvHomeRepos.let { recyclerView ->
             SelectionTracker.Builder(
                 "mySelection",
                 recyclerView,
                 RepoAdapter.RepoKeyProvider(repoAdapter),
-                RepoAdapter.SelectionDetailLookUp(recyclerView),
+                RepoAdapter.RepoDetailLookUp(recyclerView),
                 StorageStrategy.createLongStorage()
             ).withSelectionPredicate(
                 SelectionPredicates.createSelectAnything()
             ).build()
         }
-    }
-
-    private fun setSelectionTracker(
-        selectionTracker: SelectionTracker<Long>,
-        adapter: RepoAdapter,
-        savedInstanceState: Bundle?
-    ) {
-        savedInstanceState.let {
-            selectionTracker.onRestoreInstanceState(it)
-        }
-        adapter.selectionTracker = selectionTracker
-        selectionTracker.addObserver(object : SelectionTracker.SelectionObserver<Long>() {
-            override fun onSelectionChanged() {
-                selectionTracker.selection
-            }
-        })
     }
 }

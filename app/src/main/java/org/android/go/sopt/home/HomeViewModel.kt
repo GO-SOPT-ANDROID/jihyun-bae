@@ -15,49 +15,49 @@ class HomeViewModel : ViewModel() {
     val mockRepoList = listOf<Repo>(
         Repo(
             image = R.drawable.github,
-            id = 1,
+            id = 0,
             name = "jihyunniiii",
             author = "jihyunniiii"
         ),
         Repo(
             image = R.drawable.github,
-            id = 2,
+            id = 1,
             name = "Kream_Clone_App",
             author = "jihyunniiii"
         ),
         Repo(
             image = R.drawable.github,
-            id = 3,
+            id = 2,
             name = "DS_Project",
             author = "jihyunniiii"
         ),
         Repo(
             image = R.drawable.github,
-            id = 4,
+            id = 3,
             name = "Android_Study",
             author = "jihyunniiii"
         ),
         Repo(
             image = R.drawable.github,
-            id = 5,
+            id = 4,
             name = "MobileSoftwareProject",
             author = "jihyunniiii"
         ),
         Repo(
             image = R.drawable.github,
-            id = 6,
+            id = 5,
             name = "Android",
             author = "jihyunniiii"
         ),
         Repo(
             image = R.drawable.github,
-            id = 7,
+            id = 6,
             name = "BOJ",
             author = "jihyunniiii"
         ),
         Repo(
             image = R.drawable.github,
-            id = 8,
+            id = 7,
             name = "git_exercise",
             author = "jihyunniiii"
         )
