@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import org.android.go.sopt.R
 import org.android.go.sopt.databinding.ActivityHomeBinding
+import org.android.go.sopt.databinding.FragmentHomeBinding
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
@@ -16,6 +17,7 @@ class HomeActivity : AppCompatActivity() {
 
         changeFragment(HomeFragment())
         clickNav()
+        scrollToTop()
     }
 
     private fun clickNav() {
@@ -42,5 +44,20 @@ class HomeActivity : AppCompatActivity() {
             .beginTransaction()
             .replace(R.id.fcv_home_main, fragment)
             .commit()
+    }
+
+    private fun scrollToTop() {
+        binding.bnvHomeMain.setOnItemReselectedListener {
+            when (it.itemId) {
+                R.id.menu_home -> {
+                    val currentFragment =
+                        supportFragmentManager.findFragmentById(R.id.fcv_home_main)
+                    if (currentFragment is HomeFragment) {
+                        val homeBinding = FragmentHomeBinding.bind(currentFragment.requireView())
+                        homeBinding.rvHomeRepos.scrollToPosition(0)
+                    }
+                }
+            }
+        }
     }
 }
