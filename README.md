@@ -6,6 +6,10 @@
 [EditText의 inputType](https://www.notion.so/1-EditText-inputType-7e69f3569ed7460d93a02a46871ecc4c)  
 [Intent Flags, Activity Task](https://www.notion.so/1-Intent-Flags-Activity-Task-6ff7513b500e47f3ba4a896a7757cb82)  
 
+#### 2️⃣ 2주차
+[Fragment 생명 주기](https://www.notion.so/2-Fragment-5089e403b2984ff08ca9da8e9850cfef)   
+[DiffUtil + ListAdapter](https://www.notion.so/2-DiffUtil-ListAdapter-92dddcaf0dfe41cfa94d591a5abff9dc)   
+
 ## 템플릿 설명
 레포지터리에는 총 2개의 브랜치가 있습니다.
 ### main
