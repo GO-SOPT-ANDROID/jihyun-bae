@@ -15,7 +15,7 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        changeFragment(HomeFragment())
+        initFragment()
         clickNav()
         scrollToTop()
     }
@@ -37,6 +37,13 @@ class HomeActivity : AppCompatActivity() {
             )
             true
         }
+    }
+
+    private fun initFragment() {
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fcv_home_main, HomeFragment())
+            .commit()
     }
 
     private fun changeFragment(fragment: Fragment) {
