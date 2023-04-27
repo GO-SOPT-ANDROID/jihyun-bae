@@ -34,14 +34,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val titleAdapter = TitleAdapter(requireContext())
-        repoAdapter = RepoAdapter(requireContext())
-        titleAdapter.submitList(viewModel.mockTitleList)
-        repoAdapter.submitList(viewModel.mockRepoList)
-
-        val concatAdapter = ConcatAdapter(titleAdapter, repoAdapter)
-        binding.rvHomeRepos.adapter = concatAdapter
-
+        connectAdapter()
         setUpSelectionTracker()
         repoAdapter.selectionTracker = selectionTracker
     }
@@ -49,6 +42,16 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun connectAdapter() {
+        val titleAdapter = TitleAdapter(requireContext())
+        repoAdapter = RepoAdapter(requireContext())
+        titleAdapter.submitList(viewModel.mockTitleList)
+        repoAdapter.submitList(viewModel.mockRepoList)
+
+        val concatAdapter = ConcatAdapter(titleAdapter, repoAdapter)
+        binding.rvHomeRepos.adapter = concatAdapter
     }
 
     private fun setUpSelectionTracker() {
