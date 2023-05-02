@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.ViewGroup
 import androidx.recyclerview.selection.ItemDetailsLookup
-import androidx.recyclerview.selection.ItemKeyProvider
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -35,8 +34,7 @@ class HomeAdapter(context: Context) : ListAdapter<Home, RecyclerView.ViewHolder>
         fun getItemDetails(): ItemDetailsLookup.ItemDetails<Long> =
             object : ItemDetailsLookup.ItemDetails<Long>() {
                 override fun getPosition(): Int = bindingAdapterPosition
-                override fun getSelectionKey(): Long =
-                    (bindingAdapter as HomeAdapter).currentList[bindingAdapterPosition].id.toLong()
+                override fun getSelectionKey(): Long = itemId
             }
     }
 
@@ -45,7 +43,7 @@ class HomeAdapter(context: Context) : ListAdapter<Home, RecyclerView.ViewHolder>
     ) : RecyclerView.ViewHolder(binding.root) {
     }
 
-    class RepoDetailLookUp(private val recyclerView: RecyclerView) :
+    class HomeDetailLookUp(private val recyclerView: RecyclerView) :
         ItemDetailsLookup<Long>() {
         override fun getItemDetails(event: MotionEvent): ItemDetails<Long>? {
             val view = recyclerView.findChildViewUnder(event.x, event.y)
@@ -55,14 +53,6 @@ class HomeAdapter(context: Context) : ListAdapter<Home, RecyclerView.ViewHolder>
             }
             return null
         }
-    }
-
-    class RepoKeyProvider(private val adapter: HomeAdapter) : ItemKeyProvider<Long>(
-        SCOPE_CACHED
-    ) {
-        override fun getKey(position: Int): Long = adapter.currentList[position].id.toLong()
-        override fun getPosition(key: Long): Int =
-            adapter.currentList.indexOfFirst { it.id.toLong() == key }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -81,7 +71,10 @@ class HomeAdapter(context: Context) : ListAdapter<Home, RecyclerView.ViewHolder>
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         selectionTracker?.let {
             when (holder) {
-                is RepoViewHolder -> holder.onBind(currentList[position - 1])
+                is RepoViewHolder -> holder.onBind(
+                    currentList[position],
+                    it.isSelected(position.toLong())
+                )
             }
         }
     }
