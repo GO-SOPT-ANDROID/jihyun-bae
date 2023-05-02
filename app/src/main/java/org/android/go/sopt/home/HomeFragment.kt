@@ -9,10 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
-import androidx.recyclerview.widget.ConcatAdapter
 import org.android.go.sopt.databinding.FragmentHomeBinding
-import org.android.go.sopt.home.adapter.RepoAdapter
-import org.android.go.sopt.home.adapter.TitleAdapter
+import org.android.go.sopt.home.adapter.HomeAdapter
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
@@ -20,7 +18,7 @@ class HomeFragment : Fragment() {
         get() = requireNotNull(_binding) { "앗 ! _binding이 null이다 !" }
     private val viewModel by viewModels<HomeViewModel>()
     private lateinit var selectionTracker: SelectionTracker<Long>
-    private lateinit var repoAdapter: RepoAdapter
+    private lateinit var homeAdapter: HomeAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,7 +34,7 @@ class HomeFragment : Fragment() {
 
         connectAdapter()
         setUpSelectionTracker()
-        repoAdapter.selectionTracker = selectionTracker
+        homeAdapter.selectionTracker = selectionTracker
     }
 
     override fun onDestroyView() {
@@ -45,13 +43,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun connectAdapter() {
-        val titleAdapter = TitleAdapter(requireContext())
-        repoAdapter = RepoAdapter(requireContext())
-        titleAdapter.submitList(viewModel.mockTitleList)
-        repoAdapter.submitList(viewModel.mockRepoList)
+        homeAdapter = HomeAdapter(requireContext())
+        homeAdapter.submitList(viewModel.mockHomeList)
 
-        val concatAdapter = ConcatAdapter(titleAdapter, repoAdapter)
-        binding.rvHomeRepos.adapter = concatAdapter
+        binding.rvHomeRepos.adapter = homeAdapter
     }
 
     private fun setUpSelectionTracker() {
@@ -59,8 +54,8 @@ class HomeFragment : Fragment() {
             SelectionTracker.Builder(
                 "mySelection",
                 recyclerView,
-                RepoAdapter.RepoKeyProvider(repoAdapter),
-                RepoAdapter.RepoDetailLookUp(recyclerView),
+                HomeAdapter.RepoKeyProvider(homeAdapter),
+                HomeAdapter.RepoDetailLookUp(recyclerView),
                 StorageStrategy.createLongStorage()
             ).withSelectionPredicate(
                 SelectionPredicates.createSelectAnything()

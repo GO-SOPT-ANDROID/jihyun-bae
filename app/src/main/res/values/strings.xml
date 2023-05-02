@@ -22,4 +22,5 @@
     <string name="menu_main_gallery">갤러리</string>
     <string name="selected_menu">selected_menu</string>
     <string name="unselected_menu">unselected_menu</string>
+    <string name="repositories">Repositories</string>
 </resources>

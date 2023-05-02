@@ -11,9 +11,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import org.android.go.sopt.databinding.ItemGithubRepoBinding
-import org.android.go.sopt.home.data.Repo
+import org.android.go.sopt.databinding.ItemTitleBinding
+import org.android.go.sopt.home.data.Home
 
-class RepoAdapter(context: Context) : ListAdapter<Repo, RepoAdapter.RepoViewHolder>(diffUtil) {
+class HomeAdapter(context: Context) : ListAdapter<Home, RecyclerView.ViewHolder>(diffUtil) {
     private val inflater by lazy { LayoutInflater.from(context) }
     lateinit var selectionTracker: SelectionTracker<Long>
 
@@ -24,7 +25,7 @@ class RepoAdapter(context: Context) : ListAdapter<Repo, RepoAdapter.RepoViewHold
     class RepoViewHolder(
         private val binding: ItemGithubRepoBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun onBind(data: Repo, isActivated: Boolean = false) {
+        fun onBind(data: Home, isActivated: Boolean = false) {
             binding.ivItemGithubRepoImg.setImageDrawable(binding.root.context.getDrawable(data.image))
             binding.tvItemGithubRepoName.text = data.name
             binding.tvItemGithubRepoAuthor.text = data.author
@@ -35,8 +36,13 @@ class RepoAdapter(context: Context) : ListAdapter<Repo, RepoAdapter.RepoViewHold
             object : ItemDetailsLookup.ItemDetails<Long>() {
                 override fun getPosition(): Int = bindingAdapterPosition
                 override fun getSelectionKey(): Long =
-                    (bindingAdapter as RepoAdapter).currentList[bindingAdapterPosition].id.toLong()
+                    (bindingAdapter as HomeAdapter).currentList[bindingAdapterPosition].id.toLong()
             }
+    }
+
+    class TitleViewHolder(
+        private val binding: ItemTitleBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
     }
 
     class RepoDetailLookUp(private val recyclerView: RecyclerView) :
@@ -51,7 +57,7 @@ class RepoAdapter(context: Context) : ListAdapter<Repo, RepoAdapter.RepoViewHold
         }
     }
 
-    class RepoKeyProvider(private val adapter: RepoAdapter) : ItemKeyProvider<Long>(
+    class RepoKeyProvider(private val adapter: HomeAdapter) : ItemKeyProvider<Long>(
         SCOPE_CACHED
     ) {
         override fun getKey(position: Int): Long = adapter.currentList[position].id.toLong()
@@ -59,26 +65,46 @@ class RepoAdapter(context: Context) : ListAdapter<Repo, RepoAdapter.RepoViewHold
             adapter.currentList.indexOfFirst { it.id.toLong() == key }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoViewHolder {
-        val binding = ItemGithubRepoBinding.inflate(inflater, parent, false)
-        return RepoViewHolder(binding)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (viewType) {
+            VIEW_TYPE_TITLE -> {
+                val binding = ItemTitleBinding.inflate(inflater, parent, false)
+                TitleViewHolder(binding)
+            }
+            else -> {
+                val binding = ItemGithubRepoBinding.inflate(inflater, parent, false)
+                RepoViewHolder(binding)
+            }
+        }
     }
 
-    override fun onBindViewHolder(holder: RepoViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         selectionTracker?.let {
-            holder.onBind(currentList[position], it.isSelected(position.toLong()))
+            when (holder) {
+                is RepoViewHolder -> holder.onBind(currentList[position - 1])
+            }
+        }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return when (position) {
+            0 -> VIEW_TYPE_TITLE
+            else -> VIEW_TYPE_REPO
         }
     }
 
     override fun getItemId(position: Int): Long = position.toLong()
 
     companion object {
-        val diffUtil = object : DiffUtil.ItemCallback<Repo>() {
-            override fun areItemsTheSame(oldItem: Repo, newItem: Repo): Boolean {
+        const val VIEW_TYPE_TITLE = 0
+        const val VIEW_TYPE_REPO = 1
+
+        val diffUtil = object : DiffUtil.ItemCallback<Home>() {
+            override fun areItemsTheSame(oldItem: Home, newItem: Home): Boolean {
                 return oldItem.name == newItem.name
             }
 
-            override fun areContentsTheSame(oldItem: Repo, newItem: Repo): Boolean {
+            override fun areContentsTheSame(oldItem: Home, newItem: Home): Boolean {
                 return oldItem == newItem
             }
         }

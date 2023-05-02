@@ -2,60 +2,53 @@ package org.android.go.sopt.home
 
 import androidx.lifecycle.ViewModel
 import org.android.go.sopt.R
-import org.android.go.sopt.home.data.Repo
-import org.android.go.sopt.home.data.Title
+import org.android.go.sopt.home.data.Home
 
 class HomeViewModel : ViewModel() {
-    val mockTitleList = listOf<Title>(
-        Title(
-            "Repositories"
-        )
-    )
-
-    val mockRepoList = listOf<Repo>(
-        Repo(
+    val mockHomeList = listOf(
+        Home(
             image = R.drawable.github,
             id = 0,
             name = "jihyunniiii",
             author = "jihyunniiii"
         ),
-        Repo(
+        Home(
             image = R.drawable.github,
             id = 1,
             name = "Kream_Clone_App",
             author = "jihyunniiii"
         ),
-        Repo(
+        Home(
             image = R.drawable.github,
             id = 2,
             name = "DS_Project",
             author = "jihyunniiii"
         ),
-        Repo(
+        Home(
             image = R.drawable.github,
             id = 3,
             name = "Android_Study",
             author = "jihyunniiii"
         ),
-        Repo(
+        Home(
             image = R.drawable.github,
             id = 4,
             name = "MobileSoftwareProject",
             author = "jihyunniiii"
         ),
-        Repo(
+        Home(
             image = R.drawable.github,
             id = 5,
             name = "Android",
             author = "jihyunniiii"
         ),
-        Repo(
+        Home(
             image = R.drawable.github,
             id = 6,
             name = "BOJ",
             author = "jihyunniiii"
         ),
-        Repo(
+        Home(
             image = R.drawable.github,
             id = 7,
             name = "git_exercise",
