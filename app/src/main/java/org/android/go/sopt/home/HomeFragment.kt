@@ -35,7 +35,7 @@ class HomeFragment : Fragment() {
 
         connectAdapter()
         setUpSelectionTracker()
-        homeAdapter.selectionTracker = selectionTracker
+        setSelectedItemDeleteObserver()
     }
 
     override fun onDestroyView() {
@@ -61,6 +61,32 @@ class HomeFragment : Fragment() {
             ).withSelectionPredicate(
                 SelectionPredicates.createSelectAnything()
             ).build()
+        }
+        homeAdapter.selectionTracker = selectionTracker
+    }
+
+    private fun setSelectedItemDeleteObserver() {
+        selectionTracker.addObserver(
+            object : SelectionTracker.SelectionObserver<Long>() {
+                override fun onSelectionChanged() {
+                    super.onSelectionChanged()
+                    setFabHomeDeleteListener()
+                }
+            }
+        )
+    }
+
+    private fun setFabHomeDeleteListener() {
+        binding.fabHomeDelete.setOnClickListener {
+            selectionTracker.selection.forEach { selectedItem ->
+                val selectedItemViewHolder =
+                    binding.rvHomeRepos.findViewHolderForItemId(selectedItem)
+
+                if (selectedItemViewHolder is HomeAdapter.RepoViewHolder) {
+                    homeAdapter.removeListItem(selectedItem.toInt())
+                }
+            }
+            selectionTracker.clearSelection()
         }
     }
 }

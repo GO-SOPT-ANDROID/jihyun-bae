@@ -88,6 +88,13 @@ class HomeAdapter(context: Context) : ListAdapter<Home, RecyclerView.ViewHolder>
 
     override fun getItemId(position: Int): Long = position.toLong()
 
+    fun removeListItem(itemIndex: Int) {
+        val tempCurrentList = mutableListOf<Home>()
+        tempCurrentList.addAll(currentList)
+        tempCurrentList.removeAt(itemIndex)
+        submitList(tempCurrentList)
+    }
+
     companion object {
         const val VIEW_TYPE_TITLE = 0
         const val VIEW_TYPE_REPO = 1
