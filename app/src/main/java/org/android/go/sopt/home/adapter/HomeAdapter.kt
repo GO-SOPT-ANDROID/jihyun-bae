@@ -41,6 +41,11 @@ class HomeAdapter(context: Context) : ListAdapter<Home, RecyclerView.ViewHolder>
     class TitleViewHolder(
         private val binding: ItemTitleBinding
     ) : RecyclerView.ViewHolder(binding.root) {
+        fun getItemDetails(): ItemDetailsLookup.ItemDetails<Long> =
+            object : ItemDetailsLookup.ItemDetails<Long>() {
+                override fun getPosition(): Int = bindingAdapterPosition
+                override fun getSelectionKey(): Long = itemId
+            }
     }
 
     class HomeDetailLookUp(private val recyclerView: RecyclerView) :
@@ -48,8 +53,13 @@ class HomeAdapter(context: Context) : ListAdapter<Home, RecyclerView.ViewHolder>
         override fun getItemDetails(event: MotionEvent): ItemDetails<Long>? {
             val view = recyclerView.findChildViewUnder(event.x, event.y)
             if (view != null) {
-                return (recyclerView.getChildViewHolder(view) as RepoViewHolder)
-                    .getItemDetails()
+                if (recyclerView.getChildViewHolder(view) is RepoViewHolder) {
+                    return (recyclerView.getChildViewHolder(view) as RepoViewHolder)
+                        .getItemDetails()
+                } else {
+                    return (recyclerView.getChildViewHolder(view) as TitleViewHolder)
+                        .getItemDetails()
+                }
             }
             return null
         }
