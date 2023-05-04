@@ -23,4 +23,9 @@
     <string name="selected_menu">selected_menu</string>
     <string name="unselected_menu">unselected_menu</string>
     <string name="repositories">Repositories</string>
+    <string name="dialog_repo_add_repo_name">Repo Name</string>
+    <string name="dialog_repo_add_repo_name_hint">Repo 이름을 입력하세요.</string>
+    <string name="dialog_repo_add_author">Author</string>
+    <string name="dialog_repo_add_author_hint">작성자를 입력하세요.</string>
+    <string name="dialog_repo_add_save">SAVE</string>
 </resources>
