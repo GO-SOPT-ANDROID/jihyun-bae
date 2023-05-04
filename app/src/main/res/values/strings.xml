@@ -17,4 +17,15 @@
     <string name="login_fail">로그인에 실패하였습니다.</string>
     <string name="auto_login_success">자동 로그인되었습니다.</string>
     <string name="sign_up_fail">6 ~ 10글자 이내의 ID와 8 ~ 12글자 이내의 PW를 입력해야 합니다.</string>
+    <string name="menu_main_home">홈</string>
+    <string name="menu_main_search">검색</string>
+    <string name="menu_main_gallery">갤러리</string>
+    <string name="selected_menu">selected_menu</string>
+    <string name="unselected_menu">unselected_menu</string>
+    <string name="repositories">Repositories</string>
+    <string name="dialog_repo_add_repo_name">Repo Name</string>
+    <string name="dialog_repo_add_repo_name_hint">Repo 이름을 입력하세요.</string>
+    <string name="dialog_repo_add_author">Author</string>
+    <string name="dialog_repo_add_author_hint">작성자를 입력하세요.</string>
+    <string name="dialog_repo_add_save">SAVE</string>
 </resources>
