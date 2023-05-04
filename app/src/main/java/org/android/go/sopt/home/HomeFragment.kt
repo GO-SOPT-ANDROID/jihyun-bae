@@ -10,8 +10,11 @@ import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StableIdKeyProvider
 import androidx.recyclerview.selection.StorageStrategy
+import org.android.go.sopt.R
 import org.android.go.sopt.databinding.FragmentHomeBinding
 import org.android.go.sopt.home.adapter.HomeAdapter
+import org.android.go.sopt.home.data.Home
+import org.android.go.sopt.home.dialog.AddItemDialog
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
@@ -20,6 +23,7 @@ class HomeFragment : Fragment() {
     private val viewModel by viewModels<HomeViewModel>()
     private lateinit var selectionTracker: SelectionTracker<Long>
     private lateinit var homeAdapter: HomeAdapter
+    private lateinit var dialog: AddItemDialog
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,6 +40,7 @@ class HomeFragment : Fragment() {
         connectAdapter()
         setUpSelectionTracker()
         setSelectedItemDeleteObserver()
+        setFabHomeAddListener()
     }
 
     override fun onDestroyView() {
@@ -88,5 +93,31 @@ class HomeFragment : Fragment() {
             }
             selectionTracker.clearSelection()
         }
+    }
+
+    private fun setFabHomeAddListener() {
+        binding.fabHomeAdd.setOnClickListener {
+            showDialog()
+            addItem()
+        }
+    }
+
+    private fun showDialog() {
+        dialog = AddItemDialog(requireContext())
+        dialog.show()
+    }
+
+    private fun addItem() {
+        dialog.setOnClickedListener(object : AddItemDialog.SaveEventListener {
+            override fun sendInputData(inputRepoName: String, inputAuthor: String) {
+                homeAdapter.addListItem(
+                    Home(
+                        image = R.drawable.github,
+                        name = inputRepoName,
+                        author = inputAuthor
+                    )
+                )
+            }
+        })
     }
 }

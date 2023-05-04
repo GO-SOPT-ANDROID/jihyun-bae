@@ -105,6 +105,13 @@ class HomeAdapter(context: Context) : ListAdapter<Home, RecyclerView.ViewHolder>
         submitList(tempCurrentList)
     }
 
+    fun addListItem(newItem: Home) {
+        val tempCurrentList = mutableListOf<Home>()
+        tempCurrentList.addAll(currentList)
+        tempCurrentList.add(newItem)
+        submitList(tempCurrentList)
+    }
+
     companion object {
         const val VIEW_TYPE_TITLE = 0
         const val VIEW_TYPE_REPO = 1

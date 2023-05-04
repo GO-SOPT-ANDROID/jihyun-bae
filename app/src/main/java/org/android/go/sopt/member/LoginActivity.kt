@@ -9,9 +9,9 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import org.android.go.sopt.home.HomeActivity
 import org.android.go.sopt.R
 import org.android.go.sopt.databinding.ActivityLoginBinding
+import org.android.go.sopt.home.HomeActivity
 import org.android.go.sopt.util.extension.hideKeyboard
 import org.android.go.sopt.util.extension.showSnackBar
 import org.android.go.sopt.util.extension.showToast
