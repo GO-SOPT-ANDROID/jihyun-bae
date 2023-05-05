@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Theme.GOSOPTAndroid" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
@@ -19,6 +19,13 @@
         <item name="colorOnSurfaceVariant">@color/grey_400</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-
+        <!-- Font theme -->
+        <item name="textAppearanceDisplayLarge">@style/TextAppearance.GOSOPTAndroid.DisplayLarge</item>
+        <item name="textAppearanceHeadlineLarge">@style/TextAppearance.GOSOPTAndroid.HeadLineLarge</item>
+        <item name="textAppearanceHeadlineMedium">@style/TextAppearance.GOSOPTAndroid.HeadLineMedium</item>
+        <item name="textAppearanceHeadlineSmall">@style/TextAppearance.GOSOPTAndroid.HeadLineSmall</item>
+        <item name="textAppearanceBodyLarge">@style/TextAppearance.GOSOPTAndroid.BodyLarge</item>
+        <item name="textAppearanceBodyMedium">@style/TextAppearance.GOSOPTAndroid.BodyMedium</item>
+        <item name="textAppearanceBodySmall">@style/TextAppearance.GOSOPTAndroid.BodySmall</item>
     </style>
 </resources>
