@@ -40,7 +40,7 @@ class HomeFragment : Fragment() {
         connectAdapter()
         setUpSelectionTracker()
         setSelectedItemDeleteObserver()
-        setFabHomeAddListener()
+        setFabHomeAddClickListener()
     }
 
     override fun onDestroyView() {
@@ -95,7 +95,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setFabHomeAddListener() {
+    private fun setFabHomeAddClickListener() {
         binding.fabHomeAdd.setOnClickListener {
             showAddItemDialog()
             addItem()
