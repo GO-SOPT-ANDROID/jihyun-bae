@@ -97,12 +97,12 @@ class HomeFragment : Fragment() {
 
     private fun setFabHomeAddListener() {
         binding.fabHomeAdd.setOnClickListener {
-            showDialog()
+            showAddItemDialog()
             addItem()
         }
     }
 
-    private fun showDialog() {
+    private fun showAddItemDialog() {
         dialog = AddItemDialog(requireContext())
         dialog.show()
     }
