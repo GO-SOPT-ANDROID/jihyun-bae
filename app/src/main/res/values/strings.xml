@@ -29,4 +29,8 @@
     <string name="dialog_repo_add_author_hint">작성자를 입력하세요.</string>
     <string name="dialog_repo_add_save">SAVE</string>
     <string name="menu_main_my_page">MY</string>
+    <string name="logout">LOGOUT</string>
+    <string name="dialog_logout_to_logout">로그아웃하시겠습니까?</string>
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
 </resources>
