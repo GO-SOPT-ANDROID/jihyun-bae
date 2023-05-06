@@ -30,8 +30,11 @@ class HomeActivity : AppCompatActivity() {
                     R.id.menu_search -> {
                         SearchFragment()
                     }
-                    else -> {
+                    R.id.menu_gallery -> {
                         GalleryFragment()
+                    }
+                    else -> {
+                        MyPageFragment()
                     }
                 }
             )
