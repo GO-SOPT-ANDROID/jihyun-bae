@@ -33,4 +33,5 @@
     <string name="dialog_logout_to_logout">로그아웃하시겠습니까?</string>
     <string name="yes">YES</string>
     <string name="no">NO</string>
+    <string name="my_page">My Page</string>
 </resources>
