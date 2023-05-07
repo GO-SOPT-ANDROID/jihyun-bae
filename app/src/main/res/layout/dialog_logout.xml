@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginHorizontal="30dp"
+    android:padding="30dp">
+
+    <TextView
+        android:id="@+id/tv_dialog_logout_Headline"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/logout"
+        android:textAppearance="?textAppearanceHeadlineMedium"
+        android:textColor="?attr/colorOnBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_dialog_logout_body"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/dialog_logout_to_logout"
+        android:textAppearance="?textAppearanceBodyLarge"
+        android:textColor="?attr/colorOnBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_dialog_logout_Headline" />
+
+    <Button
+        android:id="@+id/btn_dialog_logout_yes"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="30dp"
+        android:layout_marginEnd="5dp"
+        android:paddingVertical="10dp"
+        android:text="@string/yes"
+        android:textAppearance="?textAppearanceHeadlineSmall"
+        app:layout_constraintEnd_toStartOf="@id/btn_dialog_logout_no"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_dialog_logout_body" />
+
+    <Button
+        android:id="@+id/btn_dialog_logout_no"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="30dp"
+        android:layout_marginStart="5dp"
+        android:paddingVertical="10dp"
+        android:text="@string/no"
+        android:textAppearance="?textAppearanceHeadlineSmall"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_dialog_logout_yes"
+        app:layout_constraintTop_toBottomOf="@id/tv_dialog_logout_body" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
