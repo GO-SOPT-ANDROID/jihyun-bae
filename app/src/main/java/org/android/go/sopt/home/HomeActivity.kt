@@ -3,6 +3,7 @@ package org.android.go.sopt.home
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import org.android.go.sopt.R
 import org.android.go.sopt.databinding.ActivityHomeBinding
 import org.android.go.sopt.databinding.FragmentHomeBinding
@@ -15,7 +16,7 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initFragment()
+        initFragment(savedInstanceState)
         clickNav()
         scrollToTop()
     }
@@ -42,18 +43,18 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    private fun initFragment() {
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.fcv_home_main, HomeFragment())
-            .commit()
+    private fun initFragment(savedInstanceState: Bundle?) {
+        if (savedInstanceState == null) {
+            supportFragmentManager.commit {
+                add(R.id.fcv_home_main, HomeFragment())
+            }
+        }
     }
 
     private fun changeFragment(fragment: Fragment) {
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.fcv_home_main, fragment)
-            .commit()
+        supportFragmentManager.commit {
+            replace(R.id.fcv_home_main, fragment)
+        }
     }
 
     private fun scrollToTop() {
