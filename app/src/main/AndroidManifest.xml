@@ -12,9 +12,6 @@
         android:theme="@style/Theme.GOSOPTAndroid"
         tools:targetApi="31">
         <activity
-            android:name=".SelfIntroductionActivity"
-            android:exported="false" />
-        <activity
             android:name=".member.SignUpActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
