@@ -3,33 +3,33 @@
     <font
         android:font="@font/pretendard_extrabold"
         android:fontStyle="normal"
-        android:fontWeight="800" />
+        android:textFontWeight="800" />
     <font
         android:font="@font/pretendard_bold"
         android:fontStyle="normal"
-        android:fontWeight="700" />
+        android:textFontWeight="700" />
     <font
         android:font="@font/pretendard_semibold"
         android:fontStyle="normal"
-        android:fontWeight="600" />
+        android:textFontWeight="600" />
     <font
         android:font="@font/pretendard_medium"
         android:fontStyle="normal"
-        android:fontWeight="500" />
+        android:textFontWeight="500" />
     <font
         android:font="@font/pretendard_regular"
         android:fontStyle="normal"
-        android:fontWeight="400" />
+        android:textFontWeight="400" />
     <font
         android:font="@font/pretendard_light"
         android:fontStyle="normal"
-        android:fontWeight="300" />
+        android:textFontWeight="300" />
     <font
         android:font="@font/pretendard_extralight"
         android:fontStyle="normal"
-        android:fontWeight="200" />
+        android:textFontWeight="200" />
     <font
         android:font="@font/pretendard_thin"
         android:fontStyle="normal"
-        android:fontWeight="100" />
+        android:textFontWeight="100" />
 </font-family>
