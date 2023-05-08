@@ -5,7 +5,7 @@ import org.android.go.sopt.R
 import org.android.go.sopt.home.data.Home
 
 class HomeViewModel : ViewModel() {
-    val mockHomeList = listOf(
+    private val mockHomeList = listOf(
         Home(
             image = R.drawable.github,
             name = "jihyunniiii",
@@ -47,4 +47,8 @@ class HomeViewModel : ViewModel() {
             author = "jihyunniiii"
         )
     )
+
+    fun getMockHomeList(): List<Home> {
+        return this.mockHomeList
+    }
 }

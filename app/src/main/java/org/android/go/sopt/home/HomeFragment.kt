@@ -50,7 +50,7 @@ class HomeFragment : Fragment() {
 
     private fun connectAdapter() {
         homeAdapter = HomeAdapter(requireContext())
-        homeAdapter.submitList(viewModel.mockHomeList)
+        homeAdapter.submitList(viewModel.getMockHomeList())
 
         binding.rvHomeRepos.adapter = homeAdapter
     }
