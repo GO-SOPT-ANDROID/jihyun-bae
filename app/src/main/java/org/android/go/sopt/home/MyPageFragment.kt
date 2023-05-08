@@ -1,5 +1,6 @@
 package org.android.go.sopt.home
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +27,7 @@ class MyPageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setMyPageData()
         setMyPageLogoutBtnClickListener()
     }
 
@@ -43,5 +45,12 @@ class MyPageFragment : Fragment() {
     private fun showLogOutDialog() {
         dialog = LogoutDialog(requireContext())
         dialog.show()
+    }
+
+    private fun setMyPageData() {
+        val sharedPreference =
+            requireActivity().getSharedPreferences("autoLogin", Activity.MODE_PRIVATE)
+        binding.tvMyPageName.text = "이름 : ${sharedPreference.getString("name", "")}"
+        binding.tvMyPageSpecialty.text = "특기 : ${sharedPreference.getString("specialty", "")}"
     }
 }
