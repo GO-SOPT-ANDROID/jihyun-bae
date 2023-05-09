@@ -40,7 +40,7 @@ class HomeFragment : Fragment() {
         connectAdapter()
         setUpSelectionTracker()
         setSelectedItemDeleteObserver()
-        setFabHomeAddListener()
+        setFabHomeAddClickListener()
     }
 
     override fun onDestroyView() {
@@ -50,7 +50,7 @@ class HomeFragment : Fragment() {
 
     private fun connectAdapter() {
         homeAdapter = HomeAdapter(requireContext())
-        homeAdapter.submitList(viewModel.mockHomeList)
+        homeAdapter.submitList(viewModel.getMockHomeList())
 
         binding.rvHomeRepos.adapter = homeAdapter
     }
@@ -95,14 +95,14 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setFabHomeAddListener() {
+    private fun setFabHomeAddClickListener() {
         binding.fabHomeAdd.setOnClickListener {
-            showDialog()
+            showAddItemDialog()
             addItem()
         }
     }
 
-    private fun showDialog() {
+    private fun showAddItemDialog() {
         dialog = AddItemDialog(requireContext())
         dialog.show()
     }
