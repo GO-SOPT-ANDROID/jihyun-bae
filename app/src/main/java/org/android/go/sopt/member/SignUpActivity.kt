@@ -32,8 +32,7 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun clickSignUp() {
         binding.btnSignUpComplete.setOnClickListener {
-            viewModel.isSignUpEnabled()
-            if (viewModel.isSignUpEnabled.value == true) {
+            if (viewModel.isSignUpEnabled()) {
                 val intent = Intent(this, LoginActivity::class.java).apply {
                     putExtra("id", binding.etSignUpId.text.toString())
                     putExtra("pw", binding.etSignUpPw.text.toString())
