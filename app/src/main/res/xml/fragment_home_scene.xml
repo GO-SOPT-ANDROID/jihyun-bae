@@ -10,12 +10,12 @@
         <KeyFrameSet></KeyFrameSet>
         <OnClick
             motion:clickAction="toggle"
-            motion:targetId="@+id/fab_home_main" />
+            motion:targetId="@+id/fab_repo_main" />
     </Transition>
 
     <ConstraintSet android:id="@+id/start">
         <Constraint
-            android:id="@+id/fab_home_main"
+            android:id="@+id/fab_repo_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
@@ -23,24 +23,24 @@
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintEnd_toEndOf="parent" />
         <Constraint
-            android:id="@+id/fab_home_delete"
+            android:id="@+id/fab_repo_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            motion:layout_constraintBottom_toBottomOf="@+id/fab_home_main"
-            motion:layout_constraintEnd_toEndOf="@+id/fab_home_main"
-            motion:layout_constraintStart_toStartOf="@+id/fab_home_main" />
+            motion:layout_constraintBottom_toBottomOf="@+id/fab_repo_main"
+            motion:layout_constraintEnd_toEndOf="@+id/fab_repo_main"
+            motion:layout_constraintStart_toStartOf="@+id/fab_repo_main" />
         <Constraint
-            android:id="@+id/fab_home_add"
+            android:id="@+id/fab_repo_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            motion:layout_constraintBottom_toBottomOf="@+id/fab_home_main"
-            motion:layout_constraintEnd_toEndOf="@+id/fab_home_main"
-            motion:layout_constraintStart_toStartOf="@+id/fab_home_main" />
+            motion:layout_constraintBottom_toBottomOf="@+id/fab_repo_main"
+            motion:layout_constraintEnd_toEndOf="@+id/fab_repo_main"
+            motion:layout_constraintStart_toStartOf="@+id/fab_repo_main" />
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
         <Constraint
-            android:id="@+id/fab_home_main"
+            android:id="@+id/fab_repo_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
@@ -49,20 +49,20 @@
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintEnd_toEndOf="parent" />
         <Constraint
-            android:id="@+id/fab_home_delete"
+            android:id="@+id/fab_repo_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            motion:layout_constraintBottom_toTopOf="@+id/fab_home_main"
-            motion:layout_constraintEnd_toEndOf="@+id/fab_home_main"
-            motion:layout_constraintStart_toStartOf="@+id/fab_home_main" />
+            motion:layout_constraintBottom_toTopOf="@+id/fab_repo_main"
+            motion:layout_constraintEnd_toEndOf="@+id/fab_repo_main"
+            motion:layout_constraintStart_toStartOf="@+id/fab_repo_main" />
         <Constraint
-            android:id="@+id/fab_home_add"
+            android:id="@+id/fab_repo_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            motion:layout_constraintBottom_toTopOf="@+id/fab_home_delete"
-            motion:layout_constraintEnd_toEndOf="@+id/fab_home_main"
-            motion:layout_constraintStart_toStartOf="@+id/fab_home_main" />
+            motion:layout_constraintBottom_toTopOf="@+id/fab_repo_delete"
+            motion:layout_constraintEnd_toEndOf="@+id/fab_repo_main"
+            motion:layout_constraintStart_toStartOf="@+id/fab_repo_main" />
     </ConstraintSet>
 </MotionScene>

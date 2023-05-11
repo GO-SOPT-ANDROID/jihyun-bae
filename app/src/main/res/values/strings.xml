@@ -34,4 +34,5 @@
     <string name="yes">YES</string>
     <string name="no">NO</string>
     <string name="my_page">My Page</string>
+    <string name="menu_main_repo">REPO</string>
 </resources>
