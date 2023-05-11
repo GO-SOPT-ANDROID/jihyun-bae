@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import org.android.go.sopt.databinding.ItemGithubRepoBinding
 import org.android.go.sopt.databinding.ItemTitleBinding
-import org.android.go.sopt.home.data.Home
+import org.android.go.sopt.home.data.Repo
 
-class HomeAdapter(context: Context) : ListAdapter<Home, RecyclerView.ViewHolder>(diffUtil) {
+class RepoAdapter(context: Context) : ListAdapter<Repo, RecyclerView.ViewHolder>(diffUtil) {
     private val inflater by lazy { LayoutInflater.from(context) }
     lateinit var selectionTracker: SelectionTracker<Long>
 
@@ -24,7 +24,7 @@ class HomeAdapter(context: Context) : ListAdapter<Home, RecyclerView.ViewHolder>
     class RepoViewHolder(
         private val binding: ItemGithubRepoBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun onBind(data: Home, isActivated: Boolean = false) {
+        fun onBind(data: Repo, isActivated: Boolean = false) {
             binding.ivItemGithubRepoImg.setImageDrawable(binding.root.context.getDrawable(data.image))
             binding.tvItemGithubRepoName.text = data.name
             binding.tvItemGithubRepoAuthor.text = data.author
@@ -48,7 +48,7 @@ class HomeAdapter(context: Context) : ListAdapter<Home, RecyclerView.ViewHolder>
             }
     }
 
-    class HomeDetailLookUp(private val recyclerView: RecyclerView) :
+    class RepoDetailLookUp(private val recyclerView: RecyclerView) :
         ItemDetailsLookup<Long>() {
         override fun getItemDetails(event: MotionEvent): ItemDetails<Long>? {
             val view = recyclerView.findChildViewUnder(event.x, event.y)
@@ -99,14 +99,14 @@ class HomeAdapter(context: Context) : ListAdapter<Home, RecyclerView.ViewHolder>
     override fun getItemId(position: Int): Long = position.toLong()
 
     fun removeListItem(itemIndex: Int) {
-        val tempCurrentList = mutableListOf<Home>()
+        val tempCurrentList = mutableListOf<Repo>()
         tempCurrentList.addAll(currentList)
         tempCurrentList.removeAt(itemIndex)
         submitList(tempCurrentList)
     }
 
-    fun addListItem(newItem: Home) {
-        val tempCurrentList = mutableListOf<Home>()
+    fun addListItem(newItem: Repo) {
+        val tempCurrentList = mutableListOf<Repo>()
         tempCurrentList.addAll(currentList)
         tempCurrentList.add(newItem)
         submitList(tempCurrentList)
@@ -116,12 +116,12 @@ class HomeAdapter(context: Context) : ListAdapter<Home, RecyclerView.ViewHolder>
         const val VIEW_TYPE_TITLE = 0
         const val VIEW_TYPE_REPO = 1
 
-        val diffUtil = object : DiffUtil.ItemCallback<Home>() {
-            override fun areItemsTheSame(oldItem: Home, newItem: Home): Boolean {
+        val diffUtil = object : DiffUtil.ItemCallback<Repo>() {
+            override fun areItemsTheSame(oldItem: Repo, newItem: Repo): Boolean {
                 return oldItem.name == newItem.name
             }
 
-            override fun areContentsTheSame(oldItem: Home, newItem: Home): Boolean {
+            override fun areContentsTheSame(oldItem: Repo, newItem: Repo): Boolean {
                 return oldItem == newItem
             }
         }

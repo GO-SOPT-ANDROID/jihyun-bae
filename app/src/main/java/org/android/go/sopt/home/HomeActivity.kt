@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import org.android.go.sopt.R
 import org.android.go.sopt.databinding.ActivityHomeBinding
-import org.android.go.sopt.databinding.FragmentHomeBinding
+import org.android.go.sopt.databinding.FragmentRepoBinding
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
@@ -33,6 +33,9 @@ class HomeActivity : AppCompatActivity() {
                     }
                     R.id.menu_gallery -> {
                         GalleryFragment()
+                    }
+                    R.id.menu_repositories -> {
+                        RepoFragment()
                     }
                     else -> {
                         MyPageFragment()
@@ -63,9 +66,9 @@ class HomeActivity : AppCompatActivity() {
                 R.id.menu_home -> {
                     val currentFragment =
                         supportFragmentManager.findFragmentById(R.id.fcv_home_main)
-                    if (currentFragment is HomeFragment) {
-                        val homeBinding = FragmentHomeBinding.bind(currentFragment.requireView())
-                        homeBinding.rvHomeRepos.scrollToPosition(0)
+                    if (currentFragment is RepoFragment) {
+                        val repoBinding = FragmentRepoBinding.bind(currentFragment.requireView())
+                        repoBinding.rvRepoRepos.scrollToPosition(0)
                     }
                 }
             }

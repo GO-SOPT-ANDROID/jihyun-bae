@@ -10,7 +10,7 @@ class MemberViewModel : ViewModel() {
     val specialty: MutableLiveData<String> = MutableLiveData()
 
     fun isSignUpEnabled(): Boolean {
-        return  !id.value.isNullOrBlank()
+        return !id.value.isNullOrBlank()
                 && !pw.value.isNullOrBlank()
                 && id.value!!.length in 6..10
                 && pw.value!!.length in 8..12
