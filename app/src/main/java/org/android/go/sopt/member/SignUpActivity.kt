@@ -47,7 +47,7 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun completeSignUp() {
-        signUpService.login(
+        signUpService.signUp(
             with(binding) {
                 RequestSignUpDto(
                     etSignUpId.text.toString(),
