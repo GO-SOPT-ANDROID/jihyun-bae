@@ -99,9 +99,10 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setAutoLogin() {
         val autoLoginInfo = getSharedPreferences("autoLogin", MODE_PRIVATE)
-        val autoLoginId = autoLoginInfo.getString("id", "").toString()
+        val autoLoginName = autoLoginInfo.getString("name", "").toString()
+        val autoLoginSpecialty = autoLoginInfo.getString("specialty", "").toString()
 
-        if (autoLoginId != "") {
+        if (autoLoginName != "" && autoLoginSpecialty != "") {
             moveHomeActivity()
             showToast(getString(R.string.auto_login_success))
         }
