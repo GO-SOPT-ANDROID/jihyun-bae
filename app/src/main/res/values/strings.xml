@@ -13,6 +13,7 @@
     <string name="specialty_hint">특기를 입력하세요.</string>
     <string name="sign_up_complete">회원가입 완료</string>
     <string name="sign_up_completed">회원가입이 완료되었습니다.</string>
+    <string name="sign_up_failed">회원가입이 실패하였습니다.</string>
     <string name="login_success">로그인에 성공했습니다.</string>
     <string name="login_fail">로그인에 실패하였습니다.</string>
     <string name="auto_login_success">자동 로그인되었습니다.</string>
@@ -35,4 +36,5 @@
     <string name="no">NO</string>
     <string name="my_page">My Page</string>
     <string name="menu_main_repo">REPO</string>
+    <string name="server_communication_on_failure">서버와 통신이 원활하지 않습니다.</string>
 </resources>
