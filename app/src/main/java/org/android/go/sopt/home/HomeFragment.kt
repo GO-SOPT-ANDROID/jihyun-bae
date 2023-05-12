@@ -5,9 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.ConcatAdapter
 import org.android.go.sopt.data.remote.api.ListUsersServicePool
 import org.android.go.sopt.data.remote.model.ResponseListUsersDto
 import org.android.go.sopt.databinding.FragmentHomeBinding
+import org.android.go.sopt.home.adapter.TitleAdapter
 import org.android.go.sopt.home.adapter.UserAdapter
 import org.android.go.sopt.util.extension.showToast
 import retrofit2.Call
@@ -18,6 +21,7 @@ class HomeFragment : Fragment() {
     private val binding: FragmentHomeBinding
         get() = requireNotNull(_binding) { "앗 ! _binding이 null이다 !" }
     private val listUsersService = ListUsersServicePool.listUsersService
+    private val viewModel by viewModels<TitleViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,9 +45,13 @@ class HomeFragment : Fragment() {
 
     private fun connectAdapter(listUsers: List<ResponseListUsersDto.Data>) {
         val userAdapter = UserAdapter(requireContext())
+        val titleAdapter = TitleAdapter(requireContext())
         userAdapter.submitList(listUsers)
+        titleAdapter.submitList(viewModel.getHomeTitleList())
 
-        binding.rvHomeUsers.adapter = userAdapter
+        val concatAdapter = ConcatAdapter(titleAdapter, userAdapter)
+
+        binding.rvHomeUsers.adapter = concatAdapter
     }
 
     private fun setListUsers() {
