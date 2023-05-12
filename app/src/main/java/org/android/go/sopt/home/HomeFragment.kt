@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ConcatAdapter
+import org.android.go.sopt.R
 import org.android.go.sopt.data.remote.api.ListUsersServicePool
 import org.android.go.sopt.data.remote.model.ResponseListUsersDto
 import org.android.go.sopt.databinding.FragmentHomeBinding
@@ -66,7 +67,9 @@ class HomeFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<ResponseListUsersDto>, t: Throwable) {
-                t.message?.let { requireContext().showToast(it) } ?: "서버통신 실패(응답값 X)"
+                t.message?.let { requireContext().showToast(it) } ?: run {
+                    requireContext().showToast(getString(R.string.server_communication_on_failure))
+                }
             }
         })
     }

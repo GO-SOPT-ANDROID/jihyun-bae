@@ -63,20 +63,22 @@ class LoginActivity : AppCompatActivity() {
                 response: Response<ResponseLoginDto>
             ) {
                 if (response.isSuccessful) {
-                    response.body()?.message?.let { showToast(it) } ?: "로그인에 성공했습니다."
+                    response.body()?.message?.let { showToast(it) }
+                        ?: getString(R.string.login_success).also { showToast(it) }
 
                     moveHomeActivity()
                     saveAutoLoginInfo(response.body()!!.data.name, response.body()!!.data.skill)
 
                     if (!isFinishing) finish()
                 } else {
-                    // 실패한 응답
-                    response.body()?.message?.let { showToast(it) } ?: "서버통신 실패(40X)"
+                    response.body()?.message?.let { showToast(it) }
+                        ?: getString(R.string.login_fail).also { showToast(it) }
                 }
             }
 
             override fun onFailure(call: Call<ResponseLoginDto>, t: Throwable) {
-                t.message?.let { showToast(it) } ?: "서버통신 실패(응답값 X)"
+                t.message?.let { showToast(it) }
+                    ?: getString(R.string.server_communication_on_failure).also { showToast(it) }
             }
 
         })
