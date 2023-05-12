@@ -82,7 +82,7 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun setBtnSignUpCompleteEnabled() {
         with(binding) {
-            btnSignUpComplete.isEnabled = viewModel.checkSignUpEnabled()
+            btnSignUpComplete.isEnabled = viewModel?.checkSignUpEnabled() ?: false
         }
     }
 
