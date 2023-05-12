@@ -5,7 +5,7 @@ import android.view.MotionEvent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import org.android.go.sopt.R
-import org.android.go.sopt.data.remote.api.ServicePool
+import org.android.go.sopt.data.remote.api.MemberServicePool
 import org.android.go.sopt.data.remote.model.RequestSignUpDto
 import org.android.go.sopt.data.remote.model.ResponseSignUpDto
 import org.android.go.sopt.databinding.ActivitySignUpBinding
@@ -18,7 +18,7 @@ import retrofit2.Response
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
     private val viewModel: MemberViewModel by viewModels()
-    private val signUpService = ServicePool.signUpService
+    private val signUpService = MemberServicePool.signUpService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

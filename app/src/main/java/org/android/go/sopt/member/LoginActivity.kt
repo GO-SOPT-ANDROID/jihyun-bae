@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.view.MotionEvent
 import androidx.appcompat.app.AppCompatActivity
 import org.android.go.sopt.R
-import org.android.go.sopt.data.remote.api.ServicePool
+import org.android.go.sopt.data.remote.api.MemberServicePool
 import org.android.go.sopt.data.remote.model.RequestLoginDto
 import org.android.go.sopt.data.remote.model.ResponseLoginDto
 import org.android.go.sopt.databinding.ActivityLoginBinding
@@ -19,7 +19,7 @@ import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
-    private val loginService = ServicePool.loginService
+    private val loginService = MemberServicePool.loginService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

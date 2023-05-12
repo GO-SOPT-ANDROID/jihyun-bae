@@ -8,7 +8,7 @@ import org.android.go.sopt.data.remote.service.LoginService
 import org.android.go.sopt.data.remote.service.SignUpService
 import retrofit2.Retrofit
 
-object ApiFactory {
+object MemberApiFactory {
     private const val BASE_URL = BuildConfig.AUTH_BASE_URL
 
     val retrofit: Retrofit by lazy {
@@ -21,7 +21,7 @@ object ApiFactory {
     inline fun <reified T> create(): T = retrofit.create<T>(T::class.java)
 }
 
-object ServicePool {
-    val signUpService = ApiFactory.create<SignUpService>()
-    val loginService = ApiFactory.create<LoginService>()
+object MemberServicePool {
+    val signUpService = MemberApiFactory.create<SignUpService>()
+    val loginService = MemberApiFactory.create<LoginService>()
 }
