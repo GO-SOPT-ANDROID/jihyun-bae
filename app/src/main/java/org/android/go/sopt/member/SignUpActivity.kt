@@ -29,6 +29,8 @@ class SignUpActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
 
         clickSignUp()
+        setBtnSignUpCompleteEnabled()
+        observeBtnSignUpComplete()
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
@@ -76,5 +78,17 @@ class SignUpActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    private fun setBtnSignUpCompleteEnabled() {
+        with(binding) {
+            btnSignUpComplete.isEnabled = viewModel.checkSignUpEnabled()
+        }
+    }
+
+    private fun observeBtnSignUpComplete() {
+        viewModel.signUpEnabled.observe(this) {
+            setBtnSignUpCompleteEnabled()
+        }
     }
 }
