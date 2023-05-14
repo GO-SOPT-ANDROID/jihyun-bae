@@ -65,12 +65,12 @@ class SignUpActivity : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
                     response.body()?.message?.let { showToast(it) }
-                        ?: getString(R.string.login_success).also { showToast(it) }
+                        ?: getString(R.string.sign_up_complete).also { showToast(it) }
 
                     if (!isFinishing) finish()
                 } else {
                     response.body()?.message?.let { showToast(it) }
-                        ?: getString(R.string.login_fail).also { showToast(it) }
+                        ?: getString(R.string.sign_up_failed).also { showToast(it) }
                 }
             }
 
