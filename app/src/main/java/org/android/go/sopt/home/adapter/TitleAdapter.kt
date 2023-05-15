@@ -3,13 +3,18 @@ package org.android.go.sopt.home.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import org.android.go.sopt.databinding.ItemTitleBinding
 import org.android.go.sopt.home.data.Title
+import org.android.go.sopt.util.extension.ItemDiffCallback
 
-class TitleAdapter(context: Context) : ListAdapter<Title, RecyclerView.ViewHolder>(diffUtil) {
+class TitleAdapter(context: Context) : ListAdapter<Title, RecyclerView.ViewHolder>(
+    ItemDiffCallback<Title>(
+        onContentsTheSame = { old, new -> old == new },
+        onItemsTheSame = { old, new -> old.title == new.title }
+    )
+) {
     private val inflater by lazy { LayoutInflater.from(context) }
 
     class TitleViewHolder(
@@ -30,19 +35,6 @@ class TitleAdapter(context: Context) : ListAdapter<Title, RecyclerView.ViewHolde
             is TitleViewHolder -> holder.onBind(
                 currentList[position]
             )
-        }
-    }
-
-    companion object {
-        val diffUtil = object : DiffUtil.ItemCallback<Title>() {
-            override fun areItemsTheSame(oldItem: Title, newItem: Title): Boolean {
-                return oldItem.title == newItem.title
-            }
-
-            override fun areContentsTheSame(oldItem: Title, newItem: Title): Boolean {
-                return oldItem == newItem
-            }
-
         }
     }
 }

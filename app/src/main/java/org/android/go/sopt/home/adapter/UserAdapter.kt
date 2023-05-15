@@ -3,15 +3,20 @@ package org.android.go.sopt.home.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import org.android.go.sopt.data.remote.model.ResponseListUsersDto
 import org.android.go.sopt.databinding.ItemUserBinding
+import org.android.go.sopt.util.extension.ItemDiffCallback
 
 class UserAdapter(context: Context) :
-    ListAdapter<ResponseListUsersDto.Data, RecyclerView.ViewHolder>(diffUtil) {
+    ListAdapter<ResponseListUsersDto.Data, RecyclerView.ViewHolder>(
+        ItemDiffCallback<ResponseListUsersDto.Data>(
+            onContentsTheSame = { old, new -> old == new },
+            onItemsTheSame = { old, new -> old.id == new.id }
+        )
+    ) {
     private val inflater by lazy { LayoutInflater.from(context) }
 
     class UserViewHolder(
@@ -36,25 +41,6 @@ class UserAdapter(context: Context) :
             is UserViewHolder -> holder.onBind(
                 currentList[position]
             )
-        }
-    }
-
-    companion object {
-        val diffUtil = object : DiffUtil.ItemCallback<ResponseListUsersDto.Data>() {
-            override fun areItemsTheSame(
-                oldItem: ResponseListUsersDto.Data,
-                newItem: ResponseListUsersDto.Data
-            ): Boolean {
-                return oldItem.id == newItem.id
-            }
-
-            override fun areContentsTheSame(
-                oldItem: ResponseListUsersDto.Data,
-                newItem: ResponseListUsersDto.Data
-            ): Boolean {
-                return oldItem == newItem
-            }
-
         }
     }
 }

@@ -6,14 +6,19 @@ import android.view.MotionEvent
 import android.view.ViewGroup
 import androidx.recyclerview.selection.ItemDetailsLookup
 import androidx.recyclerview.selection.SelectionTracker
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import org.android.go.sopt.databinding.ItemGithubRepoBinding
 import org.android.go.sopt.databinding.ItemTitleBinding
 import org.android.go.sopt.home.data.Repo
+import org.android.go.sopt.util.extension.ItemDiffCallback
 
-class RepoAdapter(context: Context) : ListAdapter<Repo, RecyclerView.ViewHolder>(diffUtil) {
+class RepoAdapter(context: Context) : ListAdapter<Repo, RecyclerView.ViewHolder>(
+    ItemDiffCallback<Repo>(
+        onContentsTheSame = { old, new -> old == new },
+        onItemsTheSame = { old, new -> old.name == new.name }
+    )
+) {
     private val inflater by lazy { LayoutInflater.from(context) }
     lateinit var selectionTracker: SelectionTracker<Long>
 
@@ -115,15 +120,5 @@ class RepoAdapter(context: Context) : ListAdapter<Repo, RecyclerView.ViewHolder>
     companion object {
         const val VIEW_TYPE_TITLE = 0
         const val VIEW_TYPE_REPO = 1
-
-        val diffUtil = object : DiffUtil.ItemCallback<Repo>() {
-            override fun areItemsTheSame(oldItem: Repo, newItem: Repo): Boolean {
-                return oldItem.name == newItem.name
-            }
-
-            override fun areContentsTheSame(oldItem: Repo, newItem: Repo): Boolean {
-                return oldItem == newItem
-            }
-        }
     }
 }
