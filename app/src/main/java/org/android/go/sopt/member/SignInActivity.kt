@@ -8,22 +8,22 @@ import android.view.MotionEvent
 import androidx.appcompat.app.AppCompatActivity
 import org.android.go.sopt.R
 import org.android.go.sopt.data.remote.api.MemberServicePool
-import org.android.go.sopt.data.remote.model.RequestLoginDto
-import org.android.go.sopt.data.remote.model.ResponseLoginDto
-import org.android.go.sopt.databinding.ActivityLoginBinding
+import org.android.go.sopt.data.remote.model.RequestSignInDto
+import org.android.go.sopt.data.remote.model.ResponseSignInDto
+import org.android.go.sopt.databinding.ActivitySignInBinding
 import org.android.go.sopt.home.HomeActivity
 import org.android.go.sopt.util.extension.hideKeyboard
 import org.android.go.sopt.util.extension.showToast
 import retrofit2.Call
 import retrofit2.Response
 
-class LoginActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityLoginBinding
+class SignInActivity : AppCompatActivity() {
+    private lateinit var binding: ActivitySignInBinding
     private val loginService = MemberServicePool.loginService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
+        binding = ActivitySignInBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         clickSignUp()
@@ -37,30 +37,30 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun clickSignUp() {
-        binding.btnLoginSignUp.setOnClickListener {
+        binding.btnSignInSignUp.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
     }
 
     private fun clickLogin() {
-        binding.btnLoginLogin.setOnClickListener {
+        binding.btnSignInLogin.setOnClickListener {
             completeLogin()
         }
     }
 
     private fun completeLogin() {
-        loginService.login(
+        loginService.signIn(
             with(binding) {
-                RequestLoginDto(
-                    etLoginId.text.toString(),
-                    etLoginPw.text.toString()
+                RequestSignInDto(
+                    etSignInId.text.toString(),
+                    etSignInPw.text.toString()
                 )
             }
-        ).enqueue(object : retrofit2.Callback<ResponseLoginDto> {
+        ).enqueue(object : retrofit2.Callback<ResponseSignInDto> {
             override fun onResponse(
-                call: Call<ResponseLoginDto>,
-                response: Response<ResponseLoginDto>
+                call: Call<ResponseSignInDto>,
+                response: Response<ResponseSignInDto>
             ) {
                 if (response.isSuccessful) {
                     response.body()?.message?.let { showToast(it) }
@@ -76,7 +76,7 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<ResponseLoginDto>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseSignInDto>, t: Throwable) {
                 t.message?.let { showToast(it) }
                     ?: getString(R.string.server_communication_on_failure).also { showToast(it) }
             }

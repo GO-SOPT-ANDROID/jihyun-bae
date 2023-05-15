@@ -8,7 +8,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.WindowManager
 import org.android.go.sopt.databinding.DialogLogoutBinding
-import org.android.go.sopt.member.LoginActivity
+import org.android.go.sopt.member.SignInActivity
 
 class LogoutDialog(
     context: Context
@@ -56,7 +56,7 @@ class LogoutDialog(
     }
 
     private fun moveLoginActivity() {
-        val intent = Intent(context, LoginActivity::class.java)
+        val intent = Intent(context, SignInActivity::class.java)
         context.startActivity(intent)
     }
 }

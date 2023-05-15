@@ -4,7 +4,7 @@ import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFact
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import org.android.go.sopt.BuildConfig
-import org.android.go.sopt.data.remote.service.LoginService
+import org.android.go.sopt.data.remote.service.SignInService
 import org.android.go.sopt.data.remote.service.SignUpService
 import retrofit2.Retrofit
 
@@ -23,5 +23,5 @@ object MemberApiFactory {
 
 object MemberServicePool {
     val signUpService = MemberApiFactory.create<SignUpService>()
-    val loginService = MemberApiFactory.create<LoginService>()
+    val loginService = MemberApiFactory.create<SignInService>()
 }
