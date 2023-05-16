@@ -40,7 +40,7 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun clickSignUp() {
         binding.btnSignUpComplete.setOnClickListener {
-            if (viewModel.isSignUpEnabled()) {
+            if (viewModel.checkSignUpEnabled()) {
                 completeSignUp()
             } else {
                 binding.root.showSnackBar(getString(R.string.sign_up_fail))

@@ -16,18 +16,11 @@ class MemberViewModel : ViewModel() {
         addSource(specialty) { value = checkSignUpEnabled() }
     }
 
-    fun isSignUpEnabled(): Boolean {
+    fun checkSignUpEnabled(): Boolean {
         return !id.value.isNullOrBlank()
                 && !pw.value.isNullOrBlank()
                 && id.value!!.length in 6..10
                 && pw.value!!.length in 8..12
-                && !name.value.isNullOrBlank()
-                && !specialty.value.isNullOrBlank()
-    }
-
-    fun checkSignUpEnabled(): Boolean {
-        return !id.value.isNullOrBlank()
-                && !pw.value.isNullOrBlank()
                 && !name.value.isNullOrBlank()
                 && !specialty.value.isNullOrBlank()
     }
