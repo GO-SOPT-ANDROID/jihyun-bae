@@ -67,7 +67,10 @@ class SignInActivity : AppCompatActivity() {
                         ?: getString(R.string.login_success).also { showToast(it) }
 
                     moveHomeActivity()
-                    saveAutoLoginInfo(response.body()!!.data.name, response.body()!!.data.skill)
+                    saveAutoLoginInfo(
+                        response.body()?.data?.name ?: "",
+                        response.body()?.data?.skill ?: ""
+                    )
 
                     if (!isFinishing) finish()
                 } else {
