@@ -27,7 +27,7 @@ class SignInActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         clickSignUp()
-        clickLogin()
+        signInBtnClickListener()
         setAutoLogin()
     }
 
@@ -43,48 +43,44 @@ class SignInActivity : AppCompatActivity() {
         }
     }
 
-    private fun clickLogin() {
+    private fun signInBtnClickListener() {
         binding.btnSignInLogin.setOnClickListener {
-            completeLogin()
-        }
-    }
-
-    private fun completeLogin() {
-        loginService.signIn(
-            with(binding) {
-                RequestSignInDto(
-                    etSignInId.text.toString(),
-                    etSignInPw.text.toString()
-                )
-            }
-        ).enqueue(object : retrofit2.Callback<ResponseSignInDto> {
-            override fun onResponse(
-                call: Call<ResponseSignInDto>,
-                response: Response<ResponseSignInDto>
-            ) {
-                if (response.isSuccessful) {
-                    response.body()?.message?.let { showToast(it) }
-                        ?: getString(R.string.login_success).also { showToast(it) }
-
-                    moveHomeActivity()
-                    saveAutoLoginInfo(
-                        response.body()?.data?.name ?: "",
-                        response.body()?.data?.skill ?: ""
+            loginService.signIn(
+                with(binding) {
+                    RequestSignInDto(
+                        etSignInId.text.toString(),
+                        etSignInPw.text.toString()
                     )
-
-                    if (!isFinishing) finish()
-                } else {
-                    response.body()?.message?.let { showToast(it) }
-                        ?: getString(R.string.login_fail).also { showToast(it) }
                 }
-            }
+            ).enqueue(object : retrofit2.Callback<ResponseSignInDto> {
+                override fun onResponse(
+                    call: Call<ResponseSignInDto>,
+                    response: Response<ResponseSignInDto>
+                ) {
+                    if (response.isSuccessful) {
+                        response.body()?.message?.let { showToast(it) }
+                            ?: getString(R.string.login_success).also { showToast(it) }
 
-            override fun onFailure(call: Call<ResponseSignInDto>, t: Throwable) {
-                t.message?.let { showToast(it) }
-                    ?: getString(R.string.server_communication_on_failure).also { showToast(it) }
-            }
+                        moveHomeActivity()
+                        saveAutoLoginInfo(
+                            response.body()?.data?.name ?: "",
+                            response.body()?.data?.skill ?: ""
+                        )
 
-        })
+                        if (!isFinishing) finish()
+                    } else {
+                        response.body()?.message?.let { showToast(it) }
+                            ?: getString(R.string.login_fail).also { showToast(it) }
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseSignInDto>, t: Throwable) {
+                    t.message?.let { showToast(it) }
+                        ?: getString(R.string.server_communication_on_failure).also { showToast(it) }
+                }
+
+            })
+        }
     }
 
     private fun moveHomeActivity() {
