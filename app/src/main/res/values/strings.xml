@@ -37,4 +37,5 @@
     <string name="my_page">My Page</string>
     <string name="menu_main_repo">REPO</string>
     <string name="server_communication_on_failure">서버와 통신이 원활하지 않습니다.</string>
+    <string name="search_check">검색</string>
 </resources>
