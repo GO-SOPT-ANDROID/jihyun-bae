@@ -3,6 +3,7 @@ package org.android.go.sopt.home.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import org.android.go.sopt.data.remote.model.ResponseKakaoSearchDto
@@ -23,8 +24,10 @@ class SearchAdapter(context: Context) :
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(document: ResponseKakaoSearchDto.Document) {
             with(binding) {
-                tvItemSearchTitle.text = document.title
-                tvSearchContents.text = document.contents
+                tvItemSearchTitle.text =
+                    HtmlCompat.fromHtml(document.title, HtmlCompat.FROM_HTML_MODE_LEGACY)
+                tvSearchContents.text =
+                    HtmlCompat.fromHtml(document.contents, HtmlCompat.FROM_HTML_MODE_LEGACY)
                 tvSearchUrl.text = document.url
             }
         }
