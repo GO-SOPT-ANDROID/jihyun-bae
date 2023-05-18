@@ -10,6 +10,7 @@ import org.android.go.sopt.data.remote.api.KakaoSearchServicePool
 import org.android.go.sopt.data.remote.model.ResponseKakaoSearchDto
 import org.android.go.sopt.databinding.FragmentSearchBinding
 import org.android.go.sopt.home.adapter.SearchAdapter
+import org.android.go.sopt.home.adapter.SearchEmptyAdapter
 import org.android.go.sopt.util.extension.showToast
 import retrofit2.Call
 import retrofit2.Response
@@ -37,10 +38,18 @@ class SearchFragment : Fragment() {
         super.onDestroyView()
     }
 
-    private fun connectAdapter(searchInfo: List<ResponseKakaoSearchDto.Document>) {
+    private fun connectSearchAdapter(searchInfo: List<ResponseKakaoSearchDto.Document>) {
         val searchAdapter = SearchAdapter(requireContext())
         searchAdapter.submitList(searchInfo)
         binding.rvSearch.adapter = searchAdapter
+    }
+
+    private fun connectSearchEmptyAdapter(query: String) {
+        val searchEmptyAdapter = SearchEmptyAdapter(requireContext())
+        val queryList = mutableListOf<String>()
+        queryList.add(query)
+        searchEmptyAdapter.submitList(queryList)
+        binding.rvSearch.adapter = searchEmptyAdapter
     }
 
     private fun searchCheckBtnClickListener() {
@@ -52,7 +61,13 @@ class SearchFragment : Fragment() {
                         response: Response<ResponseKakaoSearchDto>
                     ) {
                         if (response.isSuccessful) {
-                            response.body()?.documents?.let { connectAdapter(it) }
+                            response.body()?.documents?.let { documents ->
+                                if (documents.isEmpty()) {
+                                    connectSearchEmptyAdapter(binding.svSearch.query.toString())
+                                } else {
+                                    connectSearchAdapter(documents)
+                                }
+                            }
                         }
                     }
 
