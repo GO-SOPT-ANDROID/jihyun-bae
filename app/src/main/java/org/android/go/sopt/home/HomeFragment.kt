@@ -6,24 +6,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.selection.SelectionPredicates
-import androidx.recyclerview.selection.SelectionTracker
-import androidx.recyclerview.selection.StableIdKeyProvider
-import androidx.recyclerview.selection.StorageStrategy
+import androidx.recyclerview.widget.ConcatAdapter
 import org.android.go.sopt.R
+import org.android.go.sopt.data.remote.api.ListUsersServicePool
+import org.android.go.sopt.data.remote.model.ResponseListUsersDto
 import org.android.go.sopt.databinding.FragmentHomeBinding
-import org.android.go.sopt.home.adapter.HomeAdapter
-import org.android.go.sopt.home.data.Home
-import org.android.go.sopt.home.dialog.AddItemDialog
+import org.android.go.sopt.home.adapter.TitleAdapter
+import org.android.go.sopt.home.adapter.UserAdapter
+import org.android.go.sopt.util.extension.showToast
+import retrofit2.Call
+import retrofit2.Response
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding: FragmentHomeBinding
         get() = requireNotNull(_binding) { "앗 ! _binding이 null이다 !" }
-    private val viewModel by viewModels<HomeViewModel>()
-    private lateinit var selectionTracker: SelectionTracker<Long>
-    private lateinit var homeAdapter: HomeAdapter
-    private lateinit var dialog: AddItemDialog
+    private val listUsersService = ListUsersServicePool.listUsersService
+    private val viewModel by viewModels<TitleViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,86 +36,40 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        connectAdapter()
-        setUpSelectionTracker()
-        setSelectedItemDeleteObserver()
-        setFabHomeAddClickListener()
+        setListUsers()
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         _binding = null
+        super.onDestroyView()
     }
 
-    private fun connectAdapter() {
-        homeAdapter = HomeAdapter(requireContext())
-        homeAdapter.submitList(viewModel.getMockHomeList())
+    private fun connectAdapter(listUsers: List<ResponseListUsersDto.Data>) {
+        val userAdapter = UserAdapter(requireContext())
+        val titleAdapter = TitleAdapter(requireContext())
+        userAdapter.submitList(listUsers)
+        titleAdapter.submitList(viewModel.getHomeTitleList())
 
-        binding.rvHomeRepos.adapter = homeAdapter
+        val concatAdapter = ConcatAdapter(titleAdapter, userAdapter)
+
+        binding.rvHomeUsers.adapter = concatAdapter
     }
 
-    private fun setUpSelectionTracker() {
-        selectionTracker = binding.rvHomeRepos.let { recyclerView ->
-            SelectionTracker.Builder(
-                "mySelection",
-                recyclerView,
-                StableIdKeyProvider(recyclerView),
-                HomeAdapter.HomeDetailLookUp(recyclerView),
-                StorageStrategy.createLongStorage()
-            ).withSelectionPredicate(
-                SelectionPredicates.createSelectAnything()
-            ).build()
-        }
-        homeAdapter.selectionTracker = selectionTracker
-    }
-
-    private fun setSelectedItemDeleteObserver() {
-        selectionTracker.addObserver(
-            object : SelectionTracker.SelectionObserver<Long>() {
-                override fun onSelectionChanged() {
-                    super.onSelectionChanged()
-                    setFabHomeDeleteListener()
+    private fun setListUsers() {
+        listUsersService.getListUsers().enqueue(object : retrofit2.Callback<ResponseListUsersDto> {
+            override fun onResponse(
+                call: Call<ResponseListUsersDto>,
+                response: Response<ResponseListUsersDto>
+            ) {
+                if (response.isSuccessful) {
+                    response.body()?.data?.let { connectAdapter(it) }
                 }
             }
-        )
-    }
 
-    private fun setFabHomeDeleteListener() {
-        binding.fabHomeDelete.setOnClickListener {
-            selectionTracker.selection.forEach { selectedItem ->
-                val selectedItemViewHolder =
-                    binding.rvHomeRepos.findViewHolderForItemId(selectedItem)
-
-                if (selectedItemViewHolder is HomeAdapter.RepoViewHolder) {
-                    homeAdapter.removeListItem(selectedItem.toInt())
+            override fun onFailure(call: Call<ResponseListUsersDto>, t: Throwable) {
+                t.message?.let { requireContext().showToast(it) } ?: run {
+                    requireContext().showToast(getString(R.string.server_communication_on_failure))
                 }
-            }
-            selectionTracker.clearSelection()
-        }
-    }
-
-    private fun setFabHomeAddClickListener() {
-        binding.fabHomeAdd.setOnClickListener {
-            showAddItemDialog()
-            addItem()
-        }
-    }
-
-    private fun showAddItemDialog() {
-        dialog = AddItemDialog(requireContext())
-        dialog.show()
-    }
-
-    private fun addItem() {
-        dialog.setOnClickedListener(object : AddItemDialog.SaveEventListener {
-            override fun sendInputData(inputRepoName: String, inputAuthor: String) {
-                homeAdapter.addListItem(
-                    Home(
-                        image = R.drawable.github,
-                        name = inputRepoName,
-                        author = inputAuthor
-                    )
-                )
             }
         })
     }

@@ -12,7 +12,10 @@
         android:id="@+id/menu_gallery"
         android:icon="@drawable/ic_gallery"
         android:title="@string/menu_main_gallery" />
-
+    <item
+        android:id="@+id/menu_repositories"
+        android:icon="@drawable/ic_repositories"
+        android:title="@string/menu_main_repo" />
     <item
         android:id="@+id/menu_my_page"
         android:icon="@drawable/ic_my"
