@@ -7,6 +7,7 @@ import androidx.fragment.app.commit
 import org.android.go.sopt.R
 import org.android.go.sopt.databinding.ActivityHomeBinding
 import org.android.go.sopt.databinding.FragmentRepoBinding
+import org.android.go.sopt.home.home.HomeFragment
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
