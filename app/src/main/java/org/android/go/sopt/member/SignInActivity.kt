@@ -5,29 +5,30 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.MotionEvent
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import org.android.go.sopt.R
-import org.android.go.sopt.data.remote.api.MemberServicePool
-import org.android.go.sopt.data.remote.model.RequestSignInDto
-import org.android.go.sopt.data.remote.model.ResponseSignInDto
 import org.android.go.sopt.databinding.ActivitySignInBinding
 import org.android.go.sopt.home.HomeActivity
 import org.android.go.sopt.util.extension.hideKeyboard
 import org.android.go.sopt.util.extension.showToast
-import retrofit2.Call
-import retrofit2.Response
 
 class SignInActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignInBinding
-    private val loginService = MemberServicePool.loginService
+    private val viewModel by viewModels<SignInViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignInBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+
         clickSignUp()
         signInBtnClickListener()
+        signInResultObserver()
+        signInMessageObserver()
         setAutoLogin()
     }
 
@@ -45,41 +46,29 @@ class SignInActivity : AppCompatActivity() {
 
     private fun signInBtnClickListener() {
         binding.btnSignInLogin.setOnClickListener {
-            loginService.signIn(
-                with(binding) {
-                    RequestSignInDto(
-                        etSignInId.text.toString(),
-                        etSignInPw.text.toString()
-                    )
-                }
-            ).enqueue(object : retrofit2.Callback<ResponseSignInDto> {
-                override fun onResponse(
-                    call: Call<ResponseSignInDto>,
-                    response: Response<ResponseSignInDto>
-                ) {
-                    if (response.isSuccessful) {
-                        response.body()?.message?.let { showToast(it) }
-                            ?: getString(R.string.login_success).also { showToast(it) }
+            with(binding) {
+                viewModel!!.signIn(
+                    etSignInId.text.toString(),
+                    etSignInPw.text.toString()
+                )
+            }
+        }
+    }
 
-                        moveHomeActivity()
-                        saveAutoLoginInfo(
-                            response.body()?.data?.name ?: "",
-                            response.body()?.data?.skill ?: ""
-                        )
+    private fun signInResultObserver() {
+        viewModel.signInResult.observe(this) { signInResult ->
+            moveHomeActivity()
+            saveAutoLoginInfo(
+                signInResult.data.name ?: "",
+                signInResult.data.skill ?: ""
+            )
+            //showToast(getString(R.string.login_success))
+        }
+    }
 
-                        if (!isFinishing) finish()
-                    } else {
-                        response.body()?.message?.let { showToast(it) }
-                            ?: getString(R.string.login_fail).also { showToast(it) }
-                    }
-                }
-
-                override fun onFailure(call: Call<ResponseSignInDto>, t: Throwable) {
-                    t.message?.let { showToast(it) }
-                        ?: getString(R.string.server_communication_on_failure).also { showToast(it) }
-                }
-
-            })
+    private fun signInMessageObserver() {
+        viewModel.signInMessage.observe(this) { message ->
+            showToast(message)
         }
     }
 
