@@ -62,7 +62,6 @@ class SignInActivity : AppCompatActivity() {
                 signInResult.data.name ?: "",
                 signInResult.data.skill ?: ""
             )
-            //showToast(getString(R.string.login_success))
         }
     }
 

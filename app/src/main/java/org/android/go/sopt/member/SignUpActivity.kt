@@ -5,20 +5,14 @@ import android.view.MotionEvent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import org.android.go.sopt.R
-import org.android.go.sopt.data.remote.api.MemberServicePool
-import org.android.go.sopt.data.remote.model.RequestSignUpDto
-import org.android.go.sopt.data.remote.model.ResponseSignUpDto
 import org.android.go.sopt.databinding.ActivitySignUpBinding
 import org.android.go.sopt.util.extension.hideKeyboard
 import org.android.go.sopt.util.extension.showSnackBar
 import org.android.go.sopt.util.extension.showToast
-import retrofit2.Call
-import retrofit2.Response
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
-    private val viewModel: MemberViewModel by viewModels()
-    private val signUpService = MemberServicePool.signUpService
+    private val viewModel: SignUpViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +25,8 @@ class SignUpActivity : AppCompatActivity() {
         clickSignUp()
         setBtnSignUpCompleteEnabled()
         observeBtnSignUpComplete()
+        signUpMessageObserver()
+        signUpResultObserver()
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
@@ -49,37 +45,14 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun completeSignUp() {
-        signUpService.signUp(
-            with(binding) {
-                RequestSignUpDto(
-                    etSignUpId.text.toString(),
-                    etSignUpPw.text.toString(),
-                    etSignUpName.text.toString(),
-                    etSignUpSpecialty.text.toString()
-                )
-            }
-        ).enqueue(object : retrofit2.Callback<ResponseSignUpDto> {
-            override fun onResponse(
-                call: Call<ResponseSignUpDto>,
-                response: Response<ResponseSignUpDto>
-            ) {
-                if (response.isSuccessful) {
-                    response.body()?.message?.let { showToast(it) }
-                        ?: getString(R.string.sign_up_complete).also { showToast(it) }
-
-                    if (!isFinishing) finish()
-                } else {
-                    response.body()?.message?.let { showToast(it) }
-                        ?: getString(R.string.sign_up_failed).also { showToast(it) }
-                }
-            }
-
-            override fun onFailure(call: Call<ResponseSignUpDto>, t: Throwable) {
-                t.message?.let { showToast(it) }
-                    ?: getString(R.string.server_communication_on_failure).also { showToast(it) }
-            }
-
-        })
+        with(binding) {
+            viewModel!!.signUp(
+                etSignUpId.text.toString(),
+                etSignUpPw.text.toString(),
+                etSignUpName.text.toString(),
+                etSignUpSpecialty.text.toString()
+            )
+        }
     }
 
     private fun setBtnSignUpCompleteEnabled() {
@@ -91,6 +64,18 @@ class SignUpActivity : AppCompatActivity() {
     private fun observeBtnSignUpComplete() {
         viewModel.signUpEnabled.observe(this) {
             setBtnSignUpCompleteEnabled()
+        }
+    }
+
+    private fun signUpMessageObserver() {
+        viewModel.signUpMessage.observe(this) { message ->
+            showToast(message)
+        }
+    }
+
+    private fun signUpResultObserver() {
+        viewModel.signUpResult.observe(this) { signUpResult ->
+            finish()
         }
     }
 }
