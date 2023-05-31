@@ -1,5 +1,6 @@
 package org.android.go.sopt.member
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import org.android.go.sopt.data.remote.api.MemberServicePool
@@ -10,10 +11,12 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class SignInViewModel : ViewModel() {
-    val signInResult: MutableLiveData<ResponseSignInDto> = MutableLiveData()
+    private val _signInResult: MutableLiveData<ResponseSignInDto> = MutableLiveData()
+    val signInResult: LiveData<ResponseSignInDto> = _signInResult
     val id: MutableLiveData<String> = MutableLiveData()
     val pw: MutableLiveData<String> = MutableLiveData()
-    val signInMessage: MutableLiveData<String> = MutableLiveData()
+    private val _signInMessage: MutableLiveData<String> = MutableLiveData()
+    val signInMessage: LiveData<String> = _signInMessage
     private val loginService = MemberServicePool.loginService
 
     fun signIn(id: String, pw: String) {
@@ -28,15 +31,15 @@ class SignInViewModel : ViewModel() {
                 response: Response<ResponseSignInDto>
             ) {
                 if (response.isSuccessful) {
-                    signInMessage.value = response.body()?.message ?: "로그인에 성공했습니다."
-                    signInResult.value = response.body()
+                    _signInMessage.value = response.body()?.message ?: "로그인에 성공했습니다."
+                    _signInResult.value = response.body()
                 } else {
-                    signInMessage.value = response.body()?.message ?: "로그인에 실패했습니다."
+                    _signInMessage.value = response.body()?.message ?: "로그인에 실패했습니다."
                 }
             }
 
             override fun onFailure(call: Call<ResponseSignInDto>, t: Throwable) {
-                signInMessage.value = t.message ?: "서버와 통신이 원활하지 않습니다."
+                _signInMessage.value = t.message ?: "서버와 통신이 원활하지 않습니다."
             }
 
         })

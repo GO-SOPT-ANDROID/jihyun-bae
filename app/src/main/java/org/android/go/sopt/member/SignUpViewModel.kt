@@ -1,5 +1,6 @@
 package org.android.go.sopt.member
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,8 +16,10 @@ class SignUpViewModel : ViewModel() {
     val pw: MutableLiveData<String> = MutableLiveData()
     val name: MutableLiveData<String> = MutableLiveData()
     val specialty: MutableLiveData<String> = MutableLiveData()
-    val signUpResult: MutableLiveData<ResponseSignUpDto> = MutableLiveData()
-    val signUpMessage: MutableLiveData<String> = MutableLiveData()
+    private val _signUpResult: MutableLiveData<ResponseSignUpDto> = MutableLiveData()
+    val signUpResult: LiveData<ResponseSignUpDto> = _signUpResult
+    private val _signUpMessage: MutableLiveData<String> = MutableLiveData()
+    val signUpMessage: LiveData<String> = _signUpMessage
     private val signUpService = MemberServicePool.signUpService
 
     val signUpEnabled = MediatorLiveData<Boolean>().apply {
@@ -49,15 +52,15 @@ class SignUpViewModel : ViewModel() {
                 response: Response<ResponseSignUpDto>
             ) {
                 if (response.isSuccessful) {
-                    signUpMessage.value = response.body()?.message ?: "회원가입 완료"
-                    signUpResult.value = response.body()
+                    _signUpMessage.value = response.body()?.message ?: "회원가입 완료"
+                    _signUpResult.value = response.body()
                 } else {
-                    signUpMessage.value = response.body()?.message ?: "회원가입이 실패하였습니다."
+                    _signUpMessage.value = response.body()?.message ?: "회원가입이 실패하였습니다."
                 }
             }
 
             override fun onFailure(call: Call<ResponseSignUpDto>, t: Throwable) {
-                signUpMessage.value = t.message ?: "서버와 통신이 원활하지 않습니다."
+                _signUpMessage.value = t.message ?: "서버와 통신이 원활하지 않습니다."
             }
 
         })
