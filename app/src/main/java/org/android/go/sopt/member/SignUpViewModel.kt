@@ -34,12 +34,12 @@ class SignUpViewModel : ViewModel() {
         addSource(specialty) { value = checkSignUpEnabled() }
     }
 
-    private fun isIdEnabled(): Boolean {
+    fun isIdEnabled(): Boolean {
         return !id.value.isNullOrBlank()
                 && id.value?.matches(idRegex) ?: false
     }
 
-    private fun isPwEnabled(): Boolean {
+    fun isPwEnabled(): Boolean {
         return !pw.value.isNullOrBlank()
                 && pw.value?.matches(pwRegex) ?: false
     }
