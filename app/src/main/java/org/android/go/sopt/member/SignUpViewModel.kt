@@ -16,11 +16,16 @@ class SignUpViewModel : ViewModel() {
     val pw: MutableLiveData<String> = MutableLiveData()
     val name: MutableLiveData<String> = MutableLiveData()
     val specialty: MutableLiveData<String> = MutableLiveData()
+
     private val _signUpResult: MutableLiveData<ResponseSignUpDto> = MutableLiveData()
     val signUpResult: LiveData<ResponseSignUpDto> = _signUpResult
     private val _signUpMessage: MutableLiveData<String> = MutableLiveData()
     val signUpMessage: LiveData<String> = _signUpMessage
     private val signUpService = MemberServicePool.signUpService
+
+    val idRegex = Regex("^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{6,10}")
+    val pwRegex =
+        Regex("^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#%^&*()])[a-zA-Z0-9!@#%^&*()]{6,12}")
 
     val signUpEnabled = MediatorLiveData<Boolean>().apply {
         addSource(id) { value = checkSignUpEnabled() }
@@ -29,11 +34,19 @@ class SignUpViewModel : ViewModel() {
         addSource(specialty) { value = checkSignUpEnabled() }
     }
 
-    fun checkSignUpEnabled(): Boolean {
+    private fun isIdEnabled(): Boolean {
         return !id.value.isNullOrBlank()
-                && !pw.value.isNullOrBlank()
-                && id.value!!.length in 6..10
-                && pw.value!!.length in 8..12
+                && id.value?.matches(idRegex) ?: false
+    }
+
+    private fun isPwEnabled(): Boolean {
+        return !pw.value.isNullOrBlank()
+                && pw.value?.matches(pwRegex) ?: false
+    }
+
+    fun checkSignUpEnabled(): Boolean {
+        return isIdEnabled()
+                && isPwEnabled()
                 && !name.value.isNullOrBlank()
                 && !specialty.value.isNullOrBlank()
     }
