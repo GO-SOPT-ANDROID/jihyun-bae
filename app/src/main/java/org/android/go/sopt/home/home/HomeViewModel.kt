@@ -12,21 +12,26 @@ import retrofit2.Response
 class HomeViewModel : ViewModel() {
     private val _getListUserResult: MutableLiveData<ResponseListUsersDto> = MutableLiveData()
     val getListUserResult: LiveData<ResponseListUsersDto> = _getListUserResult
+    private val _isLoading: MutableLiveData<Boolean> = MutableLiveData(false)
+    val isLoading: LiveData<Boolean> = _isLoading
     private val listUsersService = ListUsersServicePool.listUsersService
 
     fun getListUsers() {
+        _isLoading.value = true
+
         listUsersService.getListUsers().enqueue(object : Callback<ResponseListUsersDto> {
             override fun onResponse(
                 call: Call<ResponseListUsersDto>,
                 response: Response<ResponseListUsersDto>
             ) {
+                _isLoading.value = false
                 if (response.isSuccessful) {
                     _getListUserResult.value = response.body()
                 }
             }
 
             override fun onFailure(call: Call<ResponseListUsersDto>, t: Throwable) {
-
+                _isLoading.value = false
             }
 
         })

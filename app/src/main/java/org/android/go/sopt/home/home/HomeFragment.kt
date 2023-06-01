@@ -1,5 +1,7 @@
 package org.android.go.sopt.home.home
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +14,7 @@ import org.android.go.sopt.databinding.FragmentHomeBinding
 import org.android.go.sopt.home.TitleViewModel
 import org.android.go.sopt.home.adapter.TitleAdapter
 import org.android.go.sopt.home.adapter.UserAdapter
+import org.android.go.sopt.home.dialog.LoadingDialog
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
@@ -19,6 +22,7 @@ class HomeFragment : Fragment() {
         get() = requireNotNull(_binding) { "앗 ! _binding이 null이다 !" }
     private val titleViewModel by viewModels<TitleViewModel>()
     private val viewModel by viewModels<HomeViewModel>()
+    private lateinit var dialog: LoadingDialog
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,6 +37,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getListUsers()
         getListUserResultObserver()
+        isLoadingObserver()
     }
 
     override fun onDestroyView() {
@@ -55,5 +60,17 @@ class HomeFragment : Fragment() {
         viewModel.getListUserResult.observe(viewLifecycleOwner) { listUserResult ->
             connectAdapter(listUserResult.data)
         }
+    }
+
+    private fun isLoadingObserver() {
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) showLoadingDialog() else dialog.dismiss()
+        }
+    }
+
+    private fun showLoadingDialog() {
+        dialog = LoadingDialog(requireContext())
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.show()
     }
 }
