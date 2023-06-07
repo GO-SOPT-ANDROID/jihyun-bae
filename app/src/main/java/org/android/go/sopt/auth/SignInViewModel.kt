@@ -1,4 +1,4 @@
-package org.android.go.sopt.member
+package org.android.go.sopt.auth
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

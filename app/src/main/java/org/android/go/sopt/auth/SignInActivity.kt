@@ -1,4 +1,4 @@
-package org.android.go.sopt.member
+package org.android.go.sopt.auth
 
 import android.app.Activity
 import android.content.Intent
