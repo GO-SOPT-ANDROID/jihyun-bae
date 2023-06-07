@@ -81,19 +81,29 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun idObserver() {
-        viewModel.id.observe(this) {
-            with(binding) {
-                if (viewModel!!.isIdEnabled()) tvSignUpIdWaring.visibility =
-                    View.INVISIBLE else tvSignUpIdWaring.visibility = View.VISIBLE
+        viewModel.id.observe(this) { id ->
+            binding.viewModel?.let { viewModel ->
+                with(binding) {
+                    if (viewModel.isIdEnabled()) {
+                        tvSignUpIdWaring.visibility = View.INVISIBLE
+                    } else {
+                        tvSignUpIdWaring.visibility = View.VISIBLE
+                    }
+                }
             }
         }
     }
 
     private fun pwObserver() {
-        viewModel.pw.observe(this) {
-            with(binding) {
-                if (viewModel!!.isPwEnabled()) tvSignUpPwWaring.visibility =
-                    View.INVISIBLE else tvSignUpPwWaring.visibility = View.VISIBLE
+        viewModel.pw.observe(this) { pw ->
+            binding.viewModel?.let { viewModel ->
+                with(binding) {
+                    if (viewModel.isPwEnabled()) {
+                        tvSignUpPwWaring.visibility = View.INVISIBLE
+                    } else {
+                        tvSignUpPwWaring.visibility = View.VISIBLE
+                    }
+                }
             }
         }
     }

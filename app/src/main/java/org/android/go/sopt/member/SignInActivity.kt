@@ -46,11 +46,13 @@ class SignInActivity : AppCompatActivity() {
 
     private fun signInBtnClickListener() {
         binding.btnSignInLogin.setOnClickListener {
-            with(binding) {
-                viewModel!!.signIn(
-                    etSignInId.text.toString(),
-                    etSignInPw.text.toString()
-                )
+            binding.viewModel?.let { viewModel ->
+                with(binding) {
+                    viewModel.signIn(
+                        etSignInId.text.toString(),
+                        etSignInPw.text.toString()
+                    )
+                }
             }
         }
     }
