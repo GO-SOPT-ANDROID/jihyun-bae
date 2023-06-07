@@ -23,9 +23,9 @@ class SignUpViewModel : ViewModel() {
     val signUpMessage: LiveData<String> = _signUpMessage
     private val signUpService = MemberServicePool.signUpService
 
-    val idRegex = Regex("^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{6,10}")
+    val idRegex = Regex(ID_PATTERN)
     val pwRegex =
-        Regex("^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#%^&*()])[a-zA-Z0-9!@#%^&*()]{6,12}")
+        Regex(PW_PATTERN)
 
     val signUpEnabled = MediatorLiveData<Boolean>().apply {
         addSource(id) { value = checkSignUpEnabled() }
@@ -77,5 +77,11 @@ class SignUpViewModel : ViewModel() {
             }
 
         })
+    }
+
+    companion object {
+        const val ID_PATTERN = "^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{6,10}"
+        const val PW_PATTERN =
+            "^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#%^&*()])[a-zA-Z0-9!@#%^&*()]{6,12}"
     }
 }
