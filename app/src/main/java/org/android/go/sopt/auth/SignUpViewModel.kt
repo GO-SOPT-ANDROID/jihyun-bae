@@ -4,12 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import org.android.go.sopt.data.remote.api.MemberServicePool
-import org.android.go.sopt.data.remote.model.RequestSignUpDto
+import org.android.go.sopt.data.remote.datasource.AuthRemoteDataSource
 import org.android.go.sopt.data.remote.model.ResponseSignUpDto
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class SignUpViewModel : ViewModel() {
     val id: MutableLiveData<String> = MutableLiveData()
@@ -21,7 +20,9 @@ class SignUpViewModel : ViewModel() {
     val signUpResult: LiveData<ResponseSignUpDto> = _signUpResult
     private val _signUpMessage: MutableLiveData<String> = MutableLiveData()
     val signUpMessage: LiveData<String> = _signUpMessage
-    private val signUpService = MemberServicePool.authService
+
+    private val authService = MemberServicePool.authService
+    private val authRemoteDataSource = AuthRemoteDataSource(authService)
 
     val idRegex = Regex(ID_PATTERN)
     val pwRegex =
@@ -52,31 +53,19 @@ class SignUpViewModel : ViewModel() {
     }
 
     fun signUp(id: String, pw: String, name: String, specialty: String) {
-        signUpService.signUp(
-            RequestSignUpDto(
-                id,
-                pw,
-                name,
-                specialty
-            )
-        ).enqueue(object : Callback<ResponseSignUpDto> {
-            override fun onResponse(
-                call: Call<ResponseSignUpDto>,
-                response: Response<ResponseSignUpDto>
-            ) {
+        viewModelScope.launch {
+            try {
+                val response = authRemoteDataSource.signUp(id, pw, name, specialty)
                 if (response.isSuccessful) {
-                    _signUpMessage.value = response.body()?.message ?: "회원가입 완료"
+                    _signUpMessage.value = response.body()?.message ?: "회원가입에 성공했습니다."
                     _signUpResult.value = response.body()
                 } else {
-                    _signUpMessage.value = response.body()?.message ?: "회원가입이 실패하였습니다."
+                    _signUpMessage.value = "회원가입에 실패했습니다."
                 }
+            } catch (e: Exception) {
+                _signUpMessage.value = e.message ?: "회원가입 중 오류가 발생했습니다."
             }
-
-            override fun onFailure(call: Call<ResponseSignUpDto>, t: Throwable) {
-                _signUpMessage.value = t.message ?: "서버와 통신이 원활하지 않습니다."
-            }
-
-        })
+        }
     }
 
     companion object {

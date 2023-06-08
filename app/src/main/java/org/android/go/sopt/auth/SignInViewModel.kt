@@ -10,12 +10,14 @@ import org.android.go.sopt.data.remote.datasource.AuthRemoteDataSource
 import org.android.go.sopt.data.remote.model.ResponseSignInDto
 
 class SignInViewModel : ViewModel() {
-    private val _signInResult: MutableLiveData<ResponseSignInDto> = MutableLiveData()
-    val signInResult: LiveData<ResponseSignInDto> = _signInResult
     val id: MutableLiveData<String> = MutableLiveData()
     val pw: MutableLiveData<String> = MutableLiveData()
+
+    private val _signInResult: MutableLiveData<ResponseSignInDto> = MutableLiveData()
+    val signInResult: LiveData<ResponseSignInDto> = _signInResult
     private val _signInMessage: MutableLiveData<String> = MutableLiveData()
     val signInMessage: LiveData<String> = _signInMessage
+
     private val authService = MemberServicePool.authService
     private val authRemoteDataSource = AuthRemoteDataSource(authService)
 
