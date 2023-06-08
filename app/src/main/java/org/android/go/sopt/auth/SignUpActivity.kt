@@ -5,6 +5,7 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import org.android.go.sopt.R
 import org.android.go.sopt.databinding.ActivitySignUpBinding
 import org.android.go.sopt.util.extension.hideKeyboard
 import org.android.go.sopt.util.extension.showToast
@@ -40,7 +41,7 @@ class SignUpActivity : AppCompatActivity() {
             if (viewModel.checkSignUpEnabled()) {
                 completeSignUp()
             } else {
-
+                showToast(getString(R.string.sign_up_failed))
             }
         }
     }
