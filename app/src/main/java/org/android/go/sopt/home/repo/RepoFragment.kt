@@ -1,4 +1,4 @@
-package org.android.go.sopt.home
+package org.android.go.sopt.home.repo
 
 import android.os.Bundle
 import android.view.LayoutInflater

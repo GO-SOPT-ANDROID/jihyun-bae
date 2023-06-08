@@ -11,7 +11,6 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ConcatAdapter
 import org.android.go.sopt.data.remote.model.ResponseListUsersDto
 import org.android.go.sopt.databinding.FragmentHomeBinding
-import org.android.go.sopt.home.TitleViewModel
 import org.android.go.sopt.home.adapter.TitleAdapter
 import org.android.go.sopt.home.adapter.UserAdapter
 import org.android.go.sopt.home.dialog.LoadingDialog
