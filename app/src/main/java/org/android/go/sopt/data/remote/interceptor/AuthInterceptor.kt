@@ -1,4 +1,4 @@
-package org.android.go.sopt.data.remote
+package org.android.go.sopt.data.remote.interceptor
 
 import okhttp3.Interceptor
 import okhttp3.Response
