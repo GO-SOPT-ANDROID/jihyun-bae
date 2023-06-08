@@ -48,7 +48,7 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun completeSignUp() {
         with(binding) {
-            viewModel!!.signUp(
+            viewModel?.signUp(
                 etSignUpId.text.toString(),
                 etSignUpPw.text.toString(),
                 etSignUpName.text.toString(),
