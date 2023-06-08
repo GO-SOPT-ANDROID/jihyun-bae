@@ -21,7 +21,7 @@ class SignUpViewModel : ViewModel() {
     val signUpResult: LiveData<ResponseSignUpDto> = _signUpResult
     private val _signUpMessage: MutableLiveData<String> = MutableLiveData()
     val signUpMessage: LiveData<String> = _signUpMessage
-    private val signUpService = MemberServicePool.signUpService
+    private val signUpService = MemberServicePool.authService
 
     val idRegex = Regex(ID_PATTERN)
     val pwRegex =

@@ -16,8 +16,8 @@ class SignInViewModel : ViewModel() {
     val pw: MutableLiveData<String> = MutableLiveData()
     private val _signInMessage: MutableLiveData<String> = MutableLiveData()
     val signInMessage: LiveData<String> = _signInMessage
-    private val loginService = MemberServicePool.loginService
-    private val authRemoteDataSource = AuthRemoteDataSource(loginService)
+    private val authService = MemberServicePool.authService
+    private val authRemoteDataSource = AuthRemoteDataSource(authService)
 
     fun signIn(id: String, pw: String) {
         viewModelScope.launch {

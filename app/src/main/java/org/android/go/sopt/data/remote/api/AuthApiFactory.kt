@@ -7,11 +7,10 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.android.go.sopt.BuildConfig
 import org.android.go.sopt.data.remote.interceptor.AuthInterceptor
-import org.android.go.sopt.data.remote.service.SignInService
-import org.android.go.sopt.data.remote.service.SignUpService
+import org.android.go.sopt.data.remote.service.AuthService
 import retrofit2.Retrofit
 
-object MemberApiFactory {
+object AuthApiFactory {
     private const val BASE_URL = BuildConfig.AUTH_BASE_URL
 
     private val client by lazy {
@@ -36,6 +35,5 @@ object MemberApiFactory {
 }
 
 object MemberServicePool {
-    val signUpService = MemberApiFactory.create<SignUpService>()
-    val loginService = MemberApiFactory.create<SignInService>()
+    val authService = AuthApiFactory.create<AuthService>()
 }

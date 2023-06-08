@@ -11,10 +11,10 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-class AuthRemoteDataSource(private val signInService: SignInService) : AuthRepository {
+class AuthRemoteDataSource(private val authService: AuthService) : AuthRepository {
     override suspend fun signIn(id: String, pw: String): Response<ResponseSignInDto> {
         return suspendCoroutine { continuation ->
-            signInService.signIn(
+            authService.signIn(
                 RequestSignInDto(
                     id,
                     pw
