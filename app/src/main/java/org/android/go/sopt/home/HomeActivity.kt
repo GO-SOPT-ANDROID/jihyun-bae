@@ -9,6 +9,7 @@ import org.android.go.sopt.databinding.ActivityHomeBinding
 import org.android.go.sopt.databinding.FragmentRepoBinding
 import org.android.go.sopt.home.home.HomeFragment
 import org.android.go.sopt.home.repo.RepoFragment
+import org.android.go.sopt.home.search.SearchFragment
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
