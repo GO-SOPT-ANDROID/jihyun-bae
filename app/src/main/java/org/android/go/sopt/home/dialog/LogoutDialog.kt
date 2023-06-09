@@ -8,7 +8,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.WindowManager
 import org.android.go.sopt.databinding.DialogLogoutBinding
-import org.android.go.sopt.member.SignInActivity
+import org.android.go.sopt.auth.SignInActivity
 
 class LogoutDialog(
     context: Context

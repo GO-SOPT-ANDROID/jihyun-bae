@@ -1,4 +1,4 @@
-package org.android.go.sopt.home
+package org.android.go.sopt.home.home
 
 import androidx.lifecycle.ViewModel
 import org.android.go.sopt.home.data.Title
