@@ -25,8 +25,8 @@ class GalleryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.vpGallery.adapter = GalleryAdapter().apply {
-            setGalleryItemList(
+        binding.vpGallery.adapter = GalleryAdapter(requireContext()).apply {
+            submitList(
                 listOf(
                     R.drawable.img_keroro_afro,
                     R.drawable.img_keroro_king,
