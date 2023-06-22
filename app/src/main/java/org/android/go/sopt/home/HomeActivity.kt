@@ -9,6 +9,7 @@ import org.android.go.sopt.databinding.ActivityHomeBinding
 import org.android.go.sopt.databinding.FragmentRepoBinding
 import org.android.go.sopt.home.gallery.GalleryFragment
 import org.android.go.sopt.home.home.HomeFragment
+import org.android.go.sopt.home.music.MusicFragment
 import org.android.go.sopt.home.repo.RepoFragment
 import org.android.go.sopt.home.search.SearchFragment
 
@@ -38,7 +39,7 @@ class HomeActivity : AppCompatActivity() {
                     }
 
                     R.id.menu_gallery -> {
-                        GalleryFragment()
+                        MusicFragment()
                     }
 
                     R.id.menu_repositories -> {
