@@ -61,6 +61,7 @@ class SignInActivity : AppCompatActivity() {
         viewModel.signInResult.observe(this) { signInResult ->
             moveHomeActivity()
             saveAutoLoginInfo(
+                signInResult.data.id ?: "",
                 signInResult.data.name ?: "",
                 signInResult.data.skill ?: ""
             )
@@ -80,9 +81,10 @@ class SignInActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun saveAutoLoginInfo(savedName: String, savedSpecialty: String) {
+    private fun saveAutoLoginInfo(savedId: String, savedName: String, savedSpecialty: String) {
         val sharedPreference = getSharedPreferences("autoLogin", Activity.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreference.edit()
+        editor.putString("id", savedId)
         editor.putString("name", savedName)
         editor.putString("specialty", savedSpecialty)
         editor.commit()
