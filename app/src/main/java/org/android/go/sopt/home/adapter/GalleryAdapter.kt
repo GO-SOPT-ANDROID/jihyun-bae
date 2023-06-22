@@ -1,15 +1,17 @@
 package org.android.go.sopt.home.adapter
 
 import android.content.Context
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.api.load
 import org.android.go.sopt.databinding.ItemGalleryBinding
 import org.android.go.sopt.util.extension.ItemDiffCallback
 
-class GalleryAdapter(context: Context) : ListAdapter<Int, RecyclerView.ViewHolder>(
-    ItemDiffCallback<Int>(
+class GalleryAdapter(context: Context) : ListAdapter<Uri, RecyclerView.ViewHolder>(
+    ItemDiffCallback<Uri>(
         onContentsTheSame = { old, new -> old == new },
         onItemsTheSame = { old, new -> old == new }
     )
@@ -19,8 +21,8 @@ class GalleryAdapter(context: Context) : ListAdapter<Int, RecyclerView.ViewHolde
     class GalleryViewHolder(
         private val binding: ItemGalleryBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun onBind(item: Int) {
-            binding.ivItemGallery.setImageResource(item)
+        fun onBind(item: Uri) {
+            binding.ivItemGallery.load(item)
         }
     }
 
@@ -38,5 +40,12 @@ class GalleryAdapter(context: Context) : ListAdapter<Int, RecyclerView.ViewHolde
                 currentList[position]
             )
         }
+    }
+
+    fun addListItem(newItem: Uri) {
+        val tempCurrentList = mutableListOf<Uri>()
+        tempCurrentList.addAll(currentList)
+        tempCurrentList.add(newItem)
+        submitList(tempCurrentList)
     }
 }
