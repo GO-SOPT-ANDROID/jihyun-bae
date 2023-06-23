@@ -8,8 +8,8 @@ interface MusicRepository {
     suspend fun uploadMusicInfo(
         id: String,
         image: MultipartBody.Part,
-        title: String,
-        singer: String
+        singer: String,
+        title: String
     )
 
     suspend fun getMusicList(id: String): Response<ResponseMusicDto>

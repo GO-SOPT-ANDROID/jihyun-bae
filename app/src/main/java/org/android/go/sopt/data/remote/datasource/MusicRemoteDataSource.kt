@@ -18,8 +18,8 @@ class MusicRemoteDataSource(private val musicService: MusicService) : MusicRepos
     override suspend fun uploadMusicInfo(
         id: String,
         image: MultipartBody.Part,
-        title: String,
-        singer: String
+        singer: String,
+        title: String
     ) {
         return suspendCoroutine { continuation ->
             val titleBody = title.toRequestBody("text/plain".toMediaType())
