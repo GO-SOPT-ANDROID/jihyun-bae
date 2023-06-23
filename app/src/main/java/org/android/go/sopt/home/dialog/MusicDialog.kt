@@ -44,6 +44,7 @@ class MusicDialog(
             val singer = binding.etDialogUploadMusicSinger.text.toString()
 
             viewModel.uploadMusic(id, image.toFormData(), singer, title)
+            viewModel.getMusicList(id)
             dismiss()
         }
     }
