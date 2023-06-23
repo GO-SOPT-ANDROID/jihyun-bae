@@ -4,16 +4,21 @@ import android.app.Activity
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import coil.api.load
 import org.android.go.sopt.data.remote.model.ResponseMusicDto
 import org.android.go.sopt.databinding.FragmentMusicBinding
 import org.android.go.sopt.home.adapter.MusicAdapter
 import org.android.go.sopt.home.dialog.LoadingDialog
+import org.android.go.sopt.home.dialog.MusicDialog
+import org.android.go.sopt.util.extension.ContentUriRequestBody
 
 class MusicFragment : Fragment() {
     private var _binding: FragmentMusicBinding? = null
@@ -21,7 +26,9 @@ class MusicFragment : Fragment() {
         get() = requireNotNull(_binding) { "앗 ! _binding이 null이다 !" }
     private val viewModel by viewModels<MusicViewModel>()
     private lateinit var id: String
-    private lateinit var dialog: LoadingDialog
+    private lateinit var loadingDialog: LoadingDialog
+    private lateinit var musicDialog: MusicDialog
+    private lateinit var imagePickerLauncher: ActivityResultLauncher<PickVisualMediaRequest>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,16 +36,17 @@ class MusicFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentMusicBinding.inflate(inflater, container, false)
+        initImagePickerLauncher()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setId()
-        Log.e("music", id)
         viewModel.getMusicList(id)
         getListMusicResultObserver()
         isLoadingObserver()
+        setFabMusicMainClickListener()
     }
 
     override fun onDestroyView() {
@@ -61,20 +69,40 @@ class MusicFragment : Fragment() {
     private fun getListMusicResultObserver() {
         viewModel.getListMusicResult.observe(viewLifecycleOwner) { listMusicResult ->
             connectAdapter(listMusicResult.data.musicList)
-            Log.e("music", "nn")
         }
     }
 
     private fun isLoadingObserver() {
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            if (isLoading) showLoadingDialog() else dialog.dismiss()
+            if (isLoading) showLoadingDialog() else loadingDialog.dismiss()
         }
     }
 
     private fun showLoadingDialog() {
-        dialog = LoadingDialog(requireContext())
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.show()
+        loadingDialog = LoadingDialog(requireContext())
+        loadingDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        loadingDialog.show()
+    }
+
+    private fun setFabMusicMainClickListener() {
+        binding.fabMusicMain.setOnClickListener {
+            showMusicDialog()
+        }
+    }
+
+    private fun showMusicDialog() {
+        musicDialog = MusicDialog(requireContext(), id, viewModel, imagePickerLauncher)
+        musicDialog.show()
+    }
+
+    private fun initImagePickerLauncher() {
+        imagePickerLauncher =
+            registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { imageUri ->
+                imageUri?.let {
+                    musicDialog.binding.ivDialogUploadMusicImage.load(imageUri)
+                    musicDialog.image = ContentUriRequestBody(requireContext(), it)
+                }
+            }
     }
 }
 

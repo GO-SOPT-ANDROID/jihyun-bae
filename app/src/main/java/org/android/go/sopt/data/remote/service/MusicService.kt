@@ -17,8 +17,8 @@ interface MusicService {
     fun uploadMusic(
         @Header("id") id: String,
         @Part image: MultipartBody.Part,
-        @Part("title") title: String,
-        @Part("singer") singer: String
+        @Part("title") title: RequestBody,
+        @Part("singer") singer: RequestBody
     ): Call<Unit>
 
     @GET("{id}/music")

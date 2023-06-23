@@ -1,6 +1,5 @@
 package org.android.go.sopt.home.music
 
-import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,9 +12,6 @@ import org.android.go.sopt.data.remote.datasource.MusicRemoteDataSource
 import org.android.go.sopt.data.remote.model.ResponseMusicDto
 
 class MusicViewModel : ViewModel() {
-    val image: MutableLiveData<Uri> = MutableLiveData()
-    val title: MutableLiveData<String> = MutableLiveData()
-    val singer: MutableLiveData<String> = MutableLiveData()
     private val _getListMusicResult: MutableLiveData<ResponseMusicDto> = MutableLiveData()
     val getListMusicResult: LiveData<ResponseMusicDto> = _getListMusicResult
     private val _isLoading: MutableLiveData<Boolean> = MutableLiveData(false)
@@ -41,12 +37,10 @@ class MusicViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val response = musicRemoteDataSource.getMusicList(id)
-                Log.e("music", response.toString())
                 if (response.isSuccessful) _getListMusicResult.value = response.body()
                 _isLoading.value = false
             } catch (e: Exception) {
                 _isLoading.value = false
-                Log.e("music", e.toString())
             }
         }
     }

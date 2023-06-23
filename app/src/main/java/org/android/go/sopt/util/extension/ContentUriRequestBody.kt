@@ -48,5 +48,5 @@ class ContentUriRequestBody(
         }
     }
 
-    fun toFormData() = MultipartBody.Part.createFormData("file", getFileName(), this)
+    fun toFormData() = MultipartBody.Part.createFormData("image", getFileName(), this)
 }
