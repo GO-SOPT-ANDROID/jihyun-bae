@@ -24,6 +24,7 @@ class MusicViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 musicRemoteDataSource.uploadMusicInfo(id, image, singer, title)
+                getMusicList(id)
                 Log.d("music", "음악 업로드 요청 완료!")
             } catch (e: Exception) {
                 Log.e("music", "음악 업로드 중 오류 발생: ${e.message}")
