@@ -41,4 +41,10 @@
     <string name="dialog_loading">Loading...</string>
     <string name="my_page_image_select">이미지 선택하기</string>
     <string name="gallery_not_select_image">이미지를 선택하지 않았습니다.</string>
+    <string name="dialog_upload_music_title">Title</string>
+    <string name="dialog_upload_music_title_hint">제목을 입력하세요.</string>
+    <string name="dialog_upload_music_singer">Singer</string>
+    <string name="dialog_upload_music_singer_hint">가수 정보를 입력하세요.</string>
+    <string name="dialog_upload_music_upload">UPLOAD</string>
+    <string name="dialog_upload_music_image_select">사진 선택</string>
 </resources>
