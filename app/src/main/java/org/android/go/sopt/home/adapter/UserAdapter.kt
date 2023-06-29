@@ -25,7 +25,7 @@ class UserAdapter(context: Context) :
         fun onBind(data: ResponseListUsersDto.Data) {
             with(binding) {
                 ivItemUserImg.load(data.avatar)
-                tvItemUserName.text = "${data.first_name} ${data.last_name}"
+                tvItemUserName.text = "${data.firstName} ${data.lastName}"
                 tvItemUserEmail.text = data.email
             }
         }

@@ -13,9 +13,9 @@ class ResponseKakaoSearchDto(
     @Serializable
     data class Meta(
         @SerialName("total_count")
-        val total_count: Int,
+        val totalCount: Int,
         @SerialName("pageable_count")
-        val pageable_count: Int,
+        val pageableCount: Int,
         @SerialName("is_end")
         val is_end: Boolean,
     )
