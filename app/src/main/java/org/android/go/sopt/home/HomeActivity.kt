@@ -1,21 +1,18 @@
 package org.android.go.sopt.home
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import org.android.go.sopt.R
 import org.android.go.sopt.databinding.ActivityHomeBinding
 import org.android.go.sopt.databinding.FragmentRepoBinding
-import org.android.go.sopt.home.gallery.GalleryFragment
 import org.android.go.sopt.home.home.HomeFragment
 import org.android.go.sopt.home.music.MusicFragment
 import org.android.go.sopt.home.repo.RepoFragment
 import org.android.go.sopt.home.search.SearchFragment
+import org.android.go.sopt.util.binding.BindingActivity
 
-class HomeActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityHomeBinding
-
+class HomeActivity : BindingActivity<ActivityHomeBinding>(R.layout.activity_home) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
