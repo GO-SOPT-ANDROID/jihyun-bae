@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import coil.api.load
 import org.android.go.sopt.data.remote.model.ResponseListUsersDto
 import org.android.go.sopt.databinding.ItemUserBinding
 import org.android.go.sopt.util.extension.ItemDiffCallback
@@ -23,11 +22,7 @@ class UserAdapter(context: Context) :
         private val binding: ItemUserBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: ResponseListUsersDto.Data) {
-            with(binding) {
-                ivItemUserImg.load(data.avatar)
-                tvItemUserName.text = "${data.firstName} ${data.lastName}"
-                tvItemUserEmail.text = data.email
-            }
+            binding.user = data
         }
     }
 
