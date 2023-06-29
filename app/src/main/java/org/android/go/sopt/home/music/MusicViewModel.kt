@@ -36,13 +36,15 @@ class MusicViewModel : ViewModel() {
         _isLoading.value = true
 
         viewModelScope.launch {
-            try {
-                val response = musicRemoteDataSource.getMusicList(id)
-                if (response.isSuccessful) _getListMusicResult.value = response.body()
-                _isLoading.value = false
-            } catch (e: Exception) {
-                _isLoading.value = false
+            val result = runCatching {
+                musicRemoteDataSource.getMusicList(id)
             }
+
+            result.onSuccess { response ->
+                if (response.isSuccessful) _getListMusicResult.value = response.body()
+            }
+
+            _isLoading.value = false
         }
     }
 }
