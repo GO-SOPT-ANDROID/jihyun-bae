@@ -1,10 +1,7 @@
 package org.android.go.sopt.home.repo
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
@@ -15,24 +12,13 @@ import org.android.go.sopt.databinding.FragmentRepoBinding
 import org.android.go.sopt.home.adapter.RepoAdapter
 import org.android.go.sopt.home.data.Repo
 import org.android.go.sopt.home.dialog.AddItemDialog
+import org.android.go.sopt.util.binding.BindingFragment
 
-class RepoFragment : Fragment() {
-    private var _binding: FragmentRepoBinding? = null
-    private val binding: FragmentRepoBinding
-        get() = requireNotNull(_binding) { "앗 ! _binding이 null이다 !" }
+class RepoFragment : BindingFragment<FragmentRepoBinding>(R.layout.fragment_repo) {
     private val viewModel by viewModels<RepoViewModel>()
     private lateinit var selectionTracker: SelectionTracker<Long>
     private lateinit var homeAdapter: RepoAdapter
     private lateinit var dialog: AddItemDialog
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentRepoBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,11 +27,6 @@ class RepoFragment : Fragment() {
         setUpSelectionTracker()
         setSelectedItemDeleteObserver()
         setFabHomeAddClickListener()
-    }
-
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
     }
 
     private fun connectAdapter() {

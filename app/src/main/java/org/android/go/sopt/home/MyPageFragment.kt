@@ -2,38 +2,20 @@ package org.android.go.sopt.home
 
 import android.app.Activity
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import org.android.go.sopt.R
 import org.android.go.sopt.databinding.FragmentMyPageBinding
 import org.android.go.sopt.home.dialog.LogoutDialog
+import org.android.go.sopt.util.binding.BindingFragment
 
 
-class MyPageFragment : Fragment() {
-    private var _binding: FragmentMyPageBinding? = null
-    private val binding: FragmentMyPageBinding
-        get() = requireNotNull(_binding) { "앗 ! _binding이 null이다 !" }
+class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_my_page) {
     private lateinit var dialog: LogoutDialog
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentMyPageBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setMyPageData()
         setMyPageLogoutBtnClickListener()
-    }
-
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
     }
 
     private fun setMyPageLogoutBtnClickListener() {

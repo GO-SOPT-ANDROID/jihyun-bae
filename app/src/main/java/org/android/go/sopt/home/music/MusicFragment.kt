@@ -4,41 +4,27 @@ import android.app.Activity
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import coil.api.load
+import org.android.go.sopt.R
 import org.android.go.sopt.data.remote.model.ResponseMusicDto
 import org.android.go.sopt.databinding.FragmentMusicBinding
 import org.android.go.sopt.home.adapter.MusicAdapter
 import org.android.go.sopt.home.dialog.LoadingDialog
 import org.android.go.sopt.home.dialog.MusicDialog
+import org.android.go.sopt.util.binding.BindingFragment
 import org.android.go.sopt.util.extension.ContentUriRequestBody
 
-class MusicFragment : Fragment() {
-    private var _binding: FragmentMusicBinding? = null
-    private val binding: FragmentMusicBinding
-        get() = requireNotNull(_binding) { "앗 ! _binding이 null이다 !" }
+class MusicFragment : BindingFragment<FragmentMusicBinding>(R.layout.fragment_music) {
     private val viewModel by viewModels<MusicViewModel>()
     private lateinit var id: String
     private lateinit var loadingDialog: LoadingDialog
     private lateinit var musicDialog: MusicDialog
     private lateinit var imagePickerLauncher: ActivityResultLauncher<PickVisualMediaRequest>
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentMusicBinding.inflate(inflater, container, false)
-        initImagePickerLauncher()
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -47,11 +33,6 @@ class MusicFragment : Fragment() {
         getListMusicResultObserver()
         isLoadingObserver()
         setFabMusicMainClickListener()
-    }
-
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
     }
 
     private fun setId() {
