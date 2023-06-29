@@ -30,9 +30,7 @@ class RepoAdapter(context: Context) : ListAdapter<Repo, RecyclerView.ViewHolder>
         private val binding: ItemGithubRepoBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: Repo, isActivated: Boolean = false) {
-            binding.ivItemGithubRepoImg.setImageDrawable(binding.root.context.getDrawable(data.image))
-            binding.tvItemGithubRepoName.text = data.name
-            binding.tvItemGithubRepoAuthor.text = data.author
+            binding.repo = data
             itemView.isActivated = isActivated
         }
 
@@ -76,6 +74,7 @@ class RepoAdapter(context: Context) : ListAdapter<Repo, RecyclerView.ViewHolder>
                 val binding = ItemTitleBinding.inflate(inflater, parent, false)
                 TitleViewHolder(binding)
             }
+
             else -> {
                 val binding = ItemGithubRepoBinding.inflate(inflater, parent, false)
                 RepoViewHolder(binding)

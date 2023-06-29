@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import coil.api.load
 import org.android.go.sopt.data.remote.model.ResponseMusicDto
 import org.android.go.sopt.databinding.ItemMusicBinding
 import org.android.go.sopt.util.extension.ItemDiffCallback
@@ -23,11 +22,7 @@ class MusicAdapter(context: Context) :
         private val binding: ItemMusicBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: ResponseMusicDto.MusicData) {
-            with(binding) {
-                ivItemMusicImg.load(data.url)
-                tvItemMusicTitle.text = data.title
-                tvItemMusicSinger.text = data.singer
-            }
+            binding.music = data
         }
     }
 

@@ -1,54 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/tv_item_search_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="10dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textAppearance="?textAppearanceBodyMedium"
-        android:textColor="?attr/colorOnBackground"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="검색 제목" />
+    <data>
 
-    <TextView
-        android:id="@+id/tv_search_contents"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:ellipsize="end"
-        android:maxLines="3"
-        android:textAppearance="?textAppearanceBodySmall"
-        app:layout_constrainedWidth="true"
-        app:layout_constraintEnd_toEndOf="@+id/tv_item_search_title"
-        app:layout_constraintStart_toStartOf="@+id/tv_item_search_title"
-        app:layout_constraintTop_toBottomOf="@id/tv_item_search_title"
-        tools:text="검색 내용..." />
+        <variable
+            name="search"
+            type="org.android.go.sopt.data.remote.model.ResponseKakaoSearchDto.Document" />
+    </data>
 
-    <TextView
-        android:id="@+id/tv_search_url"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="10dp"
-        android:autoLink="web"
-        android:linksClickable="true"
-        android:textAppearance="?textAppearanceBodySmall"
-        android:textColor="@color/grey_400"
-        android:textStyle="italic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/tv_item_search_title"
-        app:layout_constraintStart_toStartOf="@+id/tv_item_search_title"
-        app:layout_constraintTop_toBottomOf="@+id/tv_search_contents"
-        tools:text="검색 url" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tv_item_search_title"
+            htmlText="@{search.title}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="10dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="?textAppearanceBodyMedium"
+            android:textColor="?attr/colorOnBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="검색 제목" />
+
+        <TextView
+            android:id="@+id/tv_search_contents"
+            htmlText="@{search.contents}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:textAppearance="?textAppearanceBodySmall"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="@+id/tv_item_search_title"
+            app:layout_constraintStart_toStartOf="@+id/tv_item_search_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_item_search_title"
+            tools:text="검색 내용..." />
+
+        <TextView
+            android:id="@+id/tv_search_url"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:autoLink="web"
+            android:linksClickable="true"
+            android:text="@{search.url}"
+            android:textAppearance="?textAppearanceBodySmall"
+            android:textColor="@color/grey_400"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tv_item_search_title"
+            app:layout_constraintStart_toStartOf="@+id/tv_item_search_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_search_contents"
+            tools:text="검색 url" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
