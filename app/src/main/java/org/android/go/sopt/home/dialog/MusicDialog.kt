@@ -24,12 +24,11 @@ class MusicDialog(
         super.onCreate(savedInstanceState)
         binding = DialogUploadMusicBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        initViews()
-        btnDialogUploadMusicSelectImageClickListener()
-        btnDialogUploadMusicSaveClickListener()
+        initLayout()
+        addListeners()
     }
 
-    private fun initViews() {
+    private fun initLayout() {
         window!!.setLayout(
             WindowManager.LayoutParams.MATCH_PARENT,
             WindowManager.LayoutParams.WRAP_CONTENT
@@ -38,7 +37,7 @@ class MusicDialog(
         setCanceledOnTouchOutside(true)
     }
 
-    private fun btnDialogUploadMusicSaveClickListener() {
+    private fun addListeners() {
         binding.btnDialogUploadMusicSave.setOnClickListener {
             val title = binding.etDialogUploadMusicTitle.text.toString()
             val singer = binding.etDialogUploadMusicSinger.text.toString()
@@ -46,9 +45,7 @@ class MusicDialog(
             viewModel.uploadMusic(id, image.toFormData(), singer, title)
             dismiss()
         }
-    }
 
-    private fun btnDialogUploadMusicSelectImageClickListener() {
         binding.btnDialogUploadMusicSelectImage.setOnClickListener {
             imagePickerLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageAndVideo))
         }

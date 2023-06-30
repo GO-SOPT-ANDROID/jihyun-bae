@@ -14,11 +14,18 @@ class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setMyPageData()
-        setMyPageLogoutBtnClickListener()
+        initLayout()
+        addListeners()
     }
 
-    private fun setMyPageLogoutBtnClickListener() {
+    private fun initLayout() {
+        val sharedPreference =
+            requireActivity().getSharedPreferences("autoLogin", Activity.MODE_PRIVATE)
+        binding.tvMyPageName.text = "이름 : ${sharedPreference.getString("name", "")}"
+        binding.tvMyPageSpecialty.text = "특기 : ${sharedPreference.getString("specialty", "")}"
+    }
+
+    private fun addListeners() {
         binding.btnMyPageLogout.setOnClickListener {
             showLogOutDialog()
         }
@@ -27,12 +34,5 @@ class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_
     private fun showLogOutDialog() {
         dialog = LogoutDialog(requireContext())
         dialog.show()
-    }
-
-    private fun setMyPageData() {
-        val sharedPreference =
-            requireActivity().getSharedPreferences("autoLogin", Activity.MODE_PRIVATE)
-        binding.tvMyPageName.text = "이름 : ${sharedPreference.getString("name", "")}"
-        binding.tvMyPageSpecialty.text = "특기 : ${sharedPreference.getString("specialty", "")}"
     }
 }

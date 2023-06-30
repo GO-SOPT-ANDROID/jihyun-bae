@@ -7,8 +7,8 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.WindowManager
-import org.android.go.sopt.databinding.DialogLogoutBinding
 import org.android.go.sopt.auth.SignInActivity
+import org.android.go.sopt.databinding.DialogLogoutBinding
 
 class LogoutDialog(
     context: Context
@@ -20,12 +20,11 @@ class LogoutDialog(
         binding = DialogLogoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initViews()
-        noBtnClickListener()
-        yesBtnClickListener()
+        initLayout()
+        addListeners()
     }
 
-    private fun initViews() {
+    private fun initLayout() {
         window!!.setLayout(
             WindowManager.LayoutParams.MATCH_PARENT,
             WindowManager.LayoutParams.WRAP_CONTENT
@@ -34,17 +33,16 @@ class LogoutDialog(
         setCanceledOnTouchOutside(true)
     }
 
-    private fun noBtnClickListener() {
+    private fun addListeners() {
         binding.btnDialogLogoutNo.setOnClickListener {
             dismiss()
         }
-    }
 
-    private fun yesBtnClickListener() {
         binding.btnDialogLogoutYes.setOnClickListener {
             clearAutoLogin()
             dismiss()
-            moveLoginActivity()
+            val intent = Intent(context, SignInActivity::class.java)
+            context.startActivity(intent)
         }
     }
 
@@ -53,10 +51,5 @@ class LogoutDialog(
         val editor: SharedPreferences.Editor = sharedPreference.edit()
         editor.clear()
         editor.commit()
-    }
-
-    private fun moveLoginActivity() {
-        val intent = Intent(context, SignInActivity::class.java)
-        context.startActivity(intent)
     }
 }

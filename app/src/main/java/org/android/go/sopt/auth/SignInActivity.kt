@@ -24,9 +24,8 @@ class SignInActivity : BindingActivity<ActivitySignInBinding>(R.layout.activity_
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        clickSignUp()
-        signInResultObserver()
-        signInMessageObserver()
+        addListeners()
+        addObservers()
         setAutoLogin()
     }
 
@@ -35,14 +34,14 @@ class SignInActivity : BindingActivity<ActivitySignInBinding>(R.layout.activity_
         return super.dispatchTouchEvent(ev)
     }
 
-    private fun clickSignUp() {
+    private fun addListeners() {
         binding.btnSignInSignUp.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
     }
 
-    private fun signInResultObserver() {
+    private fun addObservers() {
         viewModel.signInResult.observe(this) { signInResult ->
             moveHomeActivity()
             saveAutoLoginInfo(
@@ -51,9 +50,7 @@ class SignInActivity : BindingActivity<ActivitySignInBinding>(R.layout.activity_
                 signInResult.data.skill ?: ""
             )
         }
-    }
 
-    private fun signInMessageObserver() {
         viewModel.signInMessage.observe(this) { message ->
             showToast(message)
         }

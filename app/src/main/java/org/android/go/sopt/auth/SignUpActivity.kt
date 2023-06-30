@@ -20,8 +20,7 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        signUpMessageObserver()
-        signUpResultObserver()
+        addObservers()
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
@@ -29,13 +28,11 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
         return super.dispatchTouchEvent(ev)
     }
 
-    private fun signUpMessageObserver() {
+    private fun addObservers() {
         viewModel.signUpMessage.observe(this) { message ->
             showToast(message)
         }
-    }
 
-    private fun signUpResultObserver() {
         viewModel.signUpResult.observe(this) { signUpResult ->
             finish()
         }

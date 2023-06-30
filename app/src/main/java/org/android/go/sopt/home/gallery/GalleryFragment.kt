@@ -17,17 +17,12 @@ class GalleryFragment : BindingFragment<FragmentGalleryBinding>(R.layout.fragmen
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        addListeners()
         connectAdapter()
-        btnGallerySelectImageClickListener()
     }
 
-    private fun connectAdapter() {
-        galleryAdapter = GalleryAdapter(requireContext())
-
-        binding.vpGallery.adapter = galleryAdapter
-    }
-
-    private fun btnGallerySelectImageClickListener() {
+    private fun addListeners() {
         val launcher =
             registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { imageUri ->
                 imageUri?.let {
@@ -40,5 +35,11 @@ class GalleryFragment : BindingFragment<FragmentGalleryBinding>(R.layout.fragmen
         binding.btnGallerySelectImage.setOnClickListener {
             launcher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageAndVideo))
         }
+    }
+
+    private fun connectAdapter() {
+        galleryAdapter = GalleryAdapter(requireContext())
+
+        binding.vpGallery.adapter = galleryAdapter
     }
 }

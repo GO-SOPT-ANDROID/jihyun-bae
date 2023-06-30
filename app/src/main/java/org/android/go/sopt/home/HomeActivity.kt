@@ -19,11 +19,19 @@ class HomeActivity : BindingActivity<ActivityHomeBinding>(R.layout.activity_home
         setContentView(binding.root)
 
         initFragment(savedInstanceState)
-        clickNav()
-        scrollToTop()
+        addListeners()
     }
 
-    private fun clickNav() {
+
+    private fun initFragment(savedInstanceState: Bundle?) {
+        if (savedInstanceState == null) {
+            supportFragmentManager.commit {
+                add(R.id.fcv_home_main, HomeFragment())
+            }
+        }
+    }
+
+    private fun addListeners() {
         binding.bnvHomeMain.setOnItemSelectedListener { item ->
             changeFragment(
                 when (item.itemId) {
@@ -50,23 +58,7 @@ class HomeActivity : BindingActivity<ActivityHomeBinding>(R.layout.activity_home
             )
             true
         }
-    }
 
-    private fun initFragment(savedInstanceState: Bundle?) {
-        if (savedInstanceState == null) {
-            supportFragmentManager.commit {
-                add(R.id.fcv_home_main, HomeFragment())
-            }
-        }
-    }
-
-    private fun changeFragment(fragment: Fragment) {
-        supportFragmentManager.commit {
-            replace(R.id.fcv_home_main, fragment)
-        }
-    }
-
-    private fun scrollToTop() {
         binding.bnvHomeMain.setOnItemReselectedListener {
             when (it.itemId) {
                 R.id.menu_home -> {
@@ -78,6 +70,12 @@ class HomeActivity : BindingActivity<ActivityHomeBinding>(R.layout.activity_home
                     }
                 }
             }
+        }
+    }
+
+    private fun changeFragment(fragment: Fragment) {
+        supportFragmentManager.commit {
+            replace(R.id.fcv_home_main, fragment)
         }
     }
 }

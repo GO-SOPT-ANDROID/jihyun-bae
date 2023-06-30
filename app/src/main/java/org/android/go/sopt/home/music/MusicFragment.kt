@@ -28,11 +28,28 @@ class MusicFragment : BindingFragment<FragmentMusicBinding>(R.layout.fragment_mu
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        addListeners()
+        addObservers()
         setId()
         viewModel.getMusicList(id)
-        getListMusicResultObserver()
-        isLoadingObserver()
-        setFabMusicMainClickListener()
+        initImagePickerLauncher()
+    }
+
+    private fun addListeners() {
+        binding.fabMusicMain.setOnClickListener {
+            showMusicDialog()
+        }
+    }
+
+    private fun addObservers() {
+        viewModel.getListMusicResult.observe(viewLifecycleOwner) { listMusicResult ->
+            connectAdapter(listMusicResult.data.musicList)
+        }
+
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) showLoadingDialog() else loadingDialog.dismiss()
+        }
     }
 
     private fun setId() {
@@ -47,28 +64,10 @@ class MusicFragment : BindingFragment<FragmentMusicBinding>(R.layout.fragment_mu
         binding.rvMusicMusics.adapter = musicAdapter
     }
 
-    private fun getListMusicResultObserver() {
-        viewModel.getListMusicResult.observe(viewLifecycleOwner) { listMusicResult ->
-            connectAdapter(listMusicResult.data.musicList)
-        }
-    }
-
-    private fun isLoadingObserver() {
-        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            if (isLoading) showLoadingDialog() else loadingDialog.dismiss()
-        }
-    }
-
     private fun showLoadingDialog() {
         loadingDialog = LoadingDialog(requireContext())
         loadingDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         loadingDialog.show()
-    }
-
-    private fun setFabMusicMainClickListener() {
-        binding.fabMusicMain.setOnClickListener {
-            showMusicDialog()
-        }
     }
 
     private fun showMusicDialog() {

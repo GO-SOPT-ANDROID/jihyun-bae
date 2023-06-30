@@ -24,19 +24,12 @@ class RepoFragment : BindingFragment<FragmentRepoBinding>(R.layout.fragment_repo
         super.onViewCreated(view, savedInstanceState)
 
         connectAdapter()
-        setUpSelectionTracker()
-        setSelectedItemDeleteObserver()
-        setFabHomeAddClickListener()
+        initLayout()
+        addListeners()
+        addObservers()
     }
 
-    private fun connectAdapter() {
-        homeAdapter = RepoAdapter(requireContext())
-        homeAdapter.submitList(viewModel.getMockHomeList())
-
-        binding.rvRepoRepos.adapter = homeAdapter
-    }
-
-    private fun setUpSelectionTracker() {
+    private fun initLayout() {
         selectionTracker = binding.rvRepoRepos.let { recyclerView ->
             SelectionTracker.Builder(
                 "mySelection",
@@ -51,18 +44,12 @@ class RepoFragment : BindingFragment<FragmentRepoBinding>(R.layout.fragment_repo
         homeAdapter.selectionTracker = selectionTracker
     }
 
-    private fun setSelectedItemDeleteObserver() {
-        selectionTracker.addObserver(
-            object : SelectionTracker.SelectionObserver<Long>() {
-                override fun onSelectionChanged() {
-                    super.onSelectionChanged()
-                    setFabHomeDeleteListener()
-                }
-            }
-        )
-    }
+    private fun addListeners() {
+        binding.fabRepoAdd.setOnClickListener {
+            showAddItemDialog()
+            addItem()
+        }
 
-    private fun setFabHomeDeleteListener() {
         binding.fabRepoDelete.setOnClickListener {
             selectionTracker.selection.forEach { selectedItem ->
                 val selectedItemViewHolder =
@@ -76,10 +63,35 @@ class RepoFragment : BindingFragment<FragmentRepoBinding>(R.layout.fragment_repo
         }
     }
 
-    private fun setFabHomeAddClickListener() {
-        binding.fabRepoAdd.setOnClickListener {
-            showAddItemDialog()
-            addItem()
+    private fun addObservers() {
+        selectionTracker.addObserver(
+            object : SelectionTracker.SelectionObserver<Long>() {
+                override fun onSelectionChanged() {
+                    super.onSelectionChanged()
+                    setFabHomeDeleteListener()
+                }
+            }
+        )
+    }
+
+    private fun connectAdapter() {
+        homeAdapter = RepoAdapter(requireContext())
+        homeAdapter.submitList(viewModel.getMockHomeList())
+
+        binding.rvRepoRepos.adapter = homeAdapter
+    }
+
+    private fun setFabHomeDeleteListener() {
+        binding.fabRepoDelete.setOnClickListener {
+            selectionTracker.selection.forEach { selectedItem ->
+                val selectedItemViewHolder =
+                    binding.rvRepoRepos.findViewHolderForItemId(selectedItem)
+
+                if (selectedItemViewHolder is RepoAdapter.RepoViewHolder) {
+                    homeAdapter.removeListItem(selectedItem.toInt())
+                }
+            }
+            selectionTracker.clearSelection()
         }
     }
 

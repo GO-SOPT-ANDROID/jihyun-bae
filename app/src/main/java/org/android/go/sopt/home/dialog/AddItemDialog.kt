@@ -16,11 +16,11 @@ class AddItemDialog(
         super.onCreate(savedInstanceState)
         binding = DialogRepoAddBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        initViews()
-        saveBtnClickListener()
+        initLayout()
+        addListeners()
     }
 
-    private fun initViews() {
+    private fun initLayout() {
         window!!.setLayout(
             WindowManager.LayoutParams.MATCH_PARENT,
             WindowManager.LayoutParams.WRAP_CONTENT
@@ -29,7 +29,7 @@ class AddItemDialog(
         setCanceledOnTouchOutside(true)
     }
 
-    private fun saveBtnClickListener() {
+    private fun addListeners() {
         binding.btnDialogRepoAddSave.setOnClickListener {
             val repoName = binding.etDialogRepoAddRepoName.text.toString()
             val author = binding.etDialogRepoAddAuthor.text.toString()

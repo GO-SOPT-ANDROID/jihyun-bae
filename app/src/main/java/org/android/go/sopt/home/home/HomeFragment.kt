@@ -3,10 +3,7 @@ package org.android.go.sopt.home.home
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ConcatAdapter
 import org.android.go.sopt.R
@@ -25,9 +22,19 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        addObservers()
         viewModel.getListUsers()
-        getListUserResultObserver()
-        isLoadingObserver()
+    }
+
+    private fun addObservers() {
+        viewModel.getListUserResult.observe(viewLifecycleOwner) { listUserResult ->
+            connectAdapter(listUserResult.data)
+        }
+
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) showLoadingDialog() else dialog.dismiss()
+        }
     }
 
     private fun connectAdapter(listUsers: List<ResponseListUsersDto.Data>) {
@@ -39,18 +46,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         val concatAdapter = ConcatAdapter(titleAdapter, userAdapter)
 
         binding.rvHomeUsers.adapter = concatAdapter
-    }
-
-    private fun getListUserResultObserver() {
-        viewModel.getListUserResult.observe(viewLifecycleOwner) { listUserResult ->
-            connectAdapter(listUserResult.data)
-        }
-    }
-
-    private fun isLoadingObserver() {
-        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            if (isLoading) showLoadingDialog() else dialog.dismiss()
-        }
     }
 
     private fun showLoadingDialog() {

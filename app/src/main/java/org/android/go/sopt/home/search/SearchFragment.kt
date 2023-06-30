@@ -1,14 +1,10 @@
 package org.android.go.sopt.home.search
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import org.android.go.sopt.R
 import org.android.go.sopt.data.remote.model.ResponseKakaoSearchDto
-import org.android.go.sopt.databinding.FragmentGalleryBinding
 import org.android.go.sopt.databinding.FragmentSearchBinding
 import org.android.go.sopt.home.adapter.SearchAdapter
 import org.android.go.sopt.home.adapter.SearchEmptyAdapter
@@ -19,8 +15,23 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>(R.layout.fragment_
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        searchCheckBtnClickListener()
-        getKakaoSearchResultObserver()
+        addListeners()
+        addObservers()
+    }
+
+    private fun addObservers() {
+        viewModel.getKakaoSearchResult.observe(viewLifecycleOwner) { kakaoSearchResult ->
+            kakaoSearchResult.documents.let { documents ->
+                if (documents.isEmpty()) connectSearchEmptyAdapter(binding.svSearch.query.toString())
+                else connectSearchAdapter(documents)
+            }
+        }
+    }
+
+    private fun addListeners() {
+        binding.btnSearchCheck.setOnClickListener {
+            viewModel.getKakaoSearch(binding.svSearch.query.toString())
+        }
     }
 
     private fun connectSearchAdapter(searchInfo: List<ResponseKakaoSearchDto.Document>) {
@@ -35,20 +46,5 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>(R.layout.fragment_
         queryList.add(query)
         searchEmptyAdapter.submitList(queryList)
         binding.rvSearch.adapter = searchEmptyAdapter
-    }
-
-    private fun getKakaoSearchResultObserver() {
-        viewModel.getKakaoSearchResult.observe(viewLifecycleOwner) { kakaoSearchResult ->
-            kakaoSearchResult.documents.let { documents ->
-                if (documents.isEmpty()) connectSearchEmptyAdapter(binding.svSearch.query.toString())
-                else connectSearchAdapter(documents)
-            }
-        }
-    }
-
-    private fun searchCheckBtnClickListener() {
-        binding.btnSearchCheck.setOnClickListener {
-            viewModel.getKakaoSearch(binding.svSearch.query.toString())
-        }
     }
 }
