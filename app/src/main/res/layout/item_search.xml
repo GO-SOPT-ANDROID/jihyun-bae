@@ -7,7 +7,7 @@
 
         <variable
             name="search"
-            type="org.android.go.sopt.data.remote.model.ResponseKakaoSearchDto.Document" />
+            type="org.android.go.sopt.data.model.response.ResponseKakaoSearchDto.Document" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

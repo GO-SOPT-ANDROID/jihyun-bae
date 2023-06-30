@@ -7,14 +7,14 @@
 
         <variable
             name="viewModel"
-            type="org.android.go.sopt.auth.SignViewModel" />
+            type="org.android.go.sopt.presentation.sign.SignViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingHorizontal="30dp"
-        tools:context=".auth.SignUpActivity">
+        tools:context=".presentation.sign.SignUpActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

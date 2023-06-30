@@ -7,7 +7,7 @@
 
         <variable
             name="repo"
-            type="org.android.go.sopt.home.data.Repo" />
+            type="org.android.go.sopt.domain.model.Repo" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

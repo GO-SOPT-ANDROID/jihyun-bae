@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".home.HomeActivity">
+        tools:context=".presentation.home.HomeActivity">
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fcv_home_main"
