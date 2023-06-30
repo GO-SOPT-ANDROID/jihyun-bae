@@ -2,7 +2,6 @@ package org.android.go.sopt.auth
 
 import android.os.Bundle
 import android.view.MotionEvent
-import android.view.View
 import androidx.activity.viewModels
 import org.android.go.sopt.R
 import org.android.go.sopt.databinding.ActivitySignUpBinding
@@ -11,7 +10,7 @@ import org.android.go.sopt.util.extension.hideKeyboard
 import org.android.go.sopt.util.extension.showToast
 
 class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_sign_up) {
-    private val viewModel: SignUpViewModel by viewModels()
+    private val viewModel: SignViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,51 +20,13 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        clickSignUp()
-        setBtnSignUpCompleteEnabled()
-        observeBtnSignUpComplete()
         signUpMessageObserver()
         signUpResultObserver()
-        idObserver()
-        pwObserver()
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         hideKeyboard(ev)
         return super.dispatchTouchEvent(ev)
-    }
-
-    private fun clickSignUp() {
-        binding.btnSignUpComplete.setOnClickListener {
-            if (viewModel.checkSignUpEnabled()) {
-                completeSignUp()
-            } else {
-                showToast(getString(R.string.sign_up_failed))
-            }
-        }
-    }
-
-    private fun completeSignUp() {
-        with(binding) {
-            viewModel?.signUp(
-                etSignUpId.text.toString(),
-                etSignUpPw.text.toString(),
-                etSignUpName.text.toString(),
-                etSignUpSpecialty.text.toString()
-            )
-        }
-    }
-
-    private fun setBtnSignUpCompleteEnabled() {
-        with(binding) {
-            btnSignUpComplete.isEnabled = viewModel?.checkSignUpEnabled() ?: false
-        }
-    }
-
-    private fun observeBtnSignUpComplete() {
-        viewModel.signUpEnabled.observe(this) {
-            setBtnSignUpCompleteEnabled()
-        }
     }
 
     private fun signUpMessageObserver() {
@@ -77,34 +38,6 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
     private fun signUpResultObserver() {
         viewModel.signUpResult.observe(this) { signUpResult ->
             finish()
-        }
-    }
-
-    private fun idObserver() {
-        viewModel.id.observe(this) { id ->
-            binding.viewModel?.let { viewModel ->
-                with(binding) {
-                    if (viewModel.isIdEnabled()) {
-                        tvSignUpIdWaring.visibility = View.INVISIBLE
-                    } else {
-                        tvSignUpIdWaring.visibility = View.VISIBLE
-                    }
-                }
-            }
-        }
-    }
-
-    private fun pwObserver() {
-        viewModel.pw.observe(this) { pw ->
-            binding.viewModel?.let { viewModel ->
-                with(binding) {
-                    if (viewModel.isPwEnabled()) {
-                        tvSignUpPwWaring.visibility = View.INVISIBLE
-                    } else {
-                        tvSignUpPwWaring.visibility = View.VISIBLE
-                    }
-                }
-            }
         }
     }
 }

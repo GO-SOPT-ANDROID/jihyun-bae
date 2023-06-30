@@ -14,7 +14,7 @@ import org.android.go.sopt.util.extension.hideKeyboard
 import org.android.go.sopt.util.extension.showToast
 
 class SignInActivity : BindingActivity<ActivitySignInBinding>(R.layout.activity_sign_in) {
-    private val viewModel by viewModels<SignInViewModel>()
+    private val viewModel by viewModels<SignViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +25,6 @@ class SignInActivity : BindingActivity<ActivitySignInBinding>(R.layout.activity_
         binding.lifecycleOwner = this
 
         clickSignUp()
-        signInBtnClickListener()
         signInResultObserver()
         signInMessageObserver()
         setAutoLogin()
@@ -40,19 +39,6 @@ class SignInActivity : BindingActivity<ActivitySignInBinding>(R.layout.activity_
         binding.btnSignInSignUp.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
-        }
-    }
-
-    private fun signInBtnClickListener() {
-        binding.btnSignInLogin.setOnClickListener {
-            binding.viewModel?.let { viewModel ->
-                with(binding) {
-                    viewModel.signIn(
-                        etSignInId.text.toString(),
-                        etSignInPw.text.toString()
-                    )
-                }
-            }
         }
     }
 

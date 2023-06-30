@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="org.android.go.sopt.auth.SignInViewModel" />
+            type="org.android.go.sopt.auth.SignViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
