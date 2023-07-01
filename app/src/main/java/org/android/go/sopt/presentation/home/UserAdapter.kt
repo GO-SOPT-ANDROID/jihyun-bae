@@ -5,15 +5,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import org.android.go.sopt.data.model.response.ResponseListUsersDto
 import org.android.go.sopt.databinding.ItemUserBinding
+import org.android.go.sopt.domain.model.ListUser
 import org.android.go.sopt.util.extension.ItemDiffCallback
 
 class UserAdapter(context: Context) :
-    ListAdapter<ResponseListUsersDto.Data, RecyclerView.ViewHolder>(
-        ItemDiffCallback<ResponseListUsersDto.Data>(
+    ListAdapter<ListUser, RecyclerView.ViewHolder>(
+        ItemDiffCallback<ListUser>(
             onContentsTheSame = { old, new -> old == new },
-            onItemsTheSame = { old, new -> old.id == new.id }
+            onItemsTheSame = { old, new -> old == new }
         )
     ) {
     private val inflater by lazy { LayoutInflater.from(context) }
@@ -21,7 +21,7 @@ class UserAdapter(context: Context) :
     class UserViewHolder(
         private val binding: ItemUserBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun onBind(data: ResponseListUsersDto.Data) {
+        fun onBind(data: ListUser) {
             binding.user = data
         }
     }

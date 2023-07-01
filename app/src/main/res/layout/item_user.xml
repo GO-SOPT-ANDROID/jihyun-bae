@@ -7,7 +7,7 @@
 
         <variable
             name="user"
-            type="org.android.go.sopt.data.model.response.ResponseListUsersDto.Data" />
+            type="org.android.go.sopt.domain.model.ListUser" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

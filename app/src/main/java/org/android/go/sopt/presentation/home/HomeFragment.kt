@@ -7,8 +7,8 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ConcatAdapter
 import org.android.go.sopt.R
-import org.android.go.sopt.data.model.response.ResponseListUsersDto
 import org.android.go.sopt.databinding.FragmentHomeBinding
+import org.android.go.sopt.domain.model.ListUser
 import org.android.go.sopt.presentation.ViewModelFactory
 import org.android.go.sopt.util.binding.BindingFragment
 
@@ -26,7 +26,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
 
     private fun addObservers() {
         viewModel.getListUserResult.observe(viewLifecycleOwner) { listUserResult ->
-            connectAdapter(listUserResult.data)
+            connectAdapter(listUserResult)
         }
 
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
@@ -34,7 +34,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         }
     }
 
-    private fun connectAdapter(listUsers: List<ResponseListUsersDto.Data>) {
+    private fun connectAdapter(listUsers: List<ListUser>) {
         val userAdapter = UserAdapter(requireContext())
         val titleAdapter = TitleAdapter(requireContext())
         userAdapter.submitList(listUsers)
