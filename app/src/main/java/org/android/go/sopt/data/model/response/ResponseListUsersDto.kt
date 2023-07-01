@@ -2,6 +2,7 @@ package org.android.go.sopt.data.model.response
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import org.android.go.sopt.domain.model.ListUser
 
 @Serializable
 data class ResponseListUsersDto(
@@ -39,4 +40,13 @@ data class ResponseListUsersDto(
         @SerialName("text")
         val text: String,
     )
+
+    fun toListUser() = data.map { content ->
+        ListUser(
+            avatar = content.avatar,
+            firstName = content.firstName,
+            lastName = content.lastName,
+            email = content.email
+        )
+    }
 }
