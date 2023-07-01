@@ -1,4 +1,4 @@
-package org.android.go.sopt.domain.repository
+package org.android.go.sopt.data.repository
 
 import okhttp3.MultipartBody
 

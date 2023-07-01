@@ -6,7 +6,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.android.go.sopt.BuildConfig
-import org.android.go.sopt.data.remote.interceptor.AuthInterceptor
+import org.android.go.sopt.data.interceptor.AuthInterceptor
 import org.android.go.sopt.data.service.ImageService
 import retrofit2.Retrofit
 

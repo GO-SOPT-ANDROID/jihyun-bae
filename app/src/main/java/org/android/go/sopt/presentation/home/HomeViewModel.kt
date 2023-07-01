@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import org.android.go.sopt.data.model.response.ResponseListUsersDto
-import org.android.go.sopt.domain.repository.ListUsersRepository
+import org.android.go.sopt.data.repository.ListUsersRepository
 
 class HomeViewModel(private val listUsersRepository: ListUsersRepository) : ViewModel() {
     private val _getListUserResult: MutableLiveData<ResponseListUsersDto> = MutableLiveData()

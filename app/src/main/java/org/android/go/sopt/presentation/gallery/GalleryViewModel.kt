@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import org.android.go.sopt.data.api.ImageServicePool
-import org.android.go.sopt.data.datasource.ImageRemoteDataSource
+import org.android.go.sopt.data.datasource.remote.ImageRemoteDataSource
 import org.android.go.sopt.util.extension.ContentUriRequestBody
 
 class GalleryViewModel : ViewModel() {

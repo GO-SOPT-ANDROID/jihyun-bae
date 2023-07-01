@@ -1,4 +1,4 @@
-package org.android.go.sopt.domain.repository
+package org.android.go.sopt.data.repository
 
 import org.android.go.sopt.data.model.response.ResponseSignInDto
 import org.android.go.sopt.data.model.response.ResponseSignUpDto

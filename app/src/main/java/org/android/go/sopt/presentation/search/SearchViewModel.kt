@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import org.android.go.sopt.data.api.KakaoSearchServicePool
-import org.android.go.sopt.data.datasource.KakaoSearchDataSource
+import org.android.go.sopt.data.datasource.remote.KakaoSearchDataSource
 import org.android.go.sopt.data.model.response.ResponseKakaoSearchDto
 
 class SearchViewModel : ViewModel() {

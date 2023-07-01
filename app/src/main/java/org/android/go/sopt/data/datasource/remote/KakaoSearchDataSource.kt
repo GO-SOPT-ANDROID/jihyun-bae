@@ -1,8 +1,8 @@
-package org.android.go.sopt.data.datasource
+package org.android.go.sopt.data.datasource.remote
 
 import org.android.go.sopt.data.model.response.ResponseKakaoSearchDto
 import org.android.go.sopt.data.service.KakaoSearchService
-import org.android.go.sopt.domain.repository.KakaoSearchRepository
+import org.android.go.sopt.data.repository.KakaoSearchRepository
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

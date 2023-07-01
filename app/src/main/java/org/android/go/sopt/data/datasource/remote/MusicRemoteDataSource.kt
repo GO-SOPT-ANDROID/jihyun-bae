@@ -1,4 +1,4 @@
-package org.android.go.sopt.data.datasource
+package org.android.go.sopt.data.datasource.remote
 
 import android.util.Log
 import okhttp3.MediaType.Companion.toMediaType
@@ -6,7 +6,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.android.go.sopt.data.model.response.ResponseMusicDto
 import org.android.go.sopt.data.service.MusicService
-import org.android.go.sopt.domain.repository.MusicRepository
+import org.android.go.sopt.data.repository.MusicRepository
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

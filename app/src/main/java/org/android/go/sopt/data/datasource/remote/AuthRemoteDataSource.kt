@@ -1,11 +1,11 @@
-package org.android.go.sopt.data.datasource
+package org.android.go.sopt.data.datasource.remote
 
 import org.android.go.sopt.data.model.request.RequestSignInDto
 import org.android.go.sopt.data.model.request.RequestSignUpDto
 import org.android.go.sopt.data.model.response.ResponseSignInDto
 import org.android.go.sopt.data.model.response.ResponseSignUpDto
 import org.android.go.sopt.data.service.AuthService
-import org.android.go.sopt.domain.repository.AuthRepository
+import org.android.go.sopt.data.repository.AuthRepository
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

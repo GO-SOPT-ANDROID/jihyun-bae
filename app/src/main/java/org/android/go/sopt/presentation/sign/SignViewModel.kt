@@ -8,7 +8,7 @@ import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import org.android.go.sopt.data.api.MemberServicePool
-import org.android.go.sopt.data.datasource.AuthRemoteDataSource
+import org.android.go.sopt.data.datasource.remote.AuthRemoteDataSource
 import org.android.go.sopt.data.model.response.ResponseSignInDto
 import org.android.go.sopt.data.model.response.ResponseSignUpDto
 

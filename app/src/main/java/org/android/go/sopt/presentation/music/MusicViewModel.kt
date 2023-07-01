@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import org.android.go.sopt.data.api.MusicServicePool
-import org.android.go.sopt.data.datasource.MusicRemoteDataSource
+import org.android.go.sopt.data.datasource.remote.MusicRemoteDataSource
 import org.android.go.sopt.data.model.response.ResponseMusicDto
 
 class MusicViewModel : ViewModel() {
