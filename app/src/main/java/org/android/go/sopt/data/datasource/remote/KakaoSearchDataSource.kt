@@ -2,7 +2,7 @@ package org.android.go.sopt.data.datasource.remote
 
 import org.android.go.sopt.data.model.response.ResponseKakaoSearchDto
 import org.android.go.sopt.data.service.KakaoSearchService
-import org.android.go.sopt.data.repository.KakaoSearchRepository
+import org.android.go.sopt.data.repository.KakaoSearchRepositoryImpl
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -11,7 +11,7 @@ import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
 class KakaoSearchDataSource(private val kakaoSearchService: KakaoSearchService) :
-    KakaoSearchRepository {
+    KakaoSearchRepositoryImpl {
     override suspend fun getKakaoSearch(searchWord: String): Response<ResponseKakaoSearchDto> {
         return suspendCoroutine { continuation ->
             kakaoSearchService.getKakaoSearch(searchWord = searchWord)

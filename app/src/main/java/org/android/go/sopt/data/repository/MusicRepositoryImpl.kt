@@ -4,7 +4,7 @@ import okhttp3.MultipartBody
 import org.android.go.sopt.data.model.response.ResponseMusicDto
 import retrofit2.Response
 
-interface MusicRepository {
+interface MusicRepositoryImpl {
     suspend fun uploadMusicInfo(
         id: String,
         image: MultipartBody.Part,

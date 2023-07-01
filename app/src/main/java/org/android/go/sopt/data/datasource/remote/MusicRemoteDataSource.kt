@@ -6,7 +6,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.android.go.sopt.data.model.response.ResponseMusicDto
 import org.android.go.sopt.data.service.MusicService
-import org.android.go.sopt.data.repository.MusicRepository
+import org.android.go.sopt.data.repository.MusicRepositoryImpl
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -14,7 +14,7 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-class MusicRemoteDataSource(private val musicService: MusicService) : MusicRepository {
+class MusicRemoteDataSource(private val musicService: MusicService) : MusicRepositoryImpl {
     override suspend fun uploadMusicInfo(
         id: String,
         image: MultipartBody.Part,

@@ -5,7 +5,7 @@ import org.android.go.sopt.data.model.request.RequestSignUpDto
 import org.android.go.sopt.data.model.response.ResponseSignInDto
 import org.android.go.sopt.data.model.response.ResponseSignUpDto
 import org.android.go.sopt.data.service.AuthService
-import org.android.go.sopt.data.repository.AuthRepository
+import org.android.go.sopt.data.repository.AuthRepositoryImpl
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -13,7 +13,7 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-class AuthRemoteDataSource(private val authService: AuthService) : AuthRepository {
+class AuthRemoteDataSource(private val authService: AuthService) : AuthRepositoryImpl {
     override suspend fun signIn(id: String, pw: String): Response<ResponseSignInDto> {
         return suspendCoroutine { continuation ->
             authService.signIn(

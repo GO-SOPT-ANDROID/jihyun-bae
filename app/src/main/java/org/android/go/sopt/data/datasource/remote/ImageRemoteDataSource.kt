@@ -3,7 +3,7 @@ package org.android.go.sopt.data.datasource.remote
 import android.util.Log
 import okhttp3.MultipartBody
 import org.android.go.sopt.data.service.ImageService
-import org.android.go.sopt.data.repository.ImageRepository
+import org.android.go.sopt.data.repository.ImageRepositoryImpl
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -11,7 +11,7 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-class ImageRemoteDataSource(private val imageService: ImageService) : ImageRepository {
+class ImageRemoteDataSource(private val imageService: ImageService) : ImageRepositoryImpl {
     override suspend fun uploadImage(image: MultipartBody.Part) {
         return suspendCoroutine { continuation ->
             imageService.uploadImage(image).enqueue(object : Callback<Unit> {
