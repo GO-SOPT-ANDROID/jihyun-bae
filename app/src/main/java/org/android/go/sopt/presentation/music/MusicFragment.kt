@@ -13,12 +13,13 @@ import coil.api.load
 import org.android.go.sopt.R
 import org.android.go.sopt.data.model.response.ResponseMusicDto
 import org.android.go.sopt.databinding.FragmentMusicBinding
+import org.android.go.sopt.presentation.ViewModelFactory
 import org.android.go.sopt.presentation.home.LoadingDialog
 import org.android.go.sopt.util.binding.BindingFragment
 import org.android.go.sopt.util.extension.ContentUriRequestBody
 
 class MusicFragment : BindingFragment<FragmentMusicBinding>(R.layout.fragment_music) {
-    private val viewModel by viewModels<MusicViewModel>()
+    private val viewModel: MusicViewModel by viewModels { ViewModelFactory(requireContext()) }
     private lateinit var id: String
     private lateinit var loadingDialog: LoadingDialog
     private lateinit var musicDialog: MusicDialog
@@ -42,7 +43,7 @@ class MusicFragment : BindingFragment<FragmentMusicBinding>(R.layout.fragment_mu
 
     private fun addObservers() {
         viewModel.getListMusicResult.observe(viewLifecycleOwner) { listMusicResult ->
-            connectAdapter(listMusicResult.data.musicList)
+            connectAdapter(listMusicResult)
         }
 
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
@@ -56,9 +57,9 @@ class MusicFragment : BindingFragment<FragmentMusicBinding>(R.layout.fragment_mu
         id = sharedPreference.getString("id", "").toString()
     }
 
-    private fun connectAdapter(musicList: List<ResponseMusicDto.MusicData>) {
+    private fun connectAdapter(musicList: ResponseMusicDto.MusicList) {
         val musicAdapter = MusicAdapter(requireContext())
-        musicAdapter.submitList(musicList)
+        musicAdapter.submitList(musicList.musicList)
         binding.rvMusicMusics.adapter = musicAdapter
     }
 

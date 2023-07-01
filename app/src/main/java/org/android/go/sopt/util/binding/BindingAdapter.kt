@@ -34,3 +34,11 @@ fun setHtmlText(view: TextView, htmlText: String?) {
         view.text = ""
     }
 }
+
+@BindingAdapter("textWithoutQuotes")
+fun TextView.setTextWithoutQuotes(text: String?) {
+    text?.let {
+        val textWithoutQuotes = it.substring(1, it.length - 1)
+        this.text = textWithoutQuotes
+    }
+}

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import org.android.go.sopt.data.model.response.ResponseMusicDto
 import org.android.go.sopt.databinding.ItemMusicBinding
 import org.android.go.sopt.util.extension.ItemDiffCallback
+import timber.log.Timber
 
 class MusicAdapter(context: Context) :
     ListAdapter<ResponseMusicDto.MusicData, RecyclerView.ViewHolder>(
@@ -23,6 +24,7 @@ class MusicAdapter(context: Context) :
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: ResponseMusicDto.MusicData) {
             binding.music = data
+            Timber.e(data.toString())
         }
     }
 

@@ -29,10 +29,10 @@
 
         <TextView
             android:id="@+id/tv_item_music_title"
+            textWithoutQuotes="@{music.title}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
-            android:text="@{music.title}"
             android:textAppearance="?textAppearanceBodyMedium"
             android:textColor="?attr/colorOnBackground"
             app:layout_constraintBottom_toTopOf="@+id/tv_item_music_singer"
@@ -42,9 +42,9 @@
 
         <TextView
             android:id="@+id/tv_item_music_singer"
+            textWithoutQuotes="@{music.singer}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{music.singer}"
             android:textAppearance="?textAppearanceBodySmall"
             app:layout_constraintBottom_toBottomOf="@id/iv_item_music_img"
             app:layout_constraintEnd_toEndOf="@+id/tv_item_music_title"

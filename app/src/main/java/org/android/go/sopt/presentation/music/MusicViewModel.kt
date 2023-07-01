@@ -1,34 +1,31 @@
 package org.android.go.sopt.presentation.music
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
-import org.android.go.sopt.data.api.MusicServicePool
-import org.android.go.sopt.data.datasource.remote.MusicRemoteDataSource
 import org.android.go.sopt.data.model.response.ResponseMusicDto
+import org.android.go.sopt.domain.repository.MusicRepository
+import timber.log.Timber
 
-class MusicViewModel : ViewModel() {
-    private val _getListMusicResult: MutableLiveData<ResponseMusicDto> = MutableLiveData()
-    val getListMusicResult: LiveData<ResponseMusicDto> = _getListMusicResult
+class MusicViewModel(private val musicRepository: MusicRepository) : ViewModel() {
+    private val _getListMusicResult: MutableLiveData<ResponseMusicDto.MusicList> = MutableLiveData()
+    val getListMusicResult: LiveData<ResponseMusicDto.MusicList> = _getListMusicResult
     private val _isLoading: MutableLiveData<Boolean> = MutableLiveData(false)
     val isLoading: LiveData<Boolean> = _isLoading
 
-    private val musicService = MusicServicePool.musicService
-    private val musicRemoteDataSource = MusicRemoteDataSource(musicService)
-
     fun uploadMusic(id: String, image: MultipartBody.Part, singer: String, title: String) {
         viewModelScope.launch {
-            try {
-                musicRemoteDataSource.uploadMusicInfo(id, image, singer, title)
-                getMusicList(id)
-                Log.d("music", "음악 업로드 요청 완료!")
-            } catch (e: Exception) {
-                Log.e("music", "음악 업로드 중 오류 발생: ${e.message}")
-            }
+            musicRepository.uploadMusic(id, image, singer, title)
+                .onSuccess {
+                    getMusicList(id)
+                    Timber.d("music", "음악 업로드 요청 완료!")
+                }
+                .onFailure {
+                    Timber.e("music", "음악 업로드 중 오류 발생")
+                }
         }
     }
 
@@ -36,15 +33,14 @@ class MusicViewModel : ViewModel() {
         _isLoading.value = true
 
         viewModelScope.launch {
-            val result = runCatching {
-                musicRemoteDataSource.getMusicList(id)
-            }
-
-            result.onSuccess { response ->
-                if (response.isSuccessful) _getListMusicResult.value = response.body()
-            }
-
-            _isLoading.value = false
+            musicRepository.getMusicList(id)
+                .onSuccess { musicList ->
+                    _getListMusicResult.value = musicList
+                    _isLoading.value = false
+                }
+                .onFailure {
+                    _isLoading.value = false
+                }
         }
     }
 }
