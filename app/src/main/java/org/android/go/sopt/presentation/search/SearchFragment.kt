@@ -4,12 +4,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import org.android.go.sopt.R
-import org.android.go.sopt.data.model.response.ResponseKakaoSearchDto
 import org.android.go.sopt.databinding.FragmentSearchBinding
+import org.android.go.sopt.domain.model.SearchDocument
+import org.android.go.sopt.presentation.ViewModelFactory
 import org.android.go.sopt.util.binding.BindingFragment
 
 class SearchFragment : BindingFragment<FragmentSearchBinding>(R.layout.fragment_search) {
-    private val viewModel by viewModels<SearchViewModel>()
+    private val viewModel: SearchViewModel by viewModels { ViewModelFactory(requireContext()) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -18,8 +19,8 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>(R.layout.fragment_
     }
 
     private fun addObservers() {
-        viewModel.getKakaoSearchResult.observe(viewLifecycleOwner) { kakaoSearchResult ->
-            kakaoSearchResult.documents.let { documents ->
+        viewModel.getKakaoSearchResult.observe(viewLifecycleOwner) { SearchDocuments ->
+            SearchDocuments.let { documents ->
                 if (documents.isEmpty()) connectSearchEmptyAdapter(binding.svSearch.query.toString())
                 else connectSearchAdapter(documents)
             }
@@ -32,7 +33,7 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>(R.layout.fragment_
         }
     }
 
-    private fun connectSearchAdapter(searchInfo: List<ResponseKakaoSearchDto.Document>) {
+    private fun connectSearchAdapter(searchInfo: List<SearchDocument>) {
         val searchAdapter = SearchAdapter(requireContext())
         searchAdapter.submitList(searchInfo)
         binding.rvSearch.adapter = searchAdapter

@@ -2,6 +2,7 @@ package org.android.go.sopt.data.model.response
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import org.android.go.sopt.domain.model.SearchDocument
 
 @Serializable
 class ResponseKakaoSearchDto(
@@ -31,4 +32,12 @@ class ResponseKakaoSearchDto(
         @SerialName("url")
         val url: String,
     )
+
+    fun toSearchDocument() = documents.map { content ->
+        SearchDocument(
+            contents = content.contents,
+            title = content.title,
+            url = content.url
+        )
+    }
 }

@@ -1,8 +1,13 @@
 package org.android.go.sopt.data.repository
 
-import org.android.go.sopt.data.model.response.ResponseKakaoSearchDto
-import retrofit2.Response
+import org.android.go.sopt.data.datasource.remote.KakaoSearchDataSource
+import org.android.go.sopt.domain.model.SearchDocument
+import org.android.go.sopt.domain.repository.KakaoSearchRepository
 
-interface KakaoSearchRepositoryImpl {
-    suspend fun getKakaoSearch(searchWord: String): Response<ResponseKakaoSearchDto>
+class KakaoSearchRepositoryImpl(private val kakaoSearchDataSource: KakaoSearchDataSource) :
+    KakaoSearchRepository {
+    override suspend fun getKakaoSearch(searchWord: String): Result<List<SearchDocument>> =
+        runCatching {
+            kakaoSearchDataSource.getKakaoSearch(searchWord).toSearchDocument()
+        }
 }
