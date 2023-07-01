@@ -5,12 +5,13 @@ import android.view.MotionEvent
 import androidx.activity.viewModels
 import org.android.go.sopt.R
 import org.android.go.sopt.databinding.ActivitySignUpBinding
+import org.android.go.sopt.presentation.ViewModelFactory
 import org.android.go.sopt.util.binding.BindingActivity
 import org.android.go.sopt.util.extension.hideKeyboard
 import org.android.go.sopt.util.extension.showToast
 
 class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_sign_up) {
-    private val viewModel: SignViewModel by viewModels()
+    private val viewModel: SignViewModel by viewModels { ViewModelFactory(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

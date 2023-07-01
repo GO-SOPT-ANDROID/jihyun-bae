@@ -8,13 +8,14 @@ import android.view.MotionEvent
 import androidx.activity.viewModels
 import org.android.go.sopt.R
 import org.android.go.sopt.databinding.ActivitySignInBinding
+import org.android.go.sopt.presentation.ViewModelFactory
 import org.android.go.sopt.presentation.home.HomeActivity
 import org.android.go.sopt.util.binding.BindingActivity
 import org.android.go.sopt.util.extension.hideKeyboard
 import org.android.go.sopt.util.extension.showToast
 
 class SignInActivity : BindingActivity<ActivitySignInBinding>(R.layout.activity_sign_in) {
-    private val viewModel by viewModels<SignViewModel>()
+    private val viewModel: SignViewModel by viewModels { ViewModelFactory(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,9 +46,9 @@ class SignInActivity : BindingActivity<ActivitySignInBinding>(R.layout.activity_
         viewModel.signInResult.observe(this) { signInResult ->
             moveHomeActivity()
             saveAutoLoginInfo(
-                signInResult.data.id ?: "",
-                signInResult.data.name ?: "",
-                signInResult.data.skill ?: ""
+                signInResult.id ?: "",
+                signInResult.name ?: "",
+                signInResult.skill ?: ""
             )
         }
 

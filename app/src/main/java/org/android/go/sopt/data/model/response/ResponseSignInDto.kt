@@ -10,10 +10,10 @@ data class ResponseSignInDto(
     @SerialName("message")
     val message: String,
     @SerialName("data")
-    val data: SignUpData,
+    val data: SignInData,
 ) {
     @Serializable
-    data class SignUpData(
+    data class SignInData(
         @SerialName("id")
         val id: String,
         @SerialName("name")

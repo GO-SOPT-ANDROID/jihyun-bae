@@ -34,6 +34,6 @@ object AuthApiFactory {
     inline fun <reified T> create(): T = retrofit.create<T>(T::class.java)
 }
 
-object MemberServicePool {
+object AuthServicePool {
     val authService = AuthApiFactory.create<AuthService>()
 }
