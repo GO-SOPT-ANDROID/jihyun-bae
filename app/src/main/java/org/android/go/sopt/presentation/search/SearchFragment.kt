@@ -6,7 +6,7 @@ import androidx.fragment.app.viewModels
 import org.android.go.sopt.R
 import org.android.go.sopt.databinding.FragmentSearchBinding
 import org.android.go.sopt.domain.model.SearchDocument
-import org.android.go.sopt.presentation.ViewModelFactory
+import org.android.go.sopt.presentation.common.ViewModelFactory
 import org.android.go.sopt.util.binding.BindingFragment
 
 class SearchFragment : BindingFragment<FragmentSearchBinding>(R.layout.fragment_search) {

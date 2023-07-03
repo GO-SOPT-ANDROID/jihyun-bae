@@ -8,7 +8,7 @@ import android.view.MotionEvent
 import androidx.activity.viewModels
 import org.android.go.sopt.R
 import org.android.go.sopt.databinding.ActivitySignInBinding
-import org.android.go.sopt.presentation.ViewModelFactory
+import org.android.go.sopt.presentation.common.ViewModelFactory
 import org.android.go.sopt.presentation.home.HomeActivity
 import org.android.go.sopt.util.binding.BindingActivity
 import org.android.go.sopt.util.extension.hideKeyboard

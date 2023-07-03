@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.ConcatAdapter
 import org.android.go.sopt.R
 import org.android.go.sopt.databinding.FragmentHomeBinding
 import org.android.go.sopt.domain.model.ListUser
-import org.android.go.sopt.presentation.ViewModelFactory
+import org.android.go.sopt.presentation.common.ViewModelFactory
 import org.android.go.sopt.util.binding.BindingFragment
 
 class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home) {

@@ -13,7 +13,7 @@ import coil.api.load
 import org.android.go.sopt.R
 import org.android.go.sopt.data.model.response.ResponseMusicDto
 import org.android.go.sopt.databinding.FragmentMusicBinding
-import org.android.go.sopt.presentation.ViewModelFactory
+import org.android.go.sopt.presentation.common.ViewModelFactory
 import org.android.go.sopt.presentation.home.LoadingDialog
 import org.android.go.sopt.util.binding.BindingFragment
 import org.android.go.sopt.util.extension.ContentUriRequestBody

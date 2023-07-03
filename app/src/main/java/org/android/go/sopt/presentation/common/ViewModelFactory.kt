@@ -1,4 +1,4 @@
-package org.android.go.sopt.presentation
+package org.android.go.sopt.presentation.common
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
