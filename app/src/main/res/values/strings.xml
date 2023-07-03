@@ -48,4 +48,5 @@
     <string name="dialog_upload_music_upload">UPLOAD</string>
     <string name="dialog_upload_music_image_select">사진 선택</string>
     <string name="user_name">%s %s</string>
+    <string name="ui_state_false">UiState False</string>
 </resources>
