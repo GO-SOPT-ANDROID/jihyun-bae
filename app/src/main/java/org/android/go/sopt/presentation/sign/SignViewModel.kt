@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 import org.android.go.sopt.data.model.response.ResponseSignInDto
 import org.android.go.sopt.data.model.response.ResponseSignUpDto
 import org.android.go.sopt.data.repository.AuthRepositoryImpl
+import org.android.go.sopt.util.UiState
 
 class SignViewModel(private val authRepository: AuthRepositoryImpl) : ViewModel() {
     val id: MutableLiveData<String> = MutableLiveData()
@@ -27,13 +28,15 @@ class SignViewModel(private val authRepository: AuthRepositoryImpl) : ViewModel(
         addSource(specialty) { value = checkSignUpEnabled() }
     }
 
-    private val _signUpResult: MutableLiveData<ResponseSignUpDto.SignUpData> = MutableLiveData()
-    val signUpResult: LiveData<ResponseSignUpDto.SignUpData> = _signUpResult
+    private val _signUpState: MutableLiveData<UiState<ResponseSignUpDto.SignUpData>> =
+        MutableLiveData()
+    val signUpState: LiveData<UiState<ResponseSignUpDto.SignUpData>> = _signUpState
     private val _signUpMessage: MutableLiveData<String> = MutableLiveData()
     val signUpMessage: LiveData<String> = _signUpMessage
 
-    private val _signInResult: MutableLiveData<ResponseSignInDto.SignInData> = MutableLiveData()
-    val signInResult: LiveData<ResponseSignInDto.SignInData> = _signInResult
+    private val _signInState: MutableLiveData<UiState<ResponseSignInDto.SignInData>> =
+        MutableLiveData()
+    val signInState: LiveData<UiState<ResponseSignInDto.SignInData>> = _signInState
     private val _signInMessage: MutableLiveData<String> = MutableLiveData()
     val signInMessage: LiveData<String> = _signInMessage
 
@@ -53,10 +56,11 @@ class SignViewModel(private val authRepository: AuthRepositoryImpl) : ViewModel(
                 specialty.value.toString()
             )
                 .onSuccess { signUpData ->
+                    _signUpState.value = UiState.Success(signUpData)
                     _signUpMessage.value = "회원가입에 성공했습니다."
-                    _signUpResult.value = signUpData
                 }
-                .onFailure {
+                .onFailure { throwable ->
+                    _signUpState.value = UiState.Error(throwable.message)
                     _signUpMessage.value = "회원가입 중 오류가 발생했습니다."
                 }
         }
@@ -66,10 +70,11 @@ class SignViewModel(private val authRepository: AuthRepositoryImpl) : ViewModel(
         viewModelScope.launch {
             authRepository.signIn(id.value.toString(), pw.value.toString())
                 .onSuccess { signInData ->
+                    _signInState.value = UiState.Success(signInData)
                     _signInMessage.value = "로그인에 성공했습니다."
-                    _signInResult.value = signInData
                 }
-                .onFailure {
+                .onFailure { throwable ->
+                    _signInState.value = UiState.Error(throwable.message)
                     _signInMessage.value = "로그인 중 오류가 발생했습니다."
                 }
         }

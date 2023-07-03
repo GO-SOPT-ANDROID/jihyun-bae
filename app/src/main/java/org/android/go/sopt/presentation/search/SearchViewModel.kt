@@ -8,19 +8,23 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import org.android.go.sopt.data.repository.KakaoSearchRepositoryImpl
 import org.android.go.sopt.domain.model.SearchDocument
+import org.android.go.sopt.util.UiState
 import timber.log.Timber
 
 class SearchViewModel(private val kakaoSearchRepository: KakaoSearchRepositoryImpl) : ViewModel() {
-    private val _getKakaoSearchResult: MutableLiveData<List<SearchDocument>> = MutableLiveData()
-    val getKakaoSearchResult: LiveData<List<SearchDocument>> = _getKakaoSearchResult
+    private val _getKakaoSearchState: MutableLiveData<UiState<List<SearchDocument>>> =
+        MutableLiveData()
+    val getKakaoSearchState: LiveData<UiState<List<SearchDocument>>> = _getKakaoSearchState
 
     fun getKakaoSearch(searchWord: String) {
         viewModelScope.launch {
             kakaoSearchRepository.getKakaoSearch(searchWord = searchWord)
                 .onSuccess { searchList ->
-                    _getKakaoSearchResult.value = searchList
+                    if (searchList.isEmpty()) _getKakaoSearchState.value = UiState.Empty
+                    else _getKakaoSearchState.value = UiState.Success(searchList)
                 }
-                .onFailure {
+                .onFailure { throwable ->
+                    _getKakaoSearchState.value = UiState.Error(throwable.message)
                     Timber.e(TAG, "Error occurred")
                 }
         }

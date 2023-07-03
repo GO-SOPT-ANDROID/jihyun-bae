@@ -8,11 +8,13 @@ import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import org.android.go.sopt.data.model.response.ResponseMusicDto
 import org.android.go.sopt.domain.repository.MusicRepository
+import org.android.go.sopt.util.UiState
 import timber.log.Timber
 
 class MusicViewModel(private val musicRepository: MusicRepository) : ViewModel() {
-    private val _getListMusicResult: MutableLiveData<ResponseMusicDto.MusicList> = MutableLiveData()
-    val getListMusicResult: LiveData<ResponseMusicDto.MusicList> = _getListMusicResult
+    private val _getListMusicState: MutableLiveData<UiState<ResponseMusicDto.MusicList>> =
+        MutableLiveData()
+    val getListMusicState: LiveData<UiState<ResponseMusicDto.MusicList>> = _getListMusicState
     private val _isLoading: MutableLiveData<Boolean> = MutableLiveData(false)
     val isLoading: LiveData<Boolean> = _isLoading
 
@@ -35,10 +37,11 @@ class MusicViewModel(private val musicRepository: MusicRepository) : ViewModel()
         viewModelScope.launch {
             musicRepository.getMusicList(id)
                 .onSuccess { musicList ->
-                    _getListMusicResult.value = musicList
+                    _getListMusicState.value = UiState.Success(musicList)
                     _isLoading.value = false
                 }
-                .onFailure {
+                .onFailure { throwable ->
+                    _getListMusicState.value = UiState.Error(throwable.message)
                     _isLoading.value = false
                 }
         }

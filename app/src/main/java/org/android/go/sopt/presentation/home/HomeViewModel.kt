@@ -7,10 +7,11 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import org.android.go.sopt.data.repository.ListUsersRepositoryImpl
 import org.android.go.sopt.domain.model.ListUser
+import org.android.go.sopt.util.UiState
 
 class HomeViewModel(private val listUsersRepository: ListUsersRepositoryImpl) : ViewModel() {
-    private val _getListUserResult: MutableLiveData<List<ListUser>> = MutableLiveData()
-    val getListUserResult: LiveData<List<ListUser>> = _getListUserResult
+    private val _getListUserState: MutableLiveData<UiState<List<ListUser>>> = MutableLiveData()
+    val getListUserState: LiveData<UiState<List<ListUser>>> = _getListUserState
     private val _isLoading: MutableLiveData<Boolean> = MutableLiveData(false)
     val isLoading: LiveData<Boolean> = _isLoading
 
@@ -20,10 +21,11 @@ class HomeViewModel(private val listUsersRepository: ListUsersRepositoryImpl) : 
         viewModelScope.launch {
             listUsersRepository.getListUsers()
                 .onSuccess { userList ->
-                    _getListUserResult.value = userList
+                    _getListUserState.value = UiState.Success(userList)
                     _isLoading.value = false
                 }
-                .onFailure {
+                .onFailure { throwable ->
+                    _getListUserState.value = UiState.Error(throwable.message)
                     _isLoading.value = false
                 }
         }

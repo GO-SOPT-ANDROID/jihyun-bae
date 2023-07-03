@@ -10,9 +10,11 @@ import org.android.go.sopt.R
 import org.android.go.sopt.databinding.ActivitySignInBinding
 import org.android.go.sopt.presentation.common.ViewModelFactory
 import org.android.go.sopt.presentation.home.HomeActivity
+import org.android.go.sopt.util.UiState
 import org.android.go.sopt.util.binding.BindingActivity
 import org.android.go.sopt.util.extension.hideKeyboard
 import org.android.go.sopt.util.extension.showToast
+import timber.log.Timber
 
 class SignInActivity : BindingActivity<ActivitySignInBinding>(R.layout.activity_sign_in) {
     private val viewModel: SignViewModel by viewModels { ViewModelFactory(this) }
@@ -43,13 +45,21 @@ class SignInActivity : BindingActivity<ActivitySignInBinding>(R.layout.activity_
     }
 
     private fun addObservers() {
-        viewModel.signInResult.observe(this) { signInResult ->
-            moveHomeActivity()
-            saveAutoLoginInfo(
-                signInResult.id ?: "",
-                signInResult.name ?: "",
-                signInResult.skill ?: ""
-            )
+        viewModel.signInState.observe(this) { signInState ->
+            when (signInState) {
+                is UiState.Success -> {
+                    moveHomeActivity()
+                    saveAutoLoginInfo(
+                        signInState.data.id ?: "",
+                        signInState.data.name ?: "",
+                        signInState.data.skill ?: ""
+                    )
+                }
+
+                else -> {
+                    Timber.e(getString(R.string.ui_state_false))
+                }
+            }
         }
 
         viewModel.signInMessage.observe(this) { message ->

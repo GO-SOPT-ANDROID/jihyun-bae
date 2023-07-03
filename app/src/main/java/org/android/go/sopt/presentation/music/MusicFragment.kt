@@ -15,8 +15,10 @@ import org.android.go.sopt.data.model.response.ResponseMusicDto
 import org.android.go.sopt.databinding.FragmentMusicBinding
 import org.android.go.sopt.presentation.common.ViewModelFactory
 import org.android.go.sopt.presentation.home.LoadingDialog
+import org.android.go.sopt.util.UiState
 import org.android.go.sopt.util.binding.BindingFragment
 import org.android.go.sopt.util.extension.ContentUriRequestBody
+import timber.log.Timber
 
 class MusicFragment : BindingFragment<FragmentMusicBinding>(R.layout.fragment_music) {
     private val viewModel: MusicViewModel by viewModels { ViewModelFactory(requireContext()) }
@@ -42,8 +44,16 @@ class MusicFragment : BindingFragment<FragmentMusicBinding>(R.layout.fragment_mu
     }
 
     private fun addObservers() {
-        viewModel.getListMusicResult.observe(viewLifecycleOwner) { listMusicResult ->
-            connectAdapter(listMusicResult)
+        viewModel.getListMusicState.observe(viewLifecycleOwner) { listMusicState ->
+            when (listMusicState) {
+                is UiState.Success -> {
+                    connectAdapter(listMusicState.data)
+                }
+
+                else -> {
+                    Timber.e(getString(R.string.ui_state_false))
+                }
+            }
         }
 
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->

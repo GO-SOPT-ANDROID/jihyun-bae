@@ -7,7 +7,9 @@ import org.android.go.sopt.R
 import org.android.go.sopt.databinding.FragmentSearchBinding
 import org.android.go.sopt.domain.model.SearchDocument
 import org.android.go.sopt.presentation.common.ViewModelFactory
+import org.android.go.sopt.util.UiState
 import org.android.go.sopt.util.binding.BindingFragment
+import timber.log.Timber
 
 class SearchFragment : BindingFragment<FragmentSearchBinding>(R.layout.fragment_search) {
     private val viewModel: SearchViewModel by viewModels { ViewModelFactory(requireContext()) }
@@ -19,10 +21,19 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>(R.layout.fragment_
     }
 
     private fun addObservers() {
-        viewModel.getKakaoSearchResult.observe(viewLifecycleOwner) { SearchDocuments ->
-            SearchDocuments.let { documents ->
-                if (documents.isEmpty()) connectSearchEmptyAdapter(binding.svSearch.query.toString())
-                else connectSearchAdapter(documents)
+        viewModel.getKakaoSearchState.observe(viewLifecycleOwner) { searchDocuments ->
+            when (searchDocuments) {
+                is UiState.Success -> {
+                    connectSearchAdapter(searchDocuments.data)
+                }
+
+                is UiState.Empty -> {
+                    connectSearchEmptyAdapter(binding.svSearch.query.toString())
+                }
+
+                else -> {
+                    Timber.e(getString(R.string.ui_state_false))
+                }
             }
         }
     }

@@ -6,9 +6,11 @@ import androidx.activity.viewModels
 import org.android.go.sopt.R
 import org.android.go.sopt.databinding.ActivitySignUpBinding
 import org.android.go.sopt.presentation.common.ViewModelFactory
+import org.android.go.sopt.util.UiState
 import org.android.go.sopt.util.binding.BindingActivity
 import org.android.go.sopt.util.extension.hideKeyboard
 import org.android.go.sopt.util.extension.showToast
+import timber.log.Timber
 
 class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_sign_up) {
     private val viewModel: SignViewModel by viewModels { ViewModelFactory(this) }
@@ -34,8 +36,16 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
             showToast(message)
         }
 
-        viewModel.signUpResult.observe(this) { signUpResult ->
-            finish()
+        viewModel.signUpState.observe(this) { signUpState ->
+            when (signUpState) {
+                is UiState.Success -> {
+                    finish()
+                }
+
+                else -> {
+                    Timber.e(getString(R.string.ui_state_false))
+                }
+            }
         }
     }
 }
