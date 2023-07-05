@@ -12,15 +12,17 @@ import org.android.go.sopt.util.UiState
 import timber.log.Timber
 
 class MusicViewModel(private val musicRepository: MusicRepository) : ViewModel() {
+    val title: MutableLiveData<String> = MutableLiveData()
+    val singer: MutableLiveData<String> = MutableLiveData()
     private val _getListMusicState: MutableLiveData<UiState<ResponseMusicDto.MusicList>> =
         MutableLiveData()
     val getListMusicState: LiveData<UiState<ResponseMusicDto.MusicList>> = _getListMusicState
     private val _isLoading: MutableLiveData<Boolean> = MutableLiveData(false)
     val isLoading: LiveData<Boolean> = _isLoading
 
-    fun uploadMusic(id: String, image: MultipartBody.Part, singer: String, title: String) {
+    fun uploadMusic(id: String, image: MultipartBody.Part) {
         viewModelScope.launch {
-            musicRepository.uploadMusic(id, image, singer, title)
+            musicRepository.uploadMusic(id, image, singer.value.toString(), title.value.toString())
                 .onSuccess {
                     getMusicList(id)
                     Timber.d("music", "음악 업로드 요청 완료!")

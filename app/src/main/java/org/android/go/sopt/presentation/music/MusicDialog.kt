@@ -8,7 +8,6 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import org.android.go.sopt.databinding.DialogUploadMusicBinding
-import org.android.go.sopt.presentation.music.MusicViewModel
 import org.android.go.sopt.util.extension.ContentUriRequestBody
 
 class MusicDialog(
@@ -23,6 +22,7 @@ class MusicDialog(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DialogUploadMusicBinding.inflate(layoutInflater)
+        binding.viewModel = viewModel
         setContentView(binding.root)
         initLayout()
         addListeners()
@@ -39,10 +39,7 @@ class MusicDialog(
 
     private fun addListeners() {
         binding.btnDialogUploadMusicSave.setOnClickListener {
-            val title = binding.etDialogUploadMusicTitle.text.toString()
-            val singer = binding.etDialogUploadMusicSinger.text.toString()
-
-            viewModel.uploadMusic(id, image.toFormData(), singer, title)
+            viewModel.uploadMusic(id, image.toFormData())
             dismiss()
         }
 
