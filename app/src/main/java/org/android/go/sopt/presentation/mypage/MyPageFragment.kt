@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import org.android.go.sopt.R
 import org.android.go.sopt.databinding.FragmentMyPageBinding
+import org.android.go.sopt.util.CustomSnackBar
 import org.android.go.sopt.util.CustomToast
 import org.android.go.sopt.util.binding.BindingFragment
 
@@ -29,6 +30,7 @@ class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_
         binding.btnMyPageLogout.setOnClickListener {
             showLogOutDialog()
             CustomToast.makeToast(requireContext(), "정말로 로그아웃 하시겠습니까?")?.show()
+            view?.let { view -> CustomSnackBar.makeSnackBar(view, "정말로 로그아웃 하시겠습니까?") }
         }
     }
 
