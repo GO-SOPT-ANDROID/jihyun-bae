@@ -18,7 +18,7 @@ class GalleryFragment : BindingFragment<FragmentGalleryBinding>(R.layout.fragmen
         super.onViewCreated(view, savedInstanceState)
 
         addListeners()
-        connectAdapter()
+        initLayout()
     }
 
     private fun addListeners() {
@@ -36,7 +36,7 @@ class GalleryFragment : BindingFragment<FragmentGalleryBinding>(R.layout.fragmen
         }
     }
 
-    private fun connectAdapter() {
+    private fun initLayout() {
         galleryAdapter = GalleryAdapter(requireContext())
 
         binding.vpGallery.adapter = galleryAdapter
