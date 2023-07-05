@@ -114,7 +114,7 @@
                         visibility="@{!viewModel.isPwValid()}"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="영문, 숫자, 특수문자가 포함된 6~12글자 이내의 PW를 입력하세요."
+                        android:text="@string/sign_up_pw_waring"
                         android:textAppearance="?textAppearanceBodySmall"
                         android:textColor="@color/red_400"
                         app:layout_constraintEnd_toEndOf="parent"
