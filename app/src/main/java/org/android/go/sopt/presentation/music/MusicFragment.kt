@@ -75,7 +75,7 @@ class MusicFragment : BindingFragment<FragmentMusicBinding>(R.layout.fragment_mu
 
     private fun showLoadingDialog() {
         loadingDialog = LoadingDialog(requireContext())
-        loadingDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        loadingDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         loadingDialog.show()
     }
 
