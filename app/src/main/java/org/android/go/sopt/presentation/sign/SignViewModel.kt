@@ -9,10 +9,10 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import org.android.go.sopt.data.model.response.ResponseSignInDto
 import org.android.go.sopt.data.model.response.ResponseSignUpDto
-import org.android.go.sopt.data.repository.AuthRepositoryImpl
+import org.android.go.sopt.domain.repository.AuthRepository
 import org.android.go.sopt.util.UiState
 
-class SignViewModel(private val authRepository: AuthRepositoryImpl) : ViewModel() {
+class SignViewModel(private val authRepository: AuthRepository) : ViewModel() {
     val id: MutableLiveData<String> = MutableLiveData()
     val pw: MutableLiveData<String> = MutableLiveData()
     val name: MutableLiveData<String> = MutableLiveData()

@@ -6,12 +6,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import org.android.go.sopt.data.repository.KakaoSearchRepositoryImpl
 import org.android.go.sopt.domain.model.SearchDocument
+import org.android.go.sopt.domain.repository.KakaoSearchRepository
 import org.android.go.sopt.util.UiState
 import timber.log.Timber
 
-class SearchViewModel(private val kakaoSearchRepository: KakaoSearchRepositoryImpl) : ViewModel() {
+class SearchViewModel(private val kakaoSearchRepository: KakaoSearchRepository) : ViewModel() {
     private val _getKakaoSearchState: MutableLiveData<UiState<List<SearchDocument>>> =
         MutableLiveData()
     val getKakaoSearchState: LiveData<UiState<List<SearchDocument>>> = _getKakaoSearchState
