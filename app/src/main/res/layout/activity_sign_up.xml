@@ -7,14 +7,14 @@
 
         <variable
             name="viewModel"
-            type="org.android.go.sopt.auth.SignUpViewModel" />
+            type="org.android.go.sopt.presentation.sign.SignViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingHorizontal="30dp"
-        tools:context=".auth.SignUpActivity">
+        tools:context=".presentation.sign.SignUpActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -73,12 +73,12 @@
 
                     <TextView
                         android:id="@+id/tv_sign_up_id_waring"
+                        visibility="@{!viewModel.isIdValid}"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="@string/sign_up_id_waring"
                         android:textAppearance="?textAppearanceBodySmall"
                         android:textColor="@color/red_400"
-                        android:visibility="invisible"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/et_sign_up_id" />
@@ -111,12 +111,12 @@
 
                     <TextView
                         android:id="@+id/tv_sign_up_pw_waring"
+                        visibility="@{!viewModel.isPwValid()}"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="영문, 숫자, 특수문자가 포함된 6~12글자 이내의 PW를 입력하세요."
+                        android:text="@string/sign_up_pw_waring"
                         android:textAppearance="?textAppearanceBodySmall"
                         android:textColor="@color/red_400"
-                        android:visibility="invisible"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/et_sign_up_pw" />
@@ -183,6 +183,8 @@
                 android:id="@+id/btn_sign_up_complete"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:enabled="@{viewModel.issignUpEnabled}"
+                android:onClick="@{()->viewModel.signUp()}"
                 android:paddingVertical="10dp"
                 android:text="@string/sign_up_complete"
                 android:textAppearance="?textAppearanceHeadlineSmall"

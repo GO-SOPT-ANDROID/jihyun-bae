@@ -7,14 +7,14 @@
 
         <variable
             name="viewModel"
-            type="org.android.go.sopt.auth.SignInViewModel" />
+            type="org.android.go.sopt.presentation.sign.SignViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingHorizontal="30dp"
-        tools:context=".auth.SignInActivity">
+        tools:context=".presentation.sign.SignInActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -109,6 +109,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                android:onClick="@{()->viewModel.signIn()}"
                 android:paddingVertical="10dp"
                 android:text="@string/login"
                 android:textAppearance="?textAppearanceHeadlineSmall"

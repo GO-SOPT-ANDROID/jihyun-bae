@@ -1,42 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/iv_item_music_img"
-        android:layout_width="0dp"
-        android:layout_height="100dp"
-        android:layout_marginVertical="10dp"
-        android:layout_marginStart="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_launcher_foreground" />
+    <data>
 
-    <TextView
-        android:id="@+id/tv_item_music_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:textAppearance="?textAppearanceBodyMedium"
-        android:textColor="?attr/colorOnBackground"
-        app:layout_constraintBottom_toTopOf="@+id/tv_item_music_singer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/iv_item_music_img"
-        tools:text="Title" />
+        <variable
+            name="music"
+            type="org.android.go.sopt.data.model.response.ResponseMusicDto.MusicData" />
+    </data>
 
-    <TextView
-        android:id="@+id/tv_item_music_singer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?textAppearanceBodySmall"
-        app:layout_constraintBottom_toBottomOf="@id/iv_item_music_img"
-        app:layout_constraintEnd_toEndOf="@+id/tv_item_music_title"
-        app:layout_constraintTop_toBottomOf="@+id/tv_item_music_title"
-        tools:text="singer" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/iv_item_music_img"
+            imageUrl="@{music.url}"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginVertical="10dp"
+            android:layout_marginStart="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_launcher_foreground" />
+
+        <TextView
+            android:id="@+id/tv_item_music_title"
+            textWithoutQuotes="@{music.title}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:textAppearance="?textAppearanceBodyMedium"
+            android:textColor="?attr/colorOnBackground"
+            app:layout_constraintBottom_toTopOf="@+id/tv_item_music_singer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_item_music_img"
+            tools:text="Title" />
+
+        <TextView
+            android:id="@+id/tv_item_music_singer"
+            textWithoutQuotes="@{music.singer}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?textAppearanceBodySmall"
+            app:layout_constraintBottom_toBottomOf="@id/iv_item_music_img"
+            app:layout_constraintEnd_toEndOf="@+id/tv_item_music_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_item_music_title"
+            tools:text="singer" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

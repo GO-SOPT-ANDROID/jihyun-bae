@@ -47,4 +47,7 @@
     <string name="dialog_upload_music_singer_hint">가수 정보를 입력하세요.</string>
     <string name="dialog_upload_music_upload">UPLOAD</string>
     <string name="dialog_upload_music_image_select">사진 선택</string>
+    <string name="user_name">%s %s</string>
+    <string name="ui_state_false">UiState False</string>
+    <string name="sign_up_pw_waring">영문, 숫자, 특수문자가 포함된 6~12글자 이내의 PW를 입력하세요.</string>
 </resources>

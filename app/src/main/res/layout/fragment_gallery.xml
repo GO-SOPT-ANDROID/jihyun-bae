@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="org.android.go.sopt.home.gallery.GalleryViewModel" />
+            type="org.android.go.sopt.presentation.gallery.GalleryViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
